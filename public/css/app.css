@@ -1,0 +1,97 @@
+body {
+  background: #e1e1e1;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#wrapper {
+  flex-direction: column;
+  display: flex;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+}
+
+#videoWrapper {
+  background: black;
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 100%;
+}
+
+.plyr {
+  flex: 1;
+}
+
+#theatre {
+  flex-direction: row;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+#chat {
+  flex-direction: column;
+  max-width: 15%;
+  display: flex;
+  padding: 1rem;
+}
+
+#chat-messages {
+  flex: 1;
+}
+
+#chat-input {
+  margin-top: auto;
+}
+
+.message {
+  flex-direction: row;
+  display: flex;
+}
+
+.message .message-avatar {
+  width: 35%;
+}
+
+.message .message-content {
+  background: lightseagreen;
+  word-break: break-word;
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+  padding: 0.5rem;
+}
+
+.btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-height: 3rem;
+  min-width: 3rem;
+}
+
+.btn * {
+  margin: auto;
+}
+
+.close {
+  outline: 0 !important;
+}
+
+#changeVideoModal {
+  margin-top: 15%;
+}
+
+#changeVideoModal .modal-header {
+  padding: 0;
+}
+
+#changeVideoModal .modal-header .modal-title,
+#changeVideoModal .modal-header .close {
+  margin: auto 0;
+}
+
+#changeVideoModal .modal-header .modal-title {
+  padding-left: 1rem;
+}
+
