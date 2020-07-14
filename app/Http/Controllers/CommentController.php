@@ -9,10 +9,6 @@ use Auth;
 
 class CommentController extends Controller
 {
-    public function index() {
-        return view('comments', ['comments' => Comment::all()]);
-    }
-
     public function store(Request $request, Comment $comment) {
         if (!Auth::check() || is_null($request->content)) {
             return response()->json(['error' => 'Something went wrong, refresh and try again']);

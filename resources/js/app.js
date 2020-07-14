@@ -2,46 +2,77 @@ import './bootstrap';
 
 $(document).ready(function() {
     const originalHTML = $('.plyr');
-    const video = document.querySelector('#videoWrapper');
+    const player = document.querySelector('#videoWrapper');
     let chatMessages = document.querySelector('#chat-messages');
     chatMessages.scrollTop = 99999;
-    video.volume = 0.5;
+    player.volume = 0.5;
+
+    function loadVideo(video) {
+        if (video.path) {
+            $('iframe').replaceWith(originalHTML);
+            player.pause();
+            $('#video').attr('src', `storage/${video.path}`);
+            player.load();
+        } else if (video.embed) {
+            if ($('#videoUrl').val().search('</iframe>') !== -1) {
+                // player.remove();
+                // $('.plyr').replaceWith($('#videoUrl').val());
+            }
+        }
+    }
 
     $('#videoSelector').change(function() {
-        $('iframe').replaceWith(originalHTML);
-        video.pause();
         const index = $(this)[0].selectedIndex;
-        const videoPath = $(this).children()[index].getAttribute('value');
-        $('#video').attr('src', `storage/${videoPath}`);
-        video.load();
+        const videoId = $(this).children()[index].getAttribute('value');
+
+        ajax_csrf();
+        $.ajax({
+            url: '/video/change',
+            method: 'POST',
+            data: {
+                video: Number(videoId),
+            },
+            success: function(data) {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    loadVideo(data.video);
+                }
+                console.log(data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
     });
 
     $('#changeVideo').submit(function(e) {
-        e.preventDefault();
-        $('iframe').replaceWith(originalHTML);
-
-        if ($('#videoUrl').val().search('</iframe>') !== -1) {
-            console.log('is iframe');
-            video.remove();
-            $('.plyr').replaceWith($('#videoUrl').val());
-            return;
-        }
-
-        video.pause();
-        $('#video').attr('src', $('#videoUrl').val());
-        video.load();
+        //
     });
 
-    function addComment(comment) {
-        const matches = comment.username.match('([A-Z]+)');
+    function ajax_csrf() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            }
+        });
+    }
+
+    function abbreviateName(name) {
+        const matches = name.match('([A-Z]+)');
         let abbrevatedName = '';
         matches.forEach(element => {
             abbrevatedName += element;
         });
+        return abbrevatedName;
+    }
+
+    function addComment(comment) {
+        const abbreviatedName = abbreviateName(comment.username);
         $('#chat-messages').append(`
             <div class="message">
                 <div class="message-author ${comment.color}">
-                    ${abbrevatedName}
+                    ${abbreviatedName}
                 </div>
                 <div class="message-content ${comment.color}">
                     ${comment.content}
@@ -52,13 +83,9 @@ $(document).ready(function() {
     }
 
     $('#chat-submit').submit(function(e) {
-        const chatInput = $('#chat-send');
         e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            }
-        });
+        const chatInput = $('#chat-send');
+        ajax_csrf();
         $.ajax({
             url: '/comment/send',
             method: 'POST',
@@ -70,17 +97,19 @@ $(document).ready(function() {
                     console.log(data.error);
                 } else {
                     addComment(data.comment);
-                    chatInput.val('').focus();
                 }
             },
             error: function(err) {
                 console.log(err);
             }
         });
-        chatInput.val('');
+        chatInput.val('').focus();
     });
 
-    Echo.channel('comments').listen('NewComment', (data) => {
+    Echo.channel('chat').listen('NewComment', (data) => {
         addComment(data.comment);
+    });
+    Echo.channel('video').listen('ChangeVideo', (data) => {
+        loadVideo(data.video);
     });
 });

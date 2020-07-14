@@ -37,7 +37,7 @@ input, button {
 }
 
 #chat {
-    background: rgb(50,50,50);
+    background: rgb(20, 20, 20);
     flex-direction: column;
     display: flex;
     padding: 1rem;
@@ -51,8 +51,8 @@ input, button {
     flex: 1;
 
     &::-webkit-scrollbar {
-        width: 0.5rem;
         border-radius: 1rem;
+        width: 0.5rem;
     }
     
     &::-webkit-scrollbar-thumb {
@@ -65,14 +65,22 @@ input, button {
     margin-top: 1rem;
 }
 
+#chat-submit {
+    flex-direction: row;
+    display: flex;
+}
+
 #chat-send {
     vertical-align: middle;
+    border-radius: 0.25rem;
     padding: 0 0.5rem;
     height: 2rem;
+    flex: 1;
 }
 
 #chat-send-button {
     background: dodgerblue;
+    margin-left: 0.25rem;
     box-shadow: none;
     color: white;
 }
@@ -121,6 +129,7 @@ input, button {
 .btn {
     padding: 0.25rem 0.5rem;
     width: fit-content;
+    user-select: none;
     min-height: 2rem;
     min-width: 2rem;
     border: 0;

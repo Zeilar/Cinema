@@ -72,7 +72,7 @@ button {
 }
 
 #chat {
-  background: #323232;
+  background: #141414;
   flex-direction: column;
   display: flex;
   padding: 1rem;
@@ -87,8 +87,8 @@ button {
 }
 
 #chat-messages::-webkit-scrollbar {
-  width: 0.5rem;
   border-radius: 1rem;
+  width: 0.5rem;
 }
 
 #chat-messages::-webkit-scrollbar-thumb {
@@ -100,14 +100,22 @@ button {
   margin-top: 1rem;
 }
 
+#chat-submit {
+  flex-direction: row;
+  display: flex;
+}
+
 #chat-send {
   vertical-align: middle;
+  border-radius: 0.25rem;
   padding: 0 0.5rem;
   height: 2rem;
+  flex: 1;
 }
 
 #chat-send-button {
   background: dodgerblue;
+  margin-left: 0.25rem;
   box-shadow: none;
   color: white;
 }
@@ -163,6 +171,10 @@ button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   min-height: 2rem;
   min-width: 2rem;
   border: 0;

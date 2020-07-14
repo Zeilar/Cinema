@@ -79,8 +79,9 @@
                                     <input type="text" id="videoUrl" autocomplete="off">
 
                                     <select id="videoSelector">
-                                        <option value="1.mp4">1</option>
-                                        <option value="2.mp4">2</option>
+                                        @foreach ($videos as $video)
+                                            <option value="{{ $video->id }}">{{ $video->title }}</option>
+                                        @endforeach
                                     </select>
                                 </form>
                             </div>

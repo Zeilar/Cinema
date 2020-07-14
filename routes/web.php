@@ -36,8 +36,11 @@ Route::get('/', function () {
         Auth::login($user);
     }
 
-
-    return view('index', ['comments' => \App\Comment::all()]);
+    return view('index', [
+        'comments' => \App\Comment::all(),
+        'videos' => \App\Video::all(),
+    ]);
 });
 
 Route::post('/comment/send', 'CommentController@store')->name('comment_post');
+Route::post('/video/change', 'VideoController@change')->name('video_change');
