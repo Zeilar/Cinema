@@ -7,25 +7,25 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow; // move to ShouldBroadcast and add/fix queues
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Comment;
+use App\Video;
 
-class NewComment implements ShouldBroadcastNow
+class ChangeVideo implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $comment;
+    public $video;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Comment $comment)
+    public function __construct(Video $video)
     {
-        $this->comment = $comment;
+        $this->video = $video;
     }
 
     /**
@@ -35,6 +35,6 @@ class NewComment implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new Channel('video');
     }
 }

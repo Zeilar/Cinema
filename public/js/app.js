@@ -25360,52 +25360,78 @@ __webpack_require__.r(__webpack_exports__);
 
 $(document).ready(function () {
   var originalHTML = $('.plyr');
-  var video = document.querySelector('#videoWrapper');
+  var player = document.querySelector('#videoWrapper');
   var chatMessages = document.querySelector('#chat-messages');
   chatMessages.scrollTop = 99999;
-  video.volume = 0.5;
-  $('#videoSelector').change(function () {
-    $('iframe').replaceWith(originalHTML);
-    video.pause();
-    var index = $(this)[0].selectedIndex;
-    var videoPath = $(this).children()[index].getAttribute('value');
-    $('#video').attr('src', "storage/".concat(videoPath));
-    video.load();
-  });
-  $('#changeVideo').submit(function (e) {
-    e.preventDefault();
-    $('iframe').replaceWith(originalHTML);
+  player.volume = 0.5;
 
-    if ($('#videoUrl').val().search('</iframe>') !== -1) {
-      console.log('is iframe');
-      video.remove();
-      $('.plyr').replaceWith($('#videoUrl').val());
-      return;
+  function loadVideo(video) {
+    if (video.path) {
+      $('iframe').replaceWith(originalHTML);
+      player.pause();
+      $('#video').attr('src', "storage/".concat(video.path));
+      player.load();
+    } else if (video.embed) {
+      if ($('#videoUrl').val().search('</iframe>') !== -1) {// player.remove();
+        // $('.plyr').replaceWith($('#videoUrl').val());
+      }
     }
-
-    video.pause();
-    $('#video').attr('src', $('#videoUrl').val());
-    video.load();
-  });
-
-  function addComment(comment) {
-    var matches = comment.username.match('([A-Z]+)');
-    var abbrevatedName = '';
-    matches.forEach(function (element) {
-      abbrevatedName += element;
-    });
-    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\">\n                    ").concat(abbrevatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
-    chatMessages.scrollTop = 99999;
   }
 
-  $('#chat-submit').submit(function (e) {
-    var chatInput = $('#chat-send');
-    e.preventDefault();
+  $('#videoSelector').change(function () {
+    var index = $(this)[0].selectedIndex;
+    var videoId = $(this).children()[index].getAttribute('value');
+    ajax_csrf();
+    $.ajax({
+      url: '/video/change',
+      method: 'POST',
+      data: {
+        video: Number(videoId)
+      },
+      success: function success(data) {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          loadVideo(data.video);
+        }
+
+        console.log(data);
+      },
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+  });
+  $('#changeVideo').submit(function (e) {//
+  });
+
+  function ajax_csrf() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+  }
+
+  function abbreviateName(name) {
+    var matches = name.match('([A-Z]+)');
+    var abbrevatedName = '';
+    matches.forEach(function (element) {
+      abbrevatedName += element;
+    });
+    return abbrevatedName;
+  }
+
+  function addComment(comment) {
+    var abbreviatedName = abbreviateName(comment.username);
+    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
+    chatMessages.scrollTop = 99999;
+  }
+
+  $('#chat-submit').submit(function (e) {
+    e.preventDefault();
+    var chatInput = $('#chat-send');
+    ajax_csrf();
     $.ajax({
       url: '/comment/send',
       method: 'POST',
@@ -25417,17 +25443,19 @@ $(document).ready(function () {
           console.log(data.error);
         } else {
           addComment(data.comment);
-          chatInput.val('').focus();
         }
       },
       error: function error(err) {
         console.log(err);
       }
     });
-    chatInput.val('');
+    chatInput.val('').focus();
   });
-  Echo.channel('comments').listen('NewComment', function (data) {
+  Echo.channel('chat').listen('NewComment', function (data) {
     addComment(data.comment);
+  });
+  Echo.channel('video').listen('ChangeVideo', function (data) {
+    loadVideo(data.video);
   });
 });
 
