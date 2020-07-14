@@ -16,6 +16,15 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
+            $table->enum('color', [
+                'lightseagreen',
+                'darkgreen',
+                'darkred',
+                'purple',
+                'dodgerblue',
+                'darkslategray',
+                'dimgray'
+            ]);
             $table->string('role');
             $table->timestamps();
         });

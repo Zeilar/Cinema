@@ -14,8 +14,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    // If user has no account, create one for them and log them in automatically
+    if (!Auth::check()) {
+        $enum = DB::select("SELECT COLUMN_TYPE AS colors
+            FROM
+            INFORMATION_SCHEMA.COLUMNS
+            WHERE
+            TABLE_SCHEMA = 'cinema' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'color'
+        ");
+
+        $colors = $enum[0]->colors;
+        $colors = substr_replace($colors, '', 0, 5);
+        $colors = substr_replace($colors, '', strpos($colors, ')'), 1);
+        $colors = explode(',', $colors);
+
+        $user = \App\User::create([
+            'username' => new \Nubs\RandomNameGenerator\Alliteration(),
+            'role' => 'viewer',
+            'color' => array_rand($colors),
+        ]);
+        Auth::login($user);
+    }
+
+
+    return view('index', ['comments' => \App\Comment::all()]);
 });
 
-Route::get('/comments', 'CommentController@index')->name('comments');
-Route::post('/comments/post', 'CommentController@store')->name('comment_post');
+Route::post('/comment/send', 'CommentController@store')->name('comment_post');

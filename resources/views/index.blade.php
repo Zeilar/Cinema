@@ -32,26 +32,34 @@
 
                 <div id="chat">
                     <div id="chat-messages">
-                        <div class="message">
-                            <div class="message-avatar">
-                                <img class="img-fluid" src="https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png" alt="User avatar">
+                        @foreach ($comments as $comment)
+                            @php $user = $comment->user; @endphp
+                            <div class="message">
+                                <div class="message-author {{ $user->color }}" title="{{ $user->username }}">
+                                    @php $abbrevatedName = ''; @endphp
+                                    @php preg_match_all('([A-Z]+)', $user->username, $matches); @endphp
+                                    @foreach ($matches[0] as $letter)
+                                        @php $abbrevatedName .= $letter; @endphp
+                                    @endforeach
+                                    {{ $abbrevatedName }}
+                                </div>
+                                <div class="message-content {{ $user->color }}">
+                                    {{ $comment->content }}
+                                </div>  
                             </div>
-                            <div class="message-content">
-                                A message, hello! It's a mildly long messageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
 
                     <div id="chat-input">
-                        <form action="/" method="post">
-                            <input type="text" name="message" id="chat-send" autocomplete="off">
-                            <button type="submit">Send</button>
+                        <form id="chat-submit">
+                            <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message">
+                            <button class="btn" id="chat-send-button" type="submit">Send</button>
                         </form>
-                    </div>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeVideoModal">
-                        <i class="fas fa-exchange-alt"></i>
-                    </button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeVideoModal">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 

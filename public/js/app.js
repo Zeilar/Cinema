@@ -25361,6 +25361,8 @@ __webpack_require__.r(__webpack_exports__);
 $(document).ready(function () {
   var originalHTML = $('.plyr');
   var video = document.querySelector('#videoWrapper');
+  var chatMessages = document.querySelector('#chat-messages');
+  chatMessages.scrollTop = 99999;
   video.volume = 0.5;
   $('#videoSelector').change(function () {
     $('iframe').replaceWith(originalHTML);
@@ -25384,6 +25386,48 @@ $(document).ready(function () {
     video.pause();
     $('#video').attr('src', $('#videoUrl').val());
     video.load();
+  });
+
+  function addComment(comment) {
+    var matches = comment.username.match('([A-Z]+)');
+    var abbrevatedName = '';
+    matches.forEach(function (element) {
+      abbrevatedName += element;
+    });
+    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\">\n                    ").concat(abbrevatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
+    chatMessages.scrollTop = 99999;
+  }
+
+  $('#chat-submit').submit(function (e) {
+    var chatInput = $('#chat-send');
+    e.preventDefault();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: '/comment/send',
+      method: 'POST',
+      data: {
+        content: chatInput.val()
+      },
+      success: function success(data) {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          addComment(data.comment);
+          chatInput.val('').focus();
+        }
+      },
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+    chatInput.val('');
+  });
+  Echo.channel('comments').listen('NewComment', function (data) {
+    addComment(data.comment);
   });
 });
 

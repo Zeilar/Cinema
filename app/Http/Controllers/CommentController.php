@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Events\NewComment;
 use App\Comment;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -13,13 +14,23 @@ class CommentController extends Controller
     }
 
     public function store(Request $request, Comment $comment) {
+        if (!Auth::check() || is_null($request->content)) {
+            return response()->json(['error' => 'Something went wrong, refresh and try again']);
+        }
+
+        $user = auth()->user();
         $comment = $comment->create([
-            'user_id' => 1,
+            'user_id' => $user->id,
+            'username' => $user->username,
+            'color' => $user->color,
             'content' => $request->content,
         ]);
 
-        event(new NewComment($comment));
+        broadcast(new NewComment($comment))->toOthers();
 
-        return response()->json($comment);
+        return response()->json([
+            'comment' => $comment,
+            'user' => $user,
+        ]);
     }
 }

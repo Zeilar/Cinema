@@ -1,7 +1,14 @@
+@import 'colors';
+
 body {
     background: rgb(225, 225, 225);
     overflow: hidden;
     height: 100vh;
+}
+
+input, button {
+    outline: 0;
+    border: 0;
 }
 
 #wrapper {
@@ -30,41 +37,93 @@ body {
 }
 
 #chat {
+    background: rgb(50,50,50);
     flex-direction: column;
-    max-width: 15%;
     display: flex;
     padding: 1rem;
+    width: 20%;
 }
 
 #chat-messages {
+    flex-direction: column;
+    overflow-y: auto;
+    display: flex;
     flex: 1;
+
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+        border-radius: 1rem;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: dodgerblue;
+        border-radius: 0.5rem;
+    }
 }
 
 #chat-input {
-    margin-top: auto;
+    margin-top: 1rem;
+}
+
+#chat-send {
+    vertical-align: middle;
+    padding: 0 0.5rem;
+    height: 2rem;
+}
+
+#chat-send-button {
+    background: dodgerblue;
+    box-shadow: none;
+    color: white;
 }
 
 .message {
     flex-direction: row;
     display: flex;
 
-    .message-avatar {
-        width: 35%;
+    &:not(:first-child) {
+        margin-top: 1.3rem;
+    }
+
+    .message-author, .message-content {
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        color: white;
+    }
+
+    .message-author {
+        height: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            border-left: 0.5rem solid;
+            border-color: inherit;
+            border-bottom: 0.5rem solid transparent;
+            border-right: 0.5rem solid transparent;
+            border-top: 0.5rem solid transparent;
+            right: calc(0px - 1rem);
+            position: absolute;
+            top: 0.75rem;
+            content: '';
+            height: 0;
+            width: 0;
+        }
     }
 
     .message-content {
-        background: lightseagreen;
         word-break: break-word;
-        border-radius: 0.5rem;
-        margin-left: 1rem;
-        padding: 0.5rem;
+        height: fit-content;
+        margin-left: 1.5rem;
     }
 }
 
 .btn {
+    padding: 0.25rem 0.5rem;
     width: fit-content;
-    min-height: 3rem;
-    min-width: 3rem;
+    min-height: 2rem;
+    min-width: 2rem;
+    border: 0;
 
     * {
         margin: auto;

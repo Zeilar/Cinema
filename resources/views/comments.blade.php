@@ -35,33 +35,15 @@ Comments
     @endforeach
 </div>
 
-<script>
-    function addComment(comment) {
-        $('.comments').append(`<div class="comment"><p>${comment.content}</p></div>`);
-    }
+@guest
+    <h1>you are guest</h1>
 
-    $('#commentSend').click(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '{{ route("comment_post") }}',
-            method: 'POST',
-            data: {
-                content: $('#commentContent').val(),
-            },
-            success: function(data) {
-                addComment(data);
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        });
-    });
-
-    Echo.channel('comments').listen('NewComment', (data) => {
-        addComment(data.comment);
-    });
-</script>
+    @php
+        // If user has no account, create one for them and log them in automatically
+        $user = \App\User::create([
+            'username' => new \Nubs\RandomNameGenerator\Alliteration(),
+            'role' => 'viewer',
+        ]);
+        Auth::login($user);
+    @endphp
+@endguest
