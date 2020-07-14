@@ -25394,8 +25394,6 @@ $(document).ready(function () {
         } else {
           loadVideo(data.video);
         }
-
-        console.log(data);
       },
       error: function error(err) {
         console.log(err);

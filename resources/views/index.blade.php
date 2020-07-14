@@ -26,9 +26,14 @@
     <body>
         <div id="wrapper">
             <div id="theatre">
-                <video id="videoWrapper" controls playsinline>
-                    <source id="video" src="/storage/1.mp4">
-                </video>
+                @php $video = \App\Video::find(Illuminate\Support\Facades\Cache::get('activeVideo')) @endphp
+                @isset ($video->embed)
+                    {!! $video->embed !!}
+                @else
+                    <video id="videoWrapper" controls playsinline>
+                        <source id="video" src="/storage/{{ $video->path ?? '1.mp4' }}">
+                    </video>
+                @endif
 
                 <div id="chat">
                     <div id="chat-messages">

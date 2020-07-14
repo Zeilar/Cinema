@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Events\ChangeVideo;
 use App\Events\NewComment;
@@ -32,6 +33,8 @@ class VideoController extends Controller
                 'content' => "Changed video to $video->title",
             ])));
         }
+
+        Cache::put('activeVideo', $video->id);
 
         return response()->json([
             'video' => $video,

@@ -38,7 +38,6 @@ $(document).ready(function() {
                 } else {
                     loadVideo(data.video);
                 }
-                console.log(data);
             },
             error: function(err) {
                 console.log(err);
