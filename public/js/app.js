@@ -25359,6 +25359,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
+  // Init all Bootstrap tooltips
+  $('[title]').tooltip();
   var originalHTML = $('.plyr');
   var player = document.querySelector('#videoWrapper');
   var chatMessages = document.querySelector('#chat-messages');
@@ -25426,6 +25428,23 @@ $(document).ready(function () {
     chatMessages.scrollTop = 99999;
   }
 
+  $('#videoWrapper').on('play', function () {
+    ajax_csrf();
+    $.ajax({
+      url: '/video/play',
+      method: 'POST'
+    });
+  });
+  $('#videoWrapper').on('pause', function () {
+    ajax_csrf();
+    $.ajax({
+      url: '/video/pause',
+      method: 'POST',
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+  });
   $('#chat-submit').submit(function (e) {
     e.preventDefault();
     var chatInput = $('#chat-send');
@@ -25449,11 +25468,43 @@ $(document).ready(function () {
     });
     chatInput.val('').focus();
   });
+  $('#video-reset').click(function () {
+    ajax_csrf();
+    $.ajax({
+      url: '/video/reset',
+      method: 'POST',
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+  });
+  $('#video-sync').click(function () {
+    ajax_csrf();
+    $.ajax({
+      url: '/video/sync',
+      method: 'POST',
+      data: {
+        timestamp: Number(player.currentTime)
+      },
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+  });
   Echo.channel('chat').listen('NewComment', function (data) {
     addComment(data.comment);
   });
   Echo.channel('video').listen('ChangeVideo', function (data) {
     loadVideo(data.video);
+  }).listen('VideoPlay', function () {
+    player.play();
+  }).listen('VideoSync', function (data) {
+    player.currentTime = data.timestamp;
+  }).listen('VideoReset', function () {
+    player.pause();
+    player.currentTime = 0;
+  }).listen('VideoPause', function () {
+    player.pause();
   });
 });
 

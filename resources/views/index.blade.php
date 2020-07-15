@@ -61,15 +61,23 @@
                             <button class="btn" id="chat-send-button" type="submit">Send</button>
                         </form>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeVideoModal">
+                        <button type="button" class="btn btn-primary" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
                             <i class="fas fa-exchange-alt"></i>
+                        </button>
+
+                        <button class="btn" id="video-sync" data-placement="top" title="Sync with party">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                        
+                        <button class="btn" id="video-reset" title="Reset">
+                            <i class="fas fa-undo"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="changeVideoModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="changeVideoModal" title="Change video" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

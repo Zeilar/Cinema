@@ -79,10 +79,7 @@ input, button {
 }
 
 #chat-send-button {
-    background: dodgerblue;
     margin-left: 0.25rem;
-    box-shadow: none;
-    color: white;
 }
 
 .message {
@@ -121,22 +118,34 @@ input, button {
 
     .message-content {
         word-break: break-word;
-        height: fit-content;
         margin-left: 1.5rem;
+        height: fit-content;
     }
 }
 
 .btn {
+    box-shadow: none !important;
+    background: dodgerblue;
     padding: 0.25rem 0.5rem;
     width: fit-content;
     user-select: none;
     min-height: 2rem;
     min-width: 2rem;
+    color: white;
+    outline: 0;
     border: 0;
+
+    &:hover {
+        color: black;
+    }
 
     * {
         margin: auto;
     }
+}
+
+.tooltip {
+    opacity: 0.95;
 }
 
 .close {

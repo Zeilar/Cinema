@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Events\ChangeVideo;
 use App\Events\NewComment;
+use App\Events\VideoReset;
+use App\Events\VideoPause;
+use App\Events\VideoPlay;
+use App\Events\VideoSync;
 use App\Comment;
 use App\Video;
 use Auth;
@@ -40,5 +44,21 @@ class VideoController extends Controller
             'video' => $video,
             'user' => auth()->user(),
         ]);
+    }
+
+    public function play() {
+        broadcast(new VideoPlay());
+    }
+
+    public function sync(Request $request) {
+        broadcast(new VideoSync($request->timestamp));
+    }
+
+    public function reset() {
+        broadcast(new VideoReset());
+    }
+
+    public function pause() {
+        broadcast(new VideoPause());
     }
 }

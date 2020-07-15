@@ -44,3 +44,7 @@ Route::get('/', function () {
 
 Route::post('/comment/send', 'CommentController@store')->name('comment_post');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
+Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
+Route::post('/video/pause', 'VideoController@pause')->name('video_pause');
+Route::post('/video/play', 'VideoController@play')->name('video_play');
+Route::post('/video/sync', 'VideoController@sync')->name('video_sync');
