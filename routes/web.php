@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,11 @@ Route::get('/', function () {
         ]);
         Auth::login($user);
     }
+
+    $online_users = Cache::get('online_users') ?? [];
+    array_push($online_users, auth()->user());
+
+    Cache::put('online_users', $online_users);
 
     return view('index', [
         'comments' => \App\Comment::all(),

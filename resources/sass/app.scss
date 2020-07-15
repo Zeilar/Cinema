@@ -7,6 +7,7 @@ body {
 }
 
 input, button {
+    color: white;
     outline: 0;
     border: 0;
 }
@@ -45,8 +46,11 @@ input, button {
 }
 
 #chat-messages {
+    border: 1px solid rgb(35, 35, 35);
+    background: rgb(30, 30, 30);
     flex-direction: column;
     overflow-y: auto;
+    padding: 0.5rem;
     display: flex;
     flex: 1;
 
@@ -71,11 +75,17 @@ input, button {
 }
 
 #chat-send {
+    border: 1px solid rgb(35, 35, 35);
+    background: rgb(30, 30, 30);
     vertical-align: middle;
     border-radius: 0.25rem;
     padding: 0 0.5rem;
     height: 2rem;
     flex: 1;
+
+    &:focus {
+        border-color: dodgerblue;
+    }
 }
 
 #chat-send-button {
