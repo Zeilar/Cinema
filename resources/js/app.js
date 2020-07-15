@@ -1,9 +1,6 @@
 import './bootstrap';
 
 $(document).ready(function() {
-    // Init all Bootstrap tooltips
-    $('[title]').tooltip();
-
     const originalHTML = $('.plyr');
     const player = document.querySelector('#videoWrapper');
     let chatMessages = document.querySelector('#chat-messages');
@@ -78,7 +75,6 @@ $(document).ready(function() {
                 </div>
             </div>
         `);
-        $('[title]').tooltip();
         chatMessages.scrollTop = 99999;
     }
 

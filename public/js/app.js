@@ -25359,8 +25359,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
-  // Init all Bootstrap tooltips
-  $('[title]').tooltip();
   var originalHTML = $('.plyr');
   var player = document.querySelector('#videoWrapper');
   var chatMessages = document.querySelector('#chat-messages');
@@ -25422,7 +25420,6 @@ $(document).ready(function () {
   function addComment(comment) {
     var abbreviatedName = abbreviateName(comment.username);
     $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
-    $('[title]').tooltip();
     chatMessages.scrollTop = 99999;
   }
 

@@ -70,7 +70,7 @@
                         </form>
 
                         <div id="chat-controls">
-                            <button type="button" class="btn btn-primary" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
+                            <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
                                 <i class="fas fa-exchange-alt"></i>
                             </button>
 
