@@ -39,6 +39,11 @@ body {
   height: 100vh;
 }
 
+p {
+  color: white;
+  margin: 0;
+}
+
 input,
 button {
   color: white;
@@ -100,8 +105,8 @@ button {
   border-radius: 0.5rem;
 }
 
-#chat-input,
-#chat-controls {
+#chat-controls,
+#chat-input {
   margin-top: 1rem;
 }
 
@@ -135,7 +140,7 @@ button {
 }
 
 .message:not(:first-child) {
-  margin-top: 1.13rem;
+  margin-top: 1.18rem;
 }
 
 .message .message-author,

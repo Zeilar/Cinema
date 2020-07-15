@@ -25419,7 +25419,10 @@ $(document).ready(function () {
 
   function addComment(comment) {
     var abbreviatedName = abbreviateName(comment.username);
-    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
+    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    \n                </div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+
+    message.find('.message-content').text(comment.content);
+    $('#chat-messages').append(message);
     chatMessages.scrollTop = 99999;
   }
 
@@ -25474,6 +25477,7 @@ $(document).ready(function () {
       }
     });
   });
+  setInterval(function () {}, 1000);
   Echo.channel('chat').listen('NewComment', function (data) {
     addComment(data.comment);
   });

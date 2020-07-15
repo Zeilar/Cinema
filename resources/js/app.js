@@ -65,16 +65,21 @@ $(document).ready(function() {
 
     function addComment(comment) {
         const abbreviatedName = abbreviateName(comment.username);
-        $('#chat-messages').append(`
+        let message = $(`
             <div class="message">
                 <div class="message-author ${comment.color}" title="${comment.username}">
                     ${abbreviatedName}
                 </div>
                 <div class="message-content ${comment.color}">
-                    ${comment.content}
+                    
                 </div>
             </div>
         `);
+
+        // Do this in order to escape tags and other unwanted characters in the message body
+        message.find('.message-content').text(comment.content);
+        $('#chat-messages').append(message);
+
         chatMessages.scrollTop = 99999;
     }
 
@@ -134,9 +139,13 @@ $(document).ready(function() {
         });
     });
 
-    Echo.channel('chat').listen('NewComment', (data) => {
-        addComment(data.comment);
-    });
+    setInterval(() => {
+    }, 1000);
+    Echo.channel('chat').
+        listen('NewComment', (data) => {
+            addComment(data.comment);
+        });
+
     Echo.channel('video')
         .listen('ChangeVideo', (data) => {
             loadVideo(data.video);

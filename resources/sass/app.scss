@@ -6,6 +6,11 @@ body {
     height: 100vh;
 }
 
+p {
+    color: white;
+    margin: 0;
+}
+
 input, button {
     color: white;
     outline: 0;
@@ -65,7 +70,7 @@ input, button {
     }
 }
 
-#chat-input, #chat-controls {
+#chat-controls, #chat-input {
     margin-top: 1rem;
 }
 
@@ -98,7 +103,7 @@ input, button {
     display: flex;
 
     &:not(:first-child) {
-        margin-top: 1.13rem;
+        margin-top: 1.18rem;
     }
 
     .message-author, .message-content {

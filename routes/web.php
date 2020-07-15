@@ -54,6 +54,7 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/chat/push_status', 'CommentController@push_status')->name('push_status');
 Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
 Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
