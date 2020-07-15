@@ -42,9 +42,6 @@ $(document).ready(function() {
                     loadVideo(data.video);
                 }
             },
-            error: function(err) {
-                console.log(err);
-            }
         });
     });
 
@@ -98,9 +95,6 @@ $(document).ready(function() {
         $.ajax({
             url: '/video/pause',
             method: 'POST',
-            error: (err) => {
-                console.log(err);
-            }
         });
     });
 
@@ -121,9 +115,6 @@ $(document).ready(function() {
                     addComment(data.comment);
                 }
             },
-            error: function(err) {
-                console.log(err);
-            }
         });
         chatInput.val('').focus();
     });
@@ -133,9 +124,6 @@ $(document).ready(function() {
         $.ajax({
             url: '/video/reset',
             method: 'POST',
-            error: function(err) {
-                console.log(err);
-            }
         });
     });
 
@@ -147,9 +135,6 @@ $(document).ready(function() {
             data: {
                 timestamp: Number(player.currentTime),
             },
-            error: (err) => {
-                console.log(err);
-            }
         });
     });
 

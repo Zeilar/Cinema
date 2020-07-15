@@ -126,12 +126,6 @@
                         _token: '{{ Session::token() }}',
                         content: 'has joined the chat',
                     },
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
                 });
             </script>
         @endif

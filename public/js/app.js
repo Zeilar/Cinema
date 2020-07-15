@@ -25396,9 +25396,6 @@ $(document).ready(function () {
         } else {
           loadVideo(data.video);
         }
-      },
-      error: function error(err) {
-        console.log(err);
       }
     });
   });
@@ -25440,10 +25437,7 @@ $(document).ready(function () {
     ajax_csrf();
     $.ajax({
       url: '/video/pause',
-      method: 'POST',
-      error: function error(err) {
-        console.log(err);
-      }
+      method: 'POST'
     });
   });
   $('#chat-submit').submit(function (e) {
@@ -25462,9 +25456,6 @@ $(document).ready(function () {
         } else {
           addComment(data.comment);
         }
-      },
-      error: function error(err) {
-        console.log(err);
       }
     });
     chatInput.val('').focus();
@@ -25473,10 +25464,7 @@ $(document).ready(function () {
     ajax_csrf();
     $.ajax({
       url: '/video/reset',
-      method: 'POST',
-      error: function error(err) {
-        console.log(err);
-      }
+      method: 'POST'
     });
   });
   $('#video-sync').click(function () {
@@ -25486,9 +25474,6 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         timestamp: Number(player.currentTime)
-      },
-      error: function error(err) {
-        console.log(err);
       }
     });
   });
