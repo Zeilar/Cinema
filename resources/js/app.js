@@ -73,7 +73,7 @@ $(document).ready(function() {
         const abbreviatedName = abbreviateName(comment.username);
         $('#chat-messages').append(`
             <div class="message">
-                <div class="message-author ${comment.color}">
+                <div class="message-author ${comment.color}" title="${comment.username}">
                     ${abbreviatedName}
                 </div>
                 <div class="message-content ${comment.color}">
@@ -81,6 +81,7 @@ $(document).ready(function() {
                 </div>
             </div>
         `);
+        $('[title]').tooltip();
         chatMessages.scrollTop = 99999;
     }
 

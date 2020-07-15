@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
+use App\Events\NewComment;
+use App\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,8 @@ Route::get('/', function () {
             'color' => array_rand($colors),
         ]);
         Auth::login($user);
+
+        $broadcast = true;
     }
 
     $online_users = Cache::get('online_users') ?? [];
@@ -45,10 +49,12 @@ Route::get('/', function () {
     return view('index', [
         'comments' => \App\Comment::all(),
         'videos' => \App\Video::all(),
+        'online_users' => Cache::get('online_users'),
+        'broadcast' => $broadcast ?? false,
     ]);
 });
 
-Route::post('/comment/send', 'CommentController@store')->name('comment_post');
+Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
 Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
 Route::post('/video/pause', 'VideoController@pause')->name('video_pause');

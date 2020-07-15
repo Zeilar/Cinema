@@ -36,6 +36,14 @@
                 @endif
 
                 <div id="chat">
+                    <div id="chat-users">
+                        @foreach ($online_users as $user)
+                            <div class="online-user">
+
+                            </div>
+                        @endforeach
+                    </div>
+
                     <div id="chat-messages">
                         @foreach ($comments as $comment)
                             @php $user = $comment->user; @endphp
@@ -57,21 +65,23 @@
 
                     <div id="chat-input">
                         <form id="chat-submit">
-                            <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message">
+                            <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message" required />
                             <button class="btn" id="chat-send-button" type="submit">Send</button>
                         </form>
 
-                        <button type="button" class="btn btn-primary" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
-                            <i class="fas fa-exchange-alt"></i>
-                        </button>
+                        <div id="chat-controls">
+                            <button type="button" class="btn btn-primary" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
 
-                        <button class="btn" id="video-sync" data-placement="top" title="Sync with party">
-                            <i class="fas fa-sync"></i>
-                        </button>
-                        
-                        <button class="btn" id="video-reset" title="Reset">
-                            <i class="fas fa-undo"></i>
-                        </button>
+                            <button class="btn" id="video-sync" data-placement="top" title="Sync with party">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                            
+                            <button class="btn" id="video-reset" title="Reset">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,5 +116,24 @@
         <script>
             const player = new Plyr('#videoWrapper');
         </script>
+
+        @if ($broadcast)
+            <script>
+                $.ajax({
+                    url: '{{ route("comment_send") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ Session::token() }}',
+                        content: 'has joined the chat',
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            </script>
+        @endif
     </body>
 </html>

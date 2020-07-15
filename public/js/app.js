@@ -25424,7 +25424,8 @@ $(document).ready(function () {
 
   function addComment(comment) {
     var abbreviatedName = abbreviateName(comment.username);
-    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
+    $('#chat-messages').append("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    ").concat(comment.content, "\n                </div>\n            </div>\n        "));
+    $('[title]').tooltip();
     chatMessages.scrollTop = 99999;
   }
 

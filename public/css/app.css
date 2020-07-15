@@ -100,7 +100,8 @@ button {
   border-radius: 0.5rem;
 }
 
-#chat-input {
+#chat-input,
+#chat-controls {
   margin-top: 1rem;
 }
 
@@ -133,22 +134,25 @@ button {
 }
 
 .message:not(:first-child) {
-  margin-top: 1.3rem;
+  margin-top: 1.13rem;
 }
 
 .message .message-author,
 .message .message-content {
+  padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
-  padding: 0.5rem;
   color: white;
 }
 
 .message .message-author {
+  letter-spacing: 1px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  text-align: center;
   position: relative;
   font-weight: bold;
+  min-width: 2.5rem;
 }
 
 .message .message-author::after {
@@ -157,9 +161,9 @@ button {
   border-bottom: 0.5rem solid transparent;
   border-right: 0.5rem solid transparent;
   border-top: 0.5rem solid transparent;
-  right: calc(0px - 1rem);
+  right: calc(2px - 1rem);
   position: absolute;
-  top: 0.75rem;
+  top: 0.5rem;
   content: "";
   height: 0;
   width: 0;
@@ -200,7 +204,7 @@ button {
 }
 
 .tooltip {
-  opacity: 0.95;
+  opacity: 1 !important;
 }
 
 .close {
