@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use App\Events\NewComment;
 use App\Comment;
+use App\Video;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,7 @@ use App\Comment;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function() {
     // If user has no account, create one for them and log them in automatically
     if (!Auth::check()) {
         $enum = DB::select("SELECT COLUMN_TYPE AS colors
@@ -31,7 +33,7 @@ Route::get('/', function () {
         $colors = substr_replace($colors, '', strpos($colors, ')'), 1);
         $colors = explode(',', $colors);
 
-        $user = \App\User::create([
+        $user = User::create([
             'username' => new \Nubs\RandomNameGenerator\Alliteration(),
             'role' => 'viewer',
             'color' => array_rand($colors),
@@ -42,14 +44,15 @@ Route::get('/', function () {
     }
 
     $online_users = Cache::get('online_users') ?? [];
-    array_push($online_users, auth()->user());
 
-    Cache::put('online_users', $online_users);
+    if (!in_array(auth()->user(), $online_users)) array_push($online_users, auth()->user());
+
+    Cache::put('online_users', $online_users, 60 * 60 * 24);
 
     return view('index', [
-        'comments' => \App\Comment::all(),
-        'videos' => \App\Video::all(),
-        'online_users' => Cache::get('online_users'),
+        'comments' => Comment::all(),
+        'videos' => Video::all(),
+        'online_users' => collect(Cache::get('online_users')),
         'broadcast' => $broadcast ?? false,
     ]);
 });

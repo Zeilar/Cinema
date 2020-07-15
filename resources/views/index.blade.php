@@ -36,29 +36,25 @@
                 @endif
 
                 <div id="chat">
-                    <div id="chat-users">
-                        @foreach ($online_users as $user)
-                            <div class="online-user">
-
-                            </div>
-                        @endforeach
-                    </div>
-
                     <div id="chat-messages">
                         @foreach ($comments as $comment)
                             @php $user = $comment->user; @endphp
                             <div class="message">
                                 <div class="message-author {{ $user->color }}" title="{{ $user->username }}">
-                                    @php $abbrevatedName = ''; @endphp
-                                    @php preg_match_all('([A-Z]+)', $user->username, $matches); @endphp
-                                    @foreach ($matches[0] as $letter)
-                                        @php $abbrevatedName .= $letter; @endphp
-                                    @endforeach
-                                    {{ $abbrevatedName }}
+                                    {{ abbreviateName($user->username) }}
                                 </div>
                                 <div class="message-content {{ $user->color }}">
                                     {{ $comment->content }}
                                 </div>  
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div id="chat-users">
+                        @dump($online_users)
+                        @foreach ($online_users as $user)
+                            <div class="online-user">
+
                             </div>
                         @endforeach
                     </div>
