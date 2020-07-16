@@ -99,6 +99,21 @@ $(document).ready(function() {
         });
     });
 
+    $('#chat-send').on('input', function() {
+        ajax_csrf();
+        if ($(this).val() === '') {
+            $.ajax({
+                url: '/chat/is_not_typing',
+                method: 'POST',
+            });
+        } else {
+            $.ajax({
+                url: '/chat/is_typing',
+                method: 'POST',
+            });
+        }
+    });
+
     $('#chat-submit').submit(function(e) {
         e.preventDefault();
         const chatInput = $('#chat-send');
@@ -140,10 +155,32 @@ $(document).ready(function() {
     });
 
     setInterval(() => {
-    }, 1000);
-    Echo.channel('chat').
-        listen('NewComment', (data) => {
+        ajax_csrf();
+        $.ajax({
+            url: '/push_status',
+            method: 'POST',
+        });
+    }, 5000);
+
+    Echo.channel('chat')
+        .listen('NewComment', (data) => {
             addComment(data.comment);
+        })
+        .listen('IsTyping', (data) => {
+            const dots = $(`
+                <span class="dots">
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </span>
+            `);
+            $(`.online-user [title="${data.user.username}"]`).after(dots);
+            setTimeout(() => {
+                dots.remove();
+            }, 10000);
+        })
+        .listen('IsNotTyping', (data) => {
+            $(`.online-user [title="${data.user.username}"]`).siblings('.dots').remove();
         });
 
     Echo.channel('video')

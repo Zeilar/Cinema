@@ -3,6 +3,7 @@
 body {
     background: rgb(225, 225, 225);
     overflow: hidden;
+    color: white;
     height: 100vh;
 }
 
@@ -50,8 +51,11 @@ input, button {
     width: 20%;
 }
 
-#chat-messages {
+#chat-send, #chat-messages, #online-users {
     border: 1px solid rgb(35, 35, 35);
+}
+
+#chat-messages {
     background: rgb(30, 30, 30);
     flex-direction: column;
     overflow-y: auto;
@@ -81,7 +85,6 @@ input, button {
 
 #chat-send {
     transition: border-color 0.15s ease-in-out;
-    border: 1px solid rgb(35, 35, 35);
     background: rgb(30, 30, 30);
     vertical-align: middle;
     border-radius: 0.25rem;
@@ -98,6 +101,21 @@ input, button {
     margin-left: 0.25rem;
 }
 
+.message-author, #online-users .username {
+    letter-spacing: 1px;
+    height: fit-content;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+    min-width: 2.5rem;
+}
+
+.message-author, .message-content, .online-user {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    color: white;
+}
+
 .message {
     flex-direction: row;
     display: flex;
@@ -106,33 +124,18 @@ input, button {
         margin-top: 1.18rem;
     }
 
-    .message-author, .message-content {
-        padding: 0.25rem 0.5rem;
-        border-radius: 0.5rem;
-        color: white;
-    }
-
-    .message-author {
-        letter-spacing: 1px;
-        height: fit-content;
-        text-align: center;
-        position: relative;
-        font-weight: bold;
-        min-width: 2.5rem;
-
-        &::after {
-            border-left: 0.5rem solid;
-            border-color: inherit;
-            border-bottom: 0.5rem solid transparent;
-            border-right: 0.5rem solid transparent;
-            border-top: 0.5rem solid transparent;
-            right: calc(2px - 1rem);
-            position: absolute;
-            top: 0.5rem;
-            content: '';
-            height: 0;
-            width: 0;
-        }
+    .message-author::after {
+        border-left: 0.5rem solid;
+        border-color: inherit;
+        border-bottom: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        border-top: 0.5rem solid transparent;
+        right: calc(2px - 1rem);
+        position: absolute;
+        content: '';
+        top: 0.5rem;
+        height: 0;
+        width: 0;
     }
 
     .message-content {
@@ -169,6 +172,59 @@ input, button {
 
 .close {
     outline: 0 !important;
+}
+
+#online-users {
+    background: rgb(30, 30, 30);
+    padding: 0.5rem;
+    border-top: 0;
+
+    .online-user {
+        flex-direction: column;
+        position: relative;
+        width: fit-content;
+        padding: 0.75rem;
+        min-width: 2rem;
+        display: flex;
+
+        .username {
+            min-width: unset;
+        }
+
+        .dots {
+            justify-content: center;
+            position: absolute;
+            font-size: 2rem;
+            bottom: 0.25rem;
+            line-height: 1;
+            display: flex;
+            width: 100%;
+            left: 0;
+
+            span {
+                animation: bounce 2s linear infinite;
+                margin: 0 0.1rem;
+                opacity: 0;
+
+                &:nth-child(2) {
+                    animation-delay: 0.15s;
+                }
+
+                &:nth-child(3) {
+                    animation-delay: 0.25s;
+                }
+
+                @keyframes bounce {
+                    25% {
+                        opacity: 1;
+                    }
+                    50% {
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
 }
 
 #changeVideoModal {

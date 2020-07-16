@@ -50,11 +50,12 @@
                         @endforeach
                     </div>
 
-                    <div id="chat-users">
-                        @dump($online_users)
-                        @foreach ($online_users as $user)
-                            <div class="online-user">
-
+                    <div id="online-users">
+                        @foreach (getOnlineUsers() as $user)
+                            <div class="online-user {{ $user->color }}">
+                                <span class="username" title="{{ $user->username }}">
+                                    {{ abbreviateName($user->username) }}
+                                </span>
                             </div>
                         @endforeach
                     </div>

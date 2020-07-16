@@ -21,7 +21,8 @@ use App\User;
 Route::get('/', function() {
     // If user has no account, create one for them and log them in automatically
     if (!Auth::check()) {
-        $enum = DB::select("SELECT COLUMN_TYPE AS colors
+        $enum = DB::select("
+            SELECT COLUMN_TYPE AS colors
             FROM
             INFORMATION_SCHEMA.COLUMNS
             WHERE
@@ -43,24 +44,27 @@ Route::get('/', function() {
         $broadcast = true;
     }
 
-    $online_users = Cache::get('online_users') ?? [];
-
-    if (!in_array(auth()->user(), $online_users)) array_push($online_users, auth()->user());
-
-    Cache::put('online_users', $online_users, 60 * 60 * 24);
-
     return view('index', [
         'comments' => Comment::all(),
         'videos' => Video::all(),
         'online_users' => collect(Cache::get('online_users')),
         'broadcast' => $broadcast ?? false,
     ]);
-});
+})->middleware('UserStatus');
 
+Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/push_status', 'CommentController@push_status')->name('push_status');
+Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
 Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
 Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
 Route::post('/video/pause', 'VideoController@pause')->name('video_pause');
 Route::post('/video/play', 'VideoController@play')->name('video_play');
 Route::post('/video/sync', 'VideoController@sync')->name('video_sync');
+
+Route::post('/push_status', function() {
+    if (Auth::check()) {
+        $user = auth()->user();
+        Cache::add('user-online-' . $user->id, $user, 5);
+    }
+});

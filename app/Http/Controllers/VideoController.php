@@ -25,7 +25,7 @@ class VideoController extends Controller
 
         $video = Video::find($request->video);
 
-        if (!$video) return response()->json(['error' => 'That video does not exist, try another one']);
+        if (empty($video)) return response()->json(['error' => 'That video does not exist, try another one']);
 
         broadcast(new ChangeVideo($video))->toOthers();
         if (Auth::check()) {

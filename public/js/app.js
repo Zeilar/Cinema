@@ -25440,6 +25440,21 @@ $(document).ready(function () {
       method: 'POST'
     });
   });
+  $('#chat-send').on('input', function () {
+    ajax_csrf();
+
+    if ($(this).val() === '') {
+      $.ajax({
+        url: '/chat/is_not_typing',
+        method: 'POST'
+      });
+    } else {
+      $.ajax({
+        url: '/chat/is_typing',
+        method: 'POST'
+      });
+    }
+  });
   $('#chat-submit').submit(function (e) {
     e.preventDefault();
     var chatInput = $('#chat-send');
@@ -25477,9 +25492,23 @@ $(document).ready(function () {
       }
     });
   });
-  setInterval(function () {}, 1000);
+  setInterval(function () {
+    ajax_csrf();
+    $.ajax({
+      url: '/push_status',
+      method: 'POST'
+    });
+  }, 5000);
   Echo.channel('chat').listen('NewComment', function (data) {
     addComment(data.comment);
+  }).listen('IsTyping', function (data) {
+    var dots = $("\n                <span class=\"dots\">\n                    <span>.</span>\n                    <span>.</span>\n                    <span>.</span>\n                </span>\n            ");
+    $(".online-user [title=\"".concat(data.user.username, "\"]")).after(dots);
+    setTimeout(function () {
+      dots.remove();
+    }, 10000);
+  }).listen('IsNotTyping', function (data) {
+    $(".online-user [title=\"".concat(data.user.username, "\"]")).siblings('.dots').remove();
   });
   Echo.channel('video').listen('ChangeVideo', function (data) {
     loadVideo(data.video);

@@ -36,6 +36,7 @@
 body {
   background: #e1e1e1;
   overflow: hidden;
+  color: white;
   height: 100vh;
 }
 
@@ -85,8 +86,13 @@ button {
   width: 20%;
 }
 
-#chat-messages {
+#chat-send,
+#chat-messages,
+#online-users {
   border: 1px solid #232323;
+}
+
+#chat-messages {
   background: #1e1e1e;
   flex-direction: column;
   overflow-y: auto;
@@ -117,7 +123,6 @@ button {
 
 #chat-send {
   transition: border-color 0.15s ease-in-out;
-  border: 1px solid #232323;
   background: #1e1e1e;
   vertical-align: middle;
   border-radius: 0.25rem;
@@ -134,23 +139,8 @@ button {
   margin-left: 0.25rem;
 }
 
-.message {
-  flex-direction: row;
-  display: flex;
-}
-
-.message:not(:first-child) {
-  margin-top: 1.18rem;
-}
-
-.message .message-author,
-.message .message-content {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  color: white;
-}
-
-.message .message-author {
+.message-author,
+#online-users .username {
   letter-spacing: 1px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -161,6 +151,23 @@ button {
   min-width: 2.5rem;
 }
 
+.message-author,
+.message-content,
+.online-user {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.message {
+  flex-direction: row;
+  display: flex;
+}
+
+.message:not(:first-child) {
+  margin-top: 1.18rem;
+}
+
 .message .message-author::after {
   border-left: 0.5rem solid;
   border-color: inherit;
@@ -169,8 +176,8 @@ button {
   border-top: 0.5rem solid transparent;
   right: calc(2px - 1rem);
   position: absolute;
-  top: 0.5rem;
   content: "";
+  top: 0.5rem;
   height: 0;
   width: 0;
 }
@@ -215,6 +222,75 @@ button {
 
 .close {
   outline: 0 !important;
+}
+
+#online-users {
+  background: #1e1e1e;
+  padding: 0.5rem;
+  border-top: 0;
+}
+
+#online-users .online-user {
+  flex-direction: column;
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.75rem;
+  min-width: 2rem;
+  display: flex;
+}
+
+#online-users .online-user .username {
+  min-width: unset;
+}
+
+#online-users .online-user .dots {
+  justify-content: center;
+  position: absolute;
+  font-size: 2rem;
+  bottom: 0.25rem;
+  line-height: 1;
+  display: flex;
+  width: 100%;
+  left: 0;
+}
+
+#online-users .online-user .dots span {
+  -webkit-animation: bounce 2s linear infinite;
+          animation: bounce 2s linear infinite;
+  margin: 0 0.1rem;
+  opacity: 0;
+}
+
+#online-users .online-user .dots span:nth-child(2) {
+  -webkit-animation-delay: 0.15s;
+          animation-delay: 0.15s;
+}
+
+#online-users .online-user .dots span:nth-child(3) {
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+
+@-webkit-keyframes bounce {
+  25% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  25% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 #changeVideoModal {
