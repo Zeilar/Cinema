@@ -53,7 +53,6 @@ Route::get('/', function() {
 })->middleware('UserStatus');
 
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
-Route::post('/chat/push_status', 'CommentController@push_status')->name('push_status');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
 Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
