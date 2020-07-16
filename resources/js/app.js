@@ -83,6 +83,10 @@ $(document).ready(function() {
         chatMessages.scrollTop = 99999;
     }
 
+    $('#toggle-users').click(function() {
+        $('#online-users').toggleClass('d-none');
+    });
+
     $('#videoWrapper').on('play', function() {
         ajax_csrf();
         $.ajax({

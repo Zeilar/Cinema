@@ -121,7 +121,7 @@ input, button {
     display: flex;
 
     &:not(:first-child) {
-        margin-top: 1.18rem;
+        margin-top: 1rem;
     }
 
     .message-author::after {
@@ -176,16 +176,20 @@ input, button {
 
 #online-users {
     background: rgb(30, 30, 30);
-    padding: 0.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
     border-top: 0;
+    display: flex;
+    padding: 0;
 
     .online-user {
         flex-direction: column;
+        border-radius: 50%;
         position: relative;
-        width: fit-content;
         padding: 0.75rem;
-        min-width: 2rem;
+        margin: 0.5rem;
         display: flex;
+        width: 3rem;
 
         .username {
             min-width: unset;
@@ -203,7 +207,6 @@ input, button {
 
             span {
                 animation: bounce 2s linear infinite;
-                margin: 0 0.1rem;
                 opacity: 0;
 
                 &:nth-child(2) {

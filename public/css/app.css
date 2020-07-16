@@ -165,7 +165,7 @@ button {
 }
 
 .message:not(:first-child) {
-  margin-top: 1.18rem;
+  margin-top: 1rem;
 }
 
 .message .message-author::after {
@@ -226,19 +226,21 @@ button {
 
 #online-users {
   background: #1e1e1e;
-  padding: 0.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-top: 0;
+  display: flex;
+  padding: 0;
 }
 
 #online-users .online-user {
   flex-direction: column;
+  border-radius: 50%;
   position: relative;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   padding: 0.75rem;
-  min-width: 2rem;
+  margin: 0.5rem;
   display: flex;
+  width: 3rem;
 }
 
 #online-users .online-user .username {
@@ -259,7 +261,6 @@ button {
 #online-users .online-user .dots span {
   -webkit-animation: bounce 2s linear infinite;
           animation: bounce 2s linear infinite;
-  margin: 0 0.1rem;
   opacity: 0;
 }
 

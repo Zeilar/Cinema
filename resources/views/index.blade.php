@@ -78,6 +78,10 @@
                             <button class="btn" id="video-reset" title="Reset">
                                 <i class="fas fa-undo"></i>
                             </button>
+
+                            <button class="btn" id="toggle-users" title="Show/hide online users">
+                                <i class="fas fa-users"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
