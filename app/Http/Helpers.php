@@ -22,11 +22,11 @@ if (!function_exists('isOnline')) {
 }
 
 if (!function_exists('getOnlineUsers')) {
-    function getOnlineUsers(): array {
+    function getOnlineUsers(): object {
         $online_users = [];
         foreach (User::all() as $user) {
             if (Cache::has('user-online-' . $user->id)) array_push($online_users, $user);
         }
-        return $online_users;
+        return collect($online_users);
     }
 }

@@ -175,7 +175,7 @@ $(document).ready(function() {
             addComment(data.comment);
         })
         .listen('IsTyping', (data) => {
-            const user = $(`.online-user [title="${data.user.username}"]`);
+            const user = $(`.online-user[title="${data.user.username}"]`);
             const dots = $(`
                 <span class="dots">
                     <span>.</span>
@@ -183,8 +183,8 @@ $(document).ready(function() {
                     <span>.</span>
                 </span>
             `);
-            if (!user.siblings('.dots').length) {
-                user.after(dots);
+            if (!user.find('.dots').length) {
+                user.append(dots);
             } else {
                 setTimeout(() => {
                     dots.remove();
@@ -192,7 +192,7 @@ $(document).ready(function() {
             }
         })
         .listen('IsNotTyping', (data) => {
-            $(`.online-user [title="${data.user.username}"]`).siblings('.dots').remove();
+            $(`.online-user [title="${data.user.username}"]`).find('.dots').remove();
         });
 
     Echo.channel('video')

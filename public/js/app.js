@@ -25509,18 +25509,18 @@ $(document).ready(function () {
   Echo.channel('chat').listen('NewComment', function (data) {
     addComment(data.comment);
   }).listen('IsTyping', function (data) {
-    var user = $(".online-user [title=\"".concat(data.user.username, "\"]"));
+    var user = $(".online-user[title=\"".concat(data.user.username, "\"]"));
     var dots = $("\n                <span class=\"dots\">\n                    <span>.</span>\n                    <span>.</span>\n                    <span>.</span>\n                </span>\n            ");
 
-    if (!user.siblings('.dots').length) {
-      user.after(dots);
+    if (!user.find('.dots').length) {
+      user.append(dots);
     } else {
       setTimeout(function () {
         dots.remove();
       }, 10000);
     }
   }).listen('IsNotTyping', function (data) {
-    $(".online-user [title=\"".concat(data.user.username, "\"]")).siblings('.dots').remove();
+    $(".online-user [title=\"".concat(data.user.username, "\"]")).find('.dots').remove();
   });
   Echo.channel('video').listen('ChangeVideo', function (data) {
     loadVideo(data.video);

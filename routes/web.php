@@ -54,16 +54,10 @@ Route::get('/', function() {
 
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
+Route::post('/push_status', 'UserController@pushStatus')->name('push_status');
 Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
 Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
 Route::post('/video/pause', 'VideoController@pause')->name('video_pause');
 Route::post('/video/play', 'VideoController@play')->name('video_play');
 Route::post('/video/sync', 'VideoController@sync')->name('video_sync');
-
-Route::post('/push_status', function() {
-    if (Auth::check()) {
-        $user = auth()->user();
-        Cache::add('user-online-' . $user->id, $user, 5);
-    }
-});
