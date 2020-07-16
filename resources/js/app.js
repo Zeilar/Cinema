@@ -172,7 +172,6 @@ $(document).ready(function() {
 
     Echo.channel('chat')
         .listen('NewComment', (data) => {
-            console.log(data);
             addComment(data.comment);
         })
         .listen('IsTyping', (data) => {

@@ -25507,7 +25507,6 @@ $(document).ready(function () {
     });
   }, 1000);
   Echo.channel('chat').listen('NewComment', function (data) {
-    console.log(data);
     addComment(data.comment);
   }).listen('IsTyping', function (data) {
     var user = $(".online-user[title=\"".concat(data.user.username, "\"]"));
