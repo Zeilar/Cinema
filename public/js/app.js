@@ -25522,7 +25522,9 @@ $(document).ready(function () {
   }).listen('IsNotTyping', function (data) {
     $(".online-user[title=\"".concat(data.user.username, "\"]")).find('.dots').remove();
   }).listen('LoggedIn', function (data) {
-    console.log(data);
+    if (!$(".online-user[data-id=".concat(data.user.id, "]")).length) {
+      $('#online-users').append("\n                    <div class=\"online-user ".concat(data.user.color, "\" data-id=\"").concat(data.user.id, "\" title=\"").concat(data.user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(data.user.username), "\n                        </span>\n                    </div>\n                "));
+    }
   });
   Echo.channel('video').listen('ChangeVideo', function (data) {
     loadVideo(data.video);

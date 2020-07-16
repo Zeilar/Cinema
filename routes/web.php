@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use App\Events\NewComment;
+use App\Events\LoggedIn;
 use App\Comment;
 use App\Video;
 use App\User;
@@ -48,6 +49,7 @@ Route::get('/', function() {
             'color' => $user->color,
             'content' => 'has joined the chat',
         ]);
+        broadcast(new LoggedIn($user));
         broadcast(new NewComment($comment));
     }
 

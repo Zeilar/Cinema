@@ -195,7 +195,15 @@ $(document).ready(function() {
             $(`.online-user[title="${data.user.username}"]`).find('.dots').remove();
         })
         .listen('LoggedIn', (data) => {
-            console.log(data);
+            if (!$(`.online-user[data-id=${data.user.id}]`).length) {
+                $('#online-users').append(`
+                    <div class="online-user ${data.user.color}" data-id="${data.user.id}" title="${data.user.username}">
+                        <span class="username">
+                            ${abbreviateName(data.user.username)}
+                        </span>
+                    </div>
+                `);
+            }
         });
 
     Echo.channel('video')
