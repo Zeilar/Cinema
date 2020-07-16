@@ -132,6 +132,10 @@ $(document).ready(function() {
                 }
             },
         });
+        $.ajax({
+            url: '/chat/is_not_typing',
+            method: 'POST',
+        });
         chatInput.val('').focus();
     });
 
@@ -167,6 +171,7 @@ $(document).ready(function() {
             addComment(data.comment);
         })
         .listen('IsTyping', (data) => {
+            const user = $(`.online-user [title="${data.user.username}"]`);
             const dots = $(`
                 <span class="dots">
                     <span>.</span>
@@ -174,10 +179,13 @@ $(document).ready(function() {
                     <span>.</span>
                 </span>
             `);
-            $(`.online-user [title="${data.user.username}"]`).after(dots);
-            setTimeout(() => {
-                dots.remove();
-            }, 10000);
+            if (!user.siblings('.dots').length) {
+                user.after(dots);
+            } else {
+                setTimeout(() => {
+                    dots.remove();
+                }, 10000);
+            }
         })
         .listen('IsNotTyping', (data) => {
             $(`.online-user [title="${data.user.username}"]`).siblings('.dots').remove();
