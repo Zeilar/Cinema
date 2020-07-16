@@ -96,7 +96,6 @@ button {
   background: #1e1e1e;
   flex-direction: column;
   overflow-y: auto;
-  padding: 0.5rem;
   display: flex;
   flex: 1;
 }
@@ -162,10 +161,11 @@ button {
 .message {
   flex-direction: row;
   display: flex;
+  padding: 0.5rem;
 }
 
-.message:not(:first-child) {
-  margin-top: 1rem;
+.message:nth-child(even) {
+  background: #191919;
 }
 
 .message .message-author::after {

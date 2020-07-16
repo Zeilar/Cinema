@@ -32,23 +32,29 @@ Route::get('/', function() {
         $colors = $enum[0]->colors;
         $colors = substr_replace($colors, '', 0, 5);
         $colors = substr_replace($colors, '', strpos($colors, ')'), 1);
+        $colors = str_replace("'", '', $colors);
         $colors = explode(',', $colors);
 
         $user = User::create([
-            'username' => new \Nubs\RandomNameGenerator\Alliteration(),
+            'username' => (new \Nubs\RandomNameGenerator\Alliteration())->getName(),
             'role' => 'viewer',
-            'color' => array_rand($colors),
+            'color' => $colors[array_rand($colors)],
         ]);
         Auth::login($user);
 
-        $broadcast = true;
+        $comment = Comment::create([
+            'user_id' => $user->id,
+            'username' => $user->username,
+            'color' => $user->color,
+            'content' => 'has joined the chat',
+        ]);
+        broadcast(new NewComment($comment));
     }
 
     return view('index', [
         'comments' => Comment::all(),
         'videos' => Video::all(),
         'online_users' => collect(Cache::get('online_users')),
-        'broadcast' => $broadcast ?? false,
     ]);
 })->middleware('UserStatus');
 

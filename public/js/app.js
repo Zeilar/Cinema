@@ -25505,8 +25505,9 @@ $(document).ready(function () {
       url: '/push_status',
       method: 'POST'
     });
-  }, 5000);
+  }, 1000);
   Echo.channel('chat').listen('NewComment', function (data) {
+    console.log(data);
     addComment(data.comment);
   }).listen('IsTyping', function (data) {
     var user = $(".online-user[title=\"".concat(data.user.username, "\"]"));
@@ -25520,7 +25521,9 @@ $(document).ready(function () {
       }, 10000);
     }
   }).listen('IsNotTyping', function (data) {
-    $(".online-user [title=\"".concat(data.user.username, "\"]")).find('.dots').remove();
+    $(".online-user[title=\"".concat(data.user.username, "\"]")).find('.dots').remove();
+  }).listen('LoggedIn', function (data) {
+    console.log(data);
   });
   Echo.channel('video').listen('ChangeVideo', function (data) {
     loadVideo(data.video);

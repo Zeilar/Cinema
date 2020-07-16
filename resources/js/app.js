@@ -168,10 +168,11 @@ $(document).ready(function() {
             url: '/push_status',
             method: 'POST',
         });
-    }, 5000);
+    }, 1000);
 
     Echo.channel('chat')
         .listen('NewComment', (data) => {
+            console.log(data);
             addComment(data.comment);
         })
         .listen('IsTyping', (data) => {
@@ -192,7 +193,10 @@ $(document).ready(function() {
             }
         })
         .listen('IsNotTyping', (data) => {
-            $(`.online-user [title="${data.user.username}"]`).find('.dots').remove();
+            $(`.online-user[title="${data.user.username}"]`).find('.dots').remove();
+        })
+        .listen('LoggedIn', (data) => {
+            console.log(data);
         });
 
     Echo.channel('video')

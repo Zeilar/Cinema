@@ -117,18 +117,5 @@
         <script>
             const player = new Plyr('#videoWrapper');
         </script>
-
-        @if ($broadcast)
-            <script>
-                $.ajax({
-                    url: '{{ route("comment_send") }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ Session::token() }}',
-                        content: 'has joined the chat',
-                    },
-                });
-            </script>
-        @endif
     </body>
 </html>
