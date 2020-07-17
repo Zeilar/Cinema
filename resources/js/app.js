@@ -230,7 +230,7 @@ $(document).ready(function() {
             }
             setTimeout(() => {
                 dots.remove();
-            }, 5000);
+            }, 3000);
         })
         .listen('IsNotTyping', ({ user }) => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();

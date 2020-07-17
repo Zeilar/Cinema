@@ -25548,7 +25548,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
       dots.remove();
-    }, 5000);
+    }, 3000);
   }).listen('IsNotTyping', function (_ref6) {
     var user = _ref6.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
