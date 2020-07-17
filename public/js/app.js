@@ -25511,7 +25511,6 @@ $(document).ready(function () {
     var user = _ref2.user;
 
     if (!$(".online-user[data-id=".concat(user.id, "]")).length) {
-      console.log('oes not exist');
       $('#online-users').append("\n                    <div class=\"online-user ".concat(user.color, "\" data-id=\"").concat(user.id, "\" title=\"").concat(user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     }
 

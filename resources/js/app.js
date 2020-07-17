@@ -179,7 +179,6 @@ $(document).ready(function() {
         })
         .joining(({ user }) => {
             if (!$(`.online-user[data-id=${user.id}]`).length) {
-                console.log('oes not exist');
                 $('#online-users').append(`
                     <div class="online-user ${user.color}" data-id="${user.id}" title="${user.username}">
                         <span class="username">
