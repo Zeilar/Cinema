@@ -25,11 +25,11 @@ $(document).ready(function() {
         const index = $(this)[0].selectedIndex;
         const videoId = $(this).children()[index].getAttribute('value');
 
-        ajax_csrf();
         $.ajax({
             url: '/video/change',
             method: 'POST',
             data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 video: Number(videoId),
             },
             success: function(data) {
@@ -45,14 +45,6 @@ $(document).ready(function() {
     $('#changeVideo').submit(function(e) {
         //
     });
-
-    function ajax_csrf() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            }
-        });
-    }
 
     function abbreviateName(name) {
         const matches = name.match('([A-Z]+)');
@@ -87,32 +79,41 @@ $(document).ready(function() {
     });
 
     $('#videoWrapper').on('play', function() {
-        ajax_csrf();
         $.ajax({
             url: '/video/play',
             method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+            }
         });
     });
 
     $('#videoWrapper').on('pause', function() {
-        ajax_csrf();
         $.ajax({
             url: '/video/pause',
             method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+            }
         });
     });
 
     $('#chat-send').on('input', function() {
-        ajax_csrf();
         if ($(this).val() === '') {
             $.ajax({
                 url: '/chat/is_not_typing',
                 method: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
             });
         } else {
             $.ajax({
                 url: '/chat/is_typing',
                 method: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
             });
         }
     });
@@ -120,11 +121,11 @@ $(document).ready(function() {
     $('#chat-submit').submit(function(e) {
         e.preventDefault();
         const chatInput = $('#chat-send');
-        ajax_csrf();
         $.ajax({
             url: '/comment/send',
             method: 'POST',
             data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 content: chatInput.val(),
             },
             success: function(data) {
@@ -143,19 +144,21 @@ $(document).ready(function() {
     });
 
     $('#video-reset').click(function() {
-        ajax_csrf();
         $.ajax({
             url: '/video/reset',
             method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+            }
         });
     });
 
     $('#video-sync').click(function() {
-        ajax_csrf();
         $.ajax({
             url: '/video/sync',
             method: 'POST',
             data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 timestamp: Number(player.currentTime),
             },
         });
