@@ -227,11 +227,10 @@ $(document).ready(function() {
             `);
             if (!user.find('.dots').length) {
                 user.append(dots);
-            } else {
-                setTimeout(() => {
-                    dots.remove();
-                }, 5000);
             }
+            setTimeout(() => {
+                dots.remove();
+            }, 5000);
         })
         .listen('IsNotTyping', ({ user }) => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
