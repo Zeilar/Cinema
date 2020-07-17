@@ -25411,7 +25411,7 @@ $(document).ready(function () {
 
   function addComment(comment) {
     var abbreviatedName = abbreviateName(comment.username);
-    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author ".concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content ").concat(comment.color, "\">\n                    \n                </div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author\" style=\"background-color: ".concat(comment.color, "; border-color: ").concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(comment.color, "; border-color: ").concat(comment.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);
     $('#chat-messages').append(message);
@@ -25504,14 +25504,14 @@ $(document).ready(function () {
   Echo.join('party').here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
-      $('#online-users').append("\n                    <div class=\"online-user ".concat(user.color, "\" data-id=\"").concat(user.id, "\" title=\"").concat(user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
+      $('#online-users').append("\n                    <div\n                        class=\"online-user\"\n                        style=\"background-color: ".concat(user.color, "; border-color: ").concat(user.color, "\" data-id=\"").concat(user.id, "\"\n                        title=\"").concat(user.username, "\"\n                    >\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     });
     chatMessages.scrollTop = 99999;
   }).joining(function (_ref2) {
     var user = _ref2.user;
 
     if (!$(".online-user[data-id=".concat(user.id, "]")).length) {
-      $('#online-users').append("\n                    <div class=\"online-user ".concat(user.color, "\" data-id=\"").concat(user.id, "\" title=\"").concat(user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
+      $('#online-users').append("\n                    <div\n                        class=\"online-user\"\n                        style=\"background-color: ".concat(user.color, "; border-color: ").concat(user.color, "\" data-id=\"").concat(user.id, "\"\n                        title=\"").concat(user.username, "\"\n                    >\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     }
 
     chatMessages.scrollTop = 99999;

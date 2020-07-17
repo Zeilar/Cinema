@@ -21,40 +21,30 @@ use App\User;
 Route::get('/', function() {
     // If user has no account, create one for them and log them in automatically
     if (!Auth::check()) {
-        $enum = DB::select("
-            SELECT COLUMN_TYPE AS colors
-            FROM
-            INFORMATION_SCHEMA.COLUMNS
-            WHERE
-            TABLE_SCHEMA = 'cinema' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'color'
-        ");
-
-        $colors = $enum[0]->colors;
-        $colors = substr_replace($colors, '', 0, 5);
-        $colors = substr_replace($colors, '', strpos($colors, ')'), 1);
-        $colors = str_replace("'", '', $colors);
-        $colors = explode(',', $colors);
+        $r = rand(0, 127);
+        $g = rand(0, 127);
+        $b = rand(0, 127);
 
         $user = User::create([
             'username' => (new \Nubs\RandomNameGenerator\Alliteration())->getName(),
             'role' => 'viewer',
-            'color' => $colors[array_rand($colors)],
+            'color' => "rgb($r, $g, $b)",
         ]);
         Auth::login($user);
 
         $comment = Comment::create([
             'user_id' => $user->id,
-            'username' => $user->username,
-            'color' => $user->color,
             'content' => 'has joined the chat',
         ]);
+        $comment['color'] = $user->color;
+        $comment['username'] = $user->username;
+
         broadcast(new NewComment($comment));
     }
 
     return view('index', [
         'comments' => Comment::all(),
         'videos' => Video::all(),
-        'online_users' => collect(Cache::get('online_users')),
     ]);
 })->middleware('UserStatus');
 

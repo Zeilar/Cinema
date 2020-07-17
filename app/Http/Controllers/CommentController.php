@@ -15,12 +15,12 @@ class CommentController extends Controller
         if (!Auth::check() || is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
-        $comment = $comment->create([
+        $comment = Comment::create([
             'user_id' => $user->id,
-            'username' => $user->username,
-            'color' => $user->color,
             'content' => $request->content,
         ]);
+        $comment['color'] = $user->color;
+        $comment['username'] = $user->username;
 
         broadcast(new NewComment($comment))->toOthers();
 

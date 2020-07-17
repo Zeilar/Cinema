@@ -40,10 +40,14 @@
                         @foreach ($comments as $comment)
                             @php $user = $comment->user; @endphp
                             <div class="message">
-                                <div class="message-author {{ $user->color }}" title="{{ $user->username }}">
+                                <div 
+                                    class="message-author" 
+                                    style="background-color: {{ $user->color }}; border-color: {{ $user->color }}"
+                                    title="{{ $user->username }}"
+                                >
                                     {{ abbreviateName($user->username) }}
                                 </div>
-                                <div class="message-content {{ $user->color }}">
+                                <div class="message-content" style="background: {{ $user->color }}">
                                     {{ $comment->content }}
                                 </div>  
                             </div>

@@ -59,12 +59,10 @@ $(document).ready(function() {
         const abbreviatedName = abbreviateName(comment.username);
         let message = $(`
             <div class="message">
-                <div class="message-author ${comment.color}" title="${comment.username}">
+                <div class="message-author" style="background-color: ${comment.color}; border-color: ${comment.color}" title="${comment.username}">
                     ${abbreviatedName}
                 </div>
-                <div class="message-content ${comment.color}">
-                    
-                </div>
+                <div class="message-content" style="background-color: ${comment.color}; border-color: ${comment.color}"></div>
             </div>
         `);
 
@@ -168,7 +166,11 @@ $(document).ready(function() {
         .here((data) => {
             data.forEach(({ user }) => {
                 $('#online-users').append(`
-                    <div class="online-user ${user.color}" data-id="${user.id}" title="${user.username}">
+                    <div
+                        class="online-user"
+                        style="background-color: ${user.color}; border-color: ${user.color}" data-id="${user.id}"
+                        title="${user.username}"
+                    >
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>
@@ -180,7 +182,11 @@ $(document).ready(function() {
         .joining(({ user }) => {
             if (!$(`.online-user[data-id=${user.id}]`).length) {
                 $('#online-users').append(`
-                    <div class="online-user ${user.color}" data-id="${user.id}" title="${user.username}">
+                    <div
+                        class="online-user"
+                        style="background-color: ${user.color}; border-color: ${user.color}" data-id="${user.id}"
+                        title="${user.username}"
+                    >
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>

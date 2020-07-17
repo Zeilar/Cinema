@@ -1,38 +1,3 @@
-.lightseagreen {
-  border-color: lightseagreen;
-  background: lightseagreen;
-}
-
-.darkgreen {
-  border-color: darkgreen;
-  background: darkgreen;
-}
-
-.darkred {
-  border-color: darkred;
-  background: darkred;
-}
-
-.purple {
-  border-color: purple;
-  background: purple;
-}
-
-.dodgerblue {
-  border-color: dodgerblue;
-  background: dodgerblue;
-}
-
-.darkslategray {
-  border-color: darkslategray;
-  background: darkslategray;
-}
-
-.dimgray {
-  border-color: dimgray;
-  background: dimgray;
-}
-
 body {
   background: #e1e1e1;
   font-size: 0.9rem;
@@ -181,8 +146,8 @@ button {
   border-top: 0.5rem solid transparent;
   right: calc(2px - 1rem);
   position: absolute;
+  top: 0.45rem;
   content: "";
-  top: 0.5rem;
   height: 0;
   width: 0;
 }
