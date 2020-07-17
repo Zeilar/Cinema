@@ -25547,7 +25547,7 @@ $(document).ready(function () {
     } else {
       setTimeout(function () {
         dots.remove();
-      }, 10000);
+      }, 5000);
     }
   }).listen('IsNotTyping', function (_ref6) {
     var user = _ref6.user;

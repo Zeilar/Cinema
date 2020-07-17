@@ -230,7 +230,7 @@ $(document).ready(function() {
             } else {
                 setTimeout(() => {
                     dots.remove();
-                }, 10000);
+                }, 5000);
             }
         })
         .listen('IsNotTyping', ({ user }) => {
