@@ -147,6 +147,7 @@ button {
   text-align: center;
   position: relative;
   font-weight: bold;
+  font-size: 0.9rem;
   min-width: 2.5rem;
 }
 
@@ -226,6 +227,7 @@ button {
 
 #online-users {
   background: #1e1e1e;
+  min-height: calc(4rem + 1px);
   flex-direction: row;
   flex-wrap: wrap;
   border-top: 0;
@@ -245,6 +247,7 @@ button {
 
 #online-users .online-user .username {
   min-width: unset;
+  margin: auto;
 }
 
 #online-users .online-user .dots {

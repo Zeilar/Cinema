@@ -106,6 +106,7 @@ input, button {
     text-align: center;
     position: relative;
     font-weight: bold;
+    font-size: 0.9rem;
     min-width: 2.5rem;
 }
 
@@ -176,6 +177,7 @@ input, button {
 
 #online-users {
     background: rgb(30, 30, 30);
+    min-height: calc(4rem + 1px);
     flex-direction: row;
     flex-wrap: wrap;
     border-top: 0;
@@ -193,6 +195,7 @@ input, button {
 
         .username {
             min-width: unset;
+            margin: auto;
         }
 
         .dots {

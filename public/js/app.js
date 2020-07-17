@@ -25499,17 +25499,32 @@ $(document).ready(function () {
       }
     });
   });
-  setInterval(function () {
-    ajax_csrf();
-    $.ajax({
-      url: '/push_status',
-      method: 'POST'
+  Echo.join('party').here(function (data) {
+    data.forEach(function (_ref) {
+      var user = _ref.user;
+      $('#online-users').append("\n                    <div class=\"online-user ".concat(user.color, "\" data-id=\"").concat(user.id, "\" title=\"").concat(user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     });
-  }, 1000);
-  Echo.channel('chat').listen('NewComment', function (data) {
-    addComment(data.comment);
-  }).listen('IsTyping', function (data) {
-    var user = $(".online-user[title=\"".concat(data.user.username, "\"]"));
+    chatMessages.scrollTop = 99999;
+  }).joining(function (_ref2) {
+    var user = _ref2.user;
+
+    if (!$(".online-user[data-id=".concat(user.id, "]")).length) {
+      console.log('oes not exist');
+      $('#online-users').append("\n                    <div class=\"online-user ".concat(user.color, "\" data-id=\"").concat(user.id, "\" title=\"").concat(user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
+    }
+
+    chatMessages.scrollTop = 99999;
+  }).leaving(function (_ref3) {
+    var user = _ref3.user;
+    $(".online-user[data-id=".concat(user.id, "]")).remove();
+    chatMessages.scrollTop = 99999;
+  });
+  Echo.channel('chat').listen('NewComment', function (_ref4) {
+    var comment = _ref4.comment;
+    addComment(comment);
+  }).listen('IsTyping', function (_ref5) {
+    var user = _ref5.user;
+    user = $(".online-user[title=\"".concat(user.username, "\"]"));
     var dots = $("\n                <span class=\"dots\">\n                    <span>.</span>\n                    <span>.</span>\n                    <span>.</span>\n                </span>\n            ");
 
     if (!user.find('.dots').length) {
@@ -25519,19 +25534,18 @@ $(document).ready(function () {
         dots.remove();
       }, 10000);
     }
-  }).listen('IsNotTyping', function (data) {
-    $(".online-user[title=\"".concat(data.user.username, "\"]")).find('.dots').remove();
-  }).listen('LoggedIn', function (data) {
-    if (!$(".online-user[data-id=".concat(data.user.id, "]")).length) {
-      $('#online-users').append("\n                    <div class=\"online-user ".concat(data.user.color, "\" data-id=\"").concat(data.user.id, "\" title=\"").concat(data.user.username, "\">\n                        <span class=\"username\">\n                            ").concat(abbreviateName(data.user.username), "\n                        </span>\n                    </div>\n                "));
-    }
+  }).listen('IsNotTyping', function (_ref6) {
+    var user = _ref6.user;
+    $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   });
-  Echo.channel('video').listen('ChangeVideo', function (data) {
-    loadVideo(data.video);
+  Echo.channel('video').listen('ChangeVideo', function (_ref7) {
+    var video = _ref7.video;
+    loadVideo(video);
   }).listen('VideoPlay', function () {
     player.play();
-  }).listen('VideoSync', function (data) {
-    player.currentTime = data.timestamp;
+  }).listen('VideoSync', function (_ref8) {
+    var timestamp = _ref8.timestamp;
+    player.currentTime = timestamp;
   }).listen('VideoReset', function () {
     player.pause();
     player.currentTime = 0;

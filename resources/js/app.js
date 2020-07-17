@@ -79,7 +79,6 @@ $(document).ready(function() {
         // Do this in order to escape tags and other unwanted characters in the message body
         message.find('.message-content').text(comment.content);
         $('#chat-messages').append(message);
-
         chatMessages.scrollTop = 99999;
     }
 
@@ -162,20 +161,43 @@ $(document).ready(function() {
         });
     });
 
-    setInterval(() => {
-        ajax_csrf();
-        $.ajax({
-            url: '/push_status',
-            method: 'POST',
+    Echo.join('party')
+        .here((data) => {
+            data.forEach(({ user }) => {
+                $('#online-users').append(`
+                    <div class="online-user ${user.color}" data-id="${user.id}" title="${user.username}">
+                        <span class="username">
+                            ${abbreviateName(user.username)}
+                        </span>
+                    </div>
+                `);
+            });
+            chatMessages.scrollTop = 99999;
+        })
+        .joining(({ user }) => {
+            if (!$(`.online-user[data-id=${user.id}]`).length) {
+                console.log('oes not exist');
+                $('#online-users').append(`
+                    <div class="online-user ${user.color}" data-id="${user.id}" title="${user.username}">
+                        <span class="username">
+                            ${abbreviateName(user.username)}
+                        </span>
+                    </div>
+                `);
+            }
+            chatMessages.scrollTop = 99999;
+        })
+        .leaving(({ user }) => {
+            $(`.online-user[data-id=${user.id}]`).remove();
+            chatMessages.scrollTop = 99999;
         });
-    }, 1000);
 
     Echo.channel('chat')
-        .listen('NewComment', (data) => {
-            addComment(data.comment);
+        .listen('NewComment', ({ comment }) => {
+            addComment(comment);
         })
-        .listen('IsTyping', (data) => {
-            const user = $(`.online-user[title="${data.user.username}"]`);
+        .listen('IsTyping', ({ user }) => {
+            user = $(`.online-user[title="${user.username}"]`);
             const dots = $(`
                 <span class="dots">
                     <span>.</span>
@@ -191,30 +213,19 @@ $(document).ready(function() {
                 }, 10000);
             }
         })
-        .listen('IsNotTyping', (data) => {
-            $(`.online-user[title="${data.user.username}"]`).find('.dots').remove();
-        })
-        .listen('LoggedIn', (data) => {
-            if (!$(`.online-user[data-id=${data.user.id}]`).length) {
-                $('#online-users').append(`
-                    <div class="online-user ${data.user.color}" data-id="${data.user.id}" title="${data.user.username}">
-                        <span class="username">
-                            ${abbreviateName(data.user.username)}
-                        </span>
-                    </div>
-                `);
-            }
+        .listen('IsNotTyping', ({ user }) => {
+            $(`.online-user[title="${user.username}"]`).find('.dots').remove();
         });
 
     Echo.channel('video')
-        .listen('ChangeVideo', (data) => {
-            loadVideo(data.video);
+        .listen('ChangeVideo', ({ video }) => {
+            loadVideo(video);
         })
         .listen('VideoPlay', () => {
             player.play();
         })
-        .listen('VideoSync', (data) => {
-            player.currentTime = data.timestamp;
+        .listen('VideoSync', ({ timestamp }) => {
+            player.currentTime = timestamp;
         })
         .listen('VideoReset', () => {
             player.pause();

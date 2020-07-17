@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use App\Events\NewComment;
-use App\Events\LoggedIn;
 use App\Comment;
 use App\Video;
 use App\User;
@@ -49,7 +48,6 @@ Route::get('/', function() {
             'color' => $user->color,
             'content' => 'has joined the chat',
         ]);
-        broadcast(new LoggedIn($user));
         broadcast(new NewComment($comment));
     }
 
@@ -62,7 +60,6 @@ Route::get('/', function() {
 
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
-Route::post('/push_status', 'UserController@pushStatus')->name('push_status');
 Route::post('/comment/send', 'CommentController@store')->name('comment_send');
 Route::post('/video/change', 'VideoController@change')->name('video_change');
 Route::post('/video/reset', 'VideoController@reset')->name('video_reset');

@@ -51,13 +51,7 @@
                     </div>
 
                     <div id="online-users">
-                        @foreach (getOnlineUsers() as $user)
-                            <div class="online-user {{ $user->color }}" data-id="{{ $user->id }}" title="{{ $user->username }}">
-                                <span class="username">
-                                    {{ abbreviateName($user->username) }}
-                                </span>
-                            </div>
-                        @endforeach
+                        <!-- Loaded by Echo through websocket -->
                     </div>
 
                     <div id="chat-input">
