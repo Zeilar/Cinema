@@ -114,6 +114,18 @@ $(document).ready(function() {
                 },
             });
         }
+
+        setTimeout(() => {
+            if ($(this).val() === '') {
+                $.ajax({
+                url: '/chat/is_not_typing',
+                method: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+            });
+            }
+        }, 3000);
     });
 
     $('#chat-submit').submit(function(e) {

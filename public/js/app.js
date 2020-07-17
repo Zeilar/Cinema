@@ -25440,6 +25440,8 @@ $(document).ready(function () {
     });
   });
   $('#chat-send').on('input', function () {
+    var _this = this;
+
     if ($(this).val() === '') {
       $.ajax({
         url: '/chat/is_not_typing',
@@ -25457,6 +25459,18 @@ $(document).ready(function () {
         }
       });
     }
+
+    setTimeout(function () {
+      if ($(_this).val() === '') {
+        $.ajax({
+          url: '/chat/is_not_typing',
+          method: 'POST',
+          data: {
+            _token: $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      }
+    }, 3000);
   });
   $('#chat-submit').submit(function (e) {
     e.preventDefault();
