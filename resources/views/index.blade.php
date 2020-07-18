@@ -29,24 +29,23 @@
     <body>
         <div id="wrapper">
             <div id="theatre">
-                @php $video = \App\Video::find(Illuminate\Support\Facades\Cache::get('activeVideo')) @endphp
-                @isset($video)
-                    @isset ($video->embed)
+                @isset($activeVideo)
+                    @isset($activeVideo->embed)
                         @php 
-                            $video = str_replace(
+                            $activeVideo = str_replace(
                                 [
                                     'https://www.youtube.com/watch?v=',
                                     'youtu.be'
                                 ],
                                 '',
-                                $video->embed
+                                $activeVideo->embed
                             );
                         @endphp
-                        <iframe width="100%" src="https://www.youtube.com/embed/{{$video}}" frameborder="0"; allowfullscreen></iframe>
+                        <iframe width="100%" src="https://www.youtube.com/embed/{{$activeVideo}}" frameborder="0"; allowfullscreen></iframe>
                     @endisset
-                    @isset($video->path)
+                    @isset($activeVideo->path)
                         <video id="videoWrapper" controls playsinline>
-                            <source id="video" src="/storage/{{ $video->path ?? '1.mp4' }}">
+                            <source id="video" src="/storage/{{ $activeVideo->path ?? '1.mp4' }}">
                         </video> 
                     @endisset
                 @else

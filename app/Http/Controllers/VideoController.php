@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Events\ChangeVideo;
 use App\Events\NewComment;
 use App\Events\VideoReset;
+use App\Events\ConsoleLog;
 use App\Events\VideoPause;
 use App\Events\VideoPlay;
 use App\Events\VideoSync;
@@ -38,7 +39,7 @@ class VideoController extends Controller
             ])));
         }
 
-        Cache::put('activeVideo', $video->id);
+        Cache::add('activeVideo', $video->id);
 
         return response()->json([
             'video' => $video,

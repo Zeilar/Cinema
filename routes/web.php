@@ -45,12 +45,13 @@ Route::get('/', function() {
     return view('index', [
         'comments' => Comment::all(),
         'videos' => Video::all(),
+        'activeVideo' => Video::find(Cache::get('activeVideo')),
     ]);
-})->middleware('UserStatus');
+});
 
-Route::middleware('throttle:3,.1')->group(function () {
-    Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
-    Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
+Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
+Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
+Route::middleware('throttle:10,1')->group(function () {
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
     Route::post('/video/change', 'VideoController@change')->name('video_change');
     Route::post('/video/reset', 'VideoController@reset')->name('video_reset');

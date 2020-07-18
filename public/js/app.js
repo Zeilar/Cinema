@@ -25359,6 +25359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
+  var csrfToken = $('meta[name="csrf-token"]').attr('content');
   var player = document.querySelector('#videoWrapper');
   var chatMessages = document.querySelector('#chat-messages');
   chatMessages.scrollTop = 99999; //player.volume = 0.5;
@@ -25370,7 +25371,7 @@ $(document).ready(function () {
       url: '/video/change',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content'),
+        _token: csrfToken,
         video: Number(videoId)
       },
       success: function success(data) {
@@ -25394,11 +25395,11 @@ $(document).ready(function () {
 
   function abbreviateName(name) {
     var matches = name.match('([A-Z]+)');
-    var abbrevatedName = '';
+    var abbreviatedName = '';
     matches.forEach(function (element) {
-      abbrevatedName += element;
+      abbreviatedName += element;
     });
-    return abbrevatedName;
+    return abbreviatedName;
   }
 
   function addComment(comment) {
@@ -25413,25 +25414,25 @@ $(document).ready(function () {
   $('#toggle-users').click(function () {
     $('#online-users').toggleClass('d-none');
   });
-  $('#videoWrapper').on('play', function () {
+  $('#videoWrapper').on('play', _.throttle(function () {
     $.ajax({
       url: '/video/play',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content')
+        _token: csrfToken
       }
     });
-  });
-  $('#videoWrapper').on('pause', function () {
+  }, 1500));
+  $('#videoWrapper').on('pause', _.throttle(function () {
     $.ajax({
       url: '/video/pause',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content')
+        _token: csrfToken
       }
     });
-  });
-  $('#chat-send').on('input', function () {
+  }, 1500));
+  $('#chat-send').on('input', _.throttle(function () {
     var _this = this;
 
     if ($(this).val() === '') {
@@ -25439,7 +25440,7 @@ $(document).ready(function () {
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          _token: $('meta[name="csrf-token"]').attr('content')
+          _token: csrfToken
         }
       });
     } else {
@@ -25447,7 +25448,7 @@ $(document).ready(function () {
         url: '/chat/is_typing',
         method: 'POST',
         data: {
-          _token: $('meta[name="csrf-token"]').attr('content')
+          _token: csrfToken
         }
       });
     }
@@ -25458,20 +25459,20 @@ $(document).ready(function () {
           url: '/chat/is_not_typing',
           method: 'POST',
           data: {
-            _token: $('meta[name="csrf-token"]').attr('content')
+            _token: csrfToken
           }
         });
       }
     }, 3000);
-  });
-  $('#chat-submit').submit(function (e) {
+  }, 1500));
+  $('#chat-submit').submit(_.throttle(function (e) {
     e.preventDefault();
     var chatInput = $('#chat-send');
     $.ajax({
       url: '/comment/send',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content'),
+        _token: csrfToken,
         content: chatInput.val()
       },
       success: function success(data) {
@@ -25487,26 +25488,26 @@ $(document).ready(function () {
       method: 'POST'
     });
     chatInput.val('').focus();
-  });
-  $('#video-reset').click(function () {
+  }, 1500));
+  $('#video-reset').click(_.throttle(function () {
     $.ajax({
       url: '/video/reset',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content')
+        _token: csrfToken
       }
     });
-  });
-  $('#video-sync').click(function () {
+  }, 1500));
+  $('#video-sync').click(_.throttle(function () {
     $.ajax({
       url: '/video/sync',
       method: 'POST',
       data: {
-        _token: $('meta[name="csrf-token"]').attr('content'),
+        _token: csrfToken,
         timestamp: Number(player.currentTime)
       }
     });
-  });
+  }, 1500));
   Echo.join('party').here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
@@ -25536,10 +25537,12 @@ $(document).ready(function () {
     if (!user.find('.dots').length) user.append(dots);
     setTimeout(function () {
       dots.remove();
-    }, 3000);
+    }, 10000);
   }).listen('IsNotTyping', function (_ref6) {
     var user = _ref6.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
+  }).listen('ConsoleLog', function (data) {
+    console.log(data.user, data.message);
   });
   Echo.channel('video').listen('ChangeVideo', function (_ref7) {
     var video = _ref7.video;

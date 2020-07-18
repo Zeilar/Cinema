@@ -1,6 +1,7 @@
 import './bootstrap';
 
 $(document).ready(function() {
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const player = document.querySelector('#videoWrapper');
     let chatMessages = document.querySelector('#chat-messages');
     chatMessages.scrollTop = 99999;
@@ -14,7 +15,7 @@ $(document).ready(function() {
             url: '/video/change',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
                 video: Number(videoId),
             },
             success: function(data) {
@@ -40,11 +41,11 @@ $(document).ready(function() {
 
     function abbreviateName(name) {
         const matches = name.match('([A-Z]+)');
-        let abbrevatedName = '';
+        let abbreviatedName = '';
         matches.forEach(element => {
-            abbrevatedName += element;
+            abbreviatedName += element;
         });
-        return abbrevatedName;
+        return abbreviatedName;
     }
 
     function addComment(comment) {
@@ -69,33 +70,33 @@ $(document).ready(function() {
         $('#online-users').toggleClass('d-none');
     });
 
-    $('#videoWrapper').on('play', function() {
+    $('#videoWrapper').on('play', _.throttle(function() {
         $.ajax({
             url: '/video/play',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
             }
         });
-    });
+    }, 1500));
 
-    $('#videoWrapper').on('pause', function() {
+    $('#videoWrapper').on('pause', _.throttle(function() {
         $.ajax({
             url: '/video/pause',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
             }
         });
-    });
+    }, 1500));
 
-    $('#chat-send').on('input', function() {
+    $('#chat-send').on('input', _.throttle(function() {
         if ($(this).val() === '') {
             $.ajax({
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    _token: csrfToken,
                 },
             });
         } else {
@@ -103,7 +104,7 @@ $(document).ready(function() {
                 url: '/chat/is_typing',
                 method: 'POST',
                 data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    _token: csrfToken,
                 },
             });
         }
@@ -114,21 +115,21 @@ $(document).ready(function() {
                     url: '/chat/is_not_typing',
                     method: 'POST',
                     data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        _token: csrfToken,
                     },
                 });
             }
         }, 3000);
-    });
+    }, 1500));
 
-    $('#chat-submit').submit(function(e) {
+    $('#chat-submit').submit(_.throttle(function(e) {
         e.preventDefault();
         const chatInput = $('#chat-send');
         $.ajax({
             url: '/comment/send',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
                 content: chatInput.val(),
             },
             success: function(data) {
@@ -144,28 +145,28 @@ $(document).ready(function() {
             method: 'POST',
         });
         chatInput.val('').focus();
-    });
+    }, 1500));
 
-    $('#video-reset').click(function() {
+    $('#video-reset').click(_.throttle(function() {
         $.ajax({
             url: '/video/reset',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
             }
         });
-    });
+    }, 1500));
 
-    $('#video-sync').click(function() {
+    $('#video-sync').click(_.throttle(function() {
         $.ajax({
             url: '/video/sync',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
+                _token: csrfToken,
                 timestamp: Number(player.currentTime),
             },
         });
-    });
+    }, 1500));
 
     Echo.join('party')
         .here((data) => {
@@ -221,10 +222,13 @@ $(document).ready(function() {
             if (!user.find('.dots').length) user.append(dots);
             setTimeout(() => {
                 dots.remove();
-            }, 3000);
+            }, 10000);
         })
         .listen('IsNotTyping', ({ user }) => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
+        })
+        .listen('ConsoleLog', (data) => {
+            console.log(data.user, data.message);
         });
 
     Echo.channel('video')

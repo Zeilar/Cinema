@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Events\IsNotTyping;
 use App\Events\NewComment;
+use App\Events\ConsoleLog;
 use App\Events\IsTyping;
 use App\Comment;
 use Auth;
@@ -31,7 +32,6 @@ class CommentController extends Controller
     }
 
     public function isTyping(Request $request) {
-        return response()->json($request);
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
         broadcast(new IsTyping(auth()->user()));
     }
