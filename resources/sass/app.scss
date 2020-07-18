@@ -45,9 +45,9 @@ input, button {
 #chat {
     background: rgb(20, 20, 20);
     flex-direction: column;
+    width: 26.6rem;
     display: flex;
     padding: 1rem;
-    width: 20%;
 }
 
 #chat-send, #chat-messages, #online-users {

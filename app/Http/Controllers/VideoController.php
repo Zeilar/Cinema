@@ -48,18 +48,22 @@ class VideoController extends Controller
     }
 
     public function play() {
+        broadcast(new ConsoleLog(auth()->user()->username, 'played the video'));
         broadcast(new VideoPlay());
     }
 
     public function sync(Request $request) {
+        broadcast(new ConsoleLog(auth()->user()->username, 'synced the video'));
         broadcast(new VideoSync($request->timestamp));
     }
 
     public function reset() {
+        broadcast(new ConsoleLog(auth()->user()->username, 'reset the video'));
         broadcast(new VideoReset());
     }
 
     public function pause() {
+        broadcast(new ConsoleLog(auth()->user()->username, 'paused the video'));
         broadcast(new VideoPause());
     }
 }
