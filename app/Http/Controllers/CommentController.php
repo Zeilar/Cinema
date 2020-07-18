@@ -31,6 +31,7 @@ class CommentController extends Controller
     }
 
     public function isTyping(Request $request) {
+        return response()->json($request);
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
         broadcast(new IsTyping(auth()->user()));
     }

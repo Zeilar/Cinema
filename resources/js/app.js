@@ -61,6 +61,7 @@ $(document).ready(function() {
         // Do this in order to escape tags and other unwanted characters in the message body
         message.find('.message-content').text(comment.content);
         $('#chat-messages').append(message);
+        
         chatMessages.scrollTop = 99999;
     }
 
@@ -104,9 +105,6 @@ $(document).ready(function() {
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
-                error: (err) => {
-                    console.log(err);
-                }
             });
         }
 

@@ -25448,9 +25448,6 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: $('meta[name="csrf-token"]').attr('content')
-        },
-        error: function error(err) {
-          console.log(err);
         }
       });
     }
@@ -25591,7 +25588,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: '83e08fedd97f641f8471',
+  key: '84e7fa8ec74c0b0a8949',
   cluster: 'eu',
   forceTLS: true
 });

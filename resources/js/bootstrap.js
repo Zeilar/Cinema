@@ -22,7 +22,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: '83e08fedd97f641f8471',
+    key: '84e7fa8ec74c0b0a8949',
     cluster: 'eu',
-    forceTLS: true
+    forceTLS: true,
 });
