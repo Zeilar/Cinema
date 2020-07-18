@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        <!-- Setup -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
         <title>Cinema</title>
 
         <!-- JavaScript -->
@@ -27,13 +30,28 @@
         <div id="wrapper">
             <div id="theatre">
                 @php $video = \App\Video::find(Illuminate\Support\Facades\Cache::get('activeVideo')) @endphp
-                @isset ($video->embed)
-                    {!! $video->embed !!}
+                @isset($video)
+                    @isset ($video->embed)
+                        @php 
+                            $video = str_replace(
+                                [
+                                    'https://www.youtube.com/watch?v=',
+                                    'youtu.be'
+                                ],
+                                '',
+                                $video->embed
+                            );
+                        @endphp
+                        <iframe width="100%" src="https://www.youtube.com/embed/{{$video}}" frameborder="0"; allowfullscreen></iframe>
+                    @endisset
+                    @isset($video->path)
+                        <video id="videoWrapper" controls playsinline>
+                            <source id="video" src="/storage/{{ $video->path ?? '1.mp4' }}">
+                        </video> 
+                    @endisset
                 @else
-                    <video id="videoWrapper" controls playsinline>
-                        <source id="video" src="/storage/{{ $video->path ?? '1.mp4' }}">
-                    </video>
-                @endif
+                    <iframe width="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"; allowfullscreen></iframe>
+                @endisset
 
                 <div id="chat">
                     <div id="chat-messages">
@@ -99,6 +117,16 @@
                             <div id="selection">
                                 <form id="changeVideo">
                                     <input type="text" id="videoUrl" autocomplete="off">
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <span>YouTube</span>
+                                                <i class="fab ml-2 fa-youtube"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="URL" id="youtubeUrl">
+                                    </div>
 
                                     <select id="videoSelector">
                                         @foreach ($videos as $video)

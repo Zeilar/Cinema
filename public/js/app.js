@@ -25359,24 +25359,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
-  var originalHTML = $('.plyr');
   var player = document.querySelector('#videoWrapper');
   var chatMessages = document.querySelector('#chat-messages');
-  chatMessages.scrollTop = 99999;
-  player.volume = 0.5;
-
-  function loadVideo(video) {
-    if (video.path) {
-      $('iframe').replaceWith(originalHTML);
-      player.pause();
-      $('#video').attr('src', "storage/".concat(video.path));
-      player.load();
-    } else if (video.embed) {
-      if ($('#videoUrl').val().search('</iframe>') !== -1) {// player.remove();
-        // $('.plyr').replaceWith($('#videoUrl').val());
-      }
-    }
-  }
+  chatMessages.scrollTop = 99999; //player.volume = 0.5;
 
   $('#videoSelector').change(function () {
     var index = $(this)[0].selectedIndex;
@@ -25397,7 +25382,14 @@ $(document).ready(function () {
       }
     });
   });
-  $('#changeVideo').submit(function (e) {//
+  $('#changeVideo').submit(function (e) {
+    e.preventDefault();
+    console.log(e);
+  });
+  $('#youtubeUrl').keydown(function (e) {
+    if (e.key === 'Enter') {
+      console.log('submit youtube video');
+    }
   });
 
   function abbreviateName(name) {
@@ -25456,6 +25448,9 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        error: function error(err) {
+          console.log(err);
         }
       });
     }
@@ -25541,11 +25536,7 @@ $(document).ready(function () {
     var user = _ref5.user;
     user = $(".online-user[title=\"".concat(user.username, "\"]"));
     var dots = $("\n                <span class=\"dots\">\n                    <span>.</span>\n                    <span>.</span>\n                    <span>.</span>\n                </span>\n            ");
-
-    if (!user.find('.dots').length) {
-      user.append(dots);
-    }
-
+    if (!user.find('.dots').length) user.append(dots);
     setTimeout(function () {
       dots.remove();
     }, 3000);
@@ -25600,11 +25591,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  //key: process.env.MIX_PUSHER_APP_KEY,
-  key: 'ca972aa68451c3a39045',
-  //cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  key: '83e08fedd97f641f8471',
   cluster: 'eu',
-  encrypted: true,
   forceTLS: true
 });
 

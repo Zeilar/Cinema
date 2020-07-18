@@ -117,10 +117,10 @@ input, button {
 
 .message {
     flex-direction: row;
-    display: flex;
     padding: 0.5rem;
+    display: flex;
 
-    &:nth-child(even) {
+    &:nth-child(odd) {
         background: rgb(25, 25, 25);
     }
 
@@ -172,6 +172,18 @@ input, button {
 
 .close {
     outline: 0 !important;
+}
+
+.fa-youtube {
+    color: red;
+}
+
+.input-group-text {
+    font-size: 0.9rem;
+
+    i {
+        font-size: 1.5rem;
+    }
 }
 
 #online-users {

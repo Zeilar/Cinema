@@ -1,25 +1,10 @@
 import './bootstrap';
 
 $(document).ready(function() {
-    const originalHTML = $('.plyr');
     const player = document.querySelector('#videoWrapper');
     let chatMessages = document.querySelector('#chat-messages');
     chatMessages.scrollTop = 99999;
-    player.volume = 0.5;
-
-    function loadVideo(video) {
-        if (video.path) {
-            $('iframe').replaceWith(originalHTML);
-            player.pause();
-            $('#video').attr('src', `storage/${video.path}`);
-            player.load();
-        } else if (video.embed) {
-            if ($('#videoUrl').val().search('</iframe>') !== -1) {
-                // player.remove();
-                // $('.plyr').replaceWith($('#videoUrl').val());
-            }
-        }
-    }
+    //player.volume = 0.5;
 
     $('#videoSelector').change(function() {
         const index = $(this)[0].selectedIndex;
@@ -43,7 +28,14 @@ $(document).ready(function() {
     });
 
     $('#changeVideo').submit(function(e) {
-        //
+        e.preventDefault();
+        console.log(e);
+    });
+
+    $('#youtubeUrl').keydown(function(e) {
+       if (e.key === 'Enter') {
+           console.log('submit youtube video');
+       }
     });
 
     function abbreviateName(name) {
@@ -112,6 +104,9 @@ $(document).ready(function() {
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
+                error: (err) => {
+                    console.log(err);
+                }
             });
         }
 
@@ -225,9 +220,7 @@ $(document).ready(function() {
                     <span>.</span>
                 </span>
             `);
-            if (!user.find('.dots').length) {
-                user.append(dots);
-            }
+            if (!user.find('.dots').length) user.append(dots);
             setTimeout(() => {
                 dots.remove();
             }, 3000);
