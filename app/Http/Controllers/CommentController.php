@@ -8,17 +8,18 @@ use App\Events\NewComment;
 use App\Events\ConsoleLog;
 use App\Events\IsTyping;
 use App\Comment;
+use App\Room;
 use Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Comment $comment) {
+    public function store(Request $request) {
         if (!Auth::check() || is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
         $comment = Comment::create([
             'user_id' => $user->id,
-            'room_id' => $request->roomId,
+            'room_id' => Room::where('anonymous_id', $request->roomId)->first()->id,
             'content' => $request->content,
         ]);
 

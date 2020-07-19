@@ -146,6 +146,7 @@ $(document).ready(function() {
             url: '/chat/is_not_typing',
             method: 'POST',
             data: {
+                _token: csrfToken,
                 roomId: roomId,
             }
         });

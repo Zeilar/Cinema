@@ -23,9 +23,6 @@ class RoomController extends Controller
             'room_id' => $room->id,
             'content' => 'has joined the chat',
         ]);
-        $comment['color'] = $user->color;
-        $comment['username'] = $user->username;
-        broadcast(new NewComment($comment, $user, $request->roomId));
         return redirect(route('visit_room', $room->anonymous_id));
     }
 
