@@ -47,7 +47,7 @@
 
                 <div id="chat-input">
                     <form id="chat-submit">
-                        <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message" required />
+                        <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message" />
                         <button class="btn" id="chat-send-button" type="submit">Send</button>
                     </form>
 

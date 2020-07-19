@@ -72,6 +72,10 @@ input, input.form-control {
     border: 1px solid rgb(35, 35, 35);
 }
 
+#chat-send:focus {
+    border-color: dodgerblue;
+}
+
 #chat-messages {
     background: rgb(30, 30, 30);
     flex-direction: column;

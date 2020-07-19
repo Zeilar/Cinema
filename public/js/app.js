@@ -25487,28 +25487,33 @@ $(document).ready(function () {
       }
     }, 3000);
   }, 1500));
-  $('#chat-submit').submit(_.throttle(function (e) {
+  $('#chat-submit').submit(function (e) {
     e.preventDefault();
-    var chatInput = $('#chat-send');
-    $.ajax({
-      url: '/comment/send',
-      method: 'POST',
-      data: {
-        content: chatInput.val(),
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
-    $.ajax({
-      url: '/chat/is_not_typing',
-      method: 'POST',
-      data: {
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
-    chatInput.val('').focus();
-  }, 1500));
+
+    if ($('#chat-send').val() !== '') {
+      _.throttle(function () {
+        var chatInput = $('#chat-send');
+        $.ajax({
+          url: '/comment/send',
+          method: 'POST',
+          data: {
+            content: chatInput.val(),
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+        $.ajax({
+          url: '/chat/is_not_typing',
+          method: 'POST',
+          data: {
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+        chatInput.val('').focus();
+      }, 1500);
+    }
+  });
   $('#video-reset').click(_.throttle(function () {
     $.ajax({
       url: '/video/reset',
