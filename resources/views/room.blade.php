@@ -97,11 +97,7 @@
                                     <input type="text" class="form-control" placeholder="URL" id="youtubeUrl">
                                 </div>
                                 <select id="videoSelector">
-                                    @isset($record)
-                                        @foreach ($videos as $video)
-                                            <option value="{{ $video->id }}">{{ $video->title }}</option>
-                                        @endforeach
-                                    @endisset
+                                    <!-- Local videos selection here -->
                                 </select>
                             </form>
                         </div>
