@@ -52,7 +52,7 @@
                     </form>
 
                     <div id="chat-controls">
-                        <button type="button" class="btn" data-toggle="modal" data-target="#changeVideoModal">
+                        <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
 
@@ -73,7 +73,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="changeVideoModal" title="Change video" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="changeVideoModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
