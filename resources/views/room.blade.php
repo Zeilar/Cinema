@@ -94,7 +94,11 @@
                                             <i class="fab ml-2 fa-youtube"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="youtubeUrl">
+                                    <input
+                                        type="text" class="form-control" 
+                                        placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                        id="youtubeUrl" autocomplete="off"
+                                    />
                                 </div>
 
                                 @isset($videos)

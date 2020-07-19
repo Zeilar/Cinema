@@ -25387,6 +25387,8 @@ $(document).ready(function () {
     });
   });
   $('#youtubeUrl').keyup(function (e) {
+    var _this = this;
+
     var url = $(this).val();
 
     if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
@@ -25402,6 +25404,7 @@ $(document).ready(function () {
         },
         success: function success() {
           $('#changeVideoModal').modal('hide');
+          $(_this).val('');
         }
       });
     }
@@ -25449,7 +25452,7 @@ $(document).ready(function () {
     });
   }, 1500));
   $('#chat-send').on('input', _.throttle(function () {
-    var _this = this;
+    var _this2 = this;
 
     if ($(this).val() === '') {
       $.ajax({
@@ -25472,7 +25475,7 @@ $(document).ready(function () {
     }
 
     setTimeout(function () {
-      if ($(_this).val() === '') {
+      if ($(_this2).val() === '') {
         $.ajax({
           url: '/chat/is_not_typing',
           method: 'POST',

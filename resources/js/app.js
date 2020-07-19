@@ -46,6 +46,7 @@ $(document).ready(function() {
                 },
                 success: () => {
                     $('#changeVideoModal').modal('hide');
+                    $(this).val('');
                 }
             });
         }
