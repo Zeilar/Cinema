@@ -1,5 +1,7 @@
+@import 'index';
+
 body {
-    background: rgb(225, 225, 225);
+    background: rgb(20, 20, 20);
     font-size: 0.9rem;
     overflow: hidden;
     color: white;
@@ -13,7 +15,6 @@ p {
 
 input, button {
     transition: border-color 0.15s ease-in-out;
-    box-shadow: none !important;
     vertical-align: middle;
     border-radius: 0.25rem;
     color: white;
@@ -60,7 +61,6 @@ input, input.form-control {
 }
 
 #chat {
-    background: rgb(20, 20, 20);
     flex-direction: column;
     margin-left: auto;
     width: 26.6rem;
@@ -154,7 +154,6 @@ input, input.form-control {
 }
 
 .btn {
-    box-shadow: none !important;
     background: dodgerblue;
     padding: 0.25rem 0.5rem;
     width: fit-content;
@@ -167,6 +166,10 @@ input, input.form-control {
 
     &:hover {
         color: black;
+    }
+
+    &:focus {
+        box-shadow: none;
     }
 
     * {

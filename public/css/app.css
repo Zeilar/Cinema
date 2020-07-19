@@ -1,5 +1,93 @@
+.wrapper-index {
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15%;
+  display: flex;
+  height: 100%;
+}
+
+.wrapper-index .existing-rooms {
+  margin: 5rem auto 0 auto;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+  width: 60%;
+}
+
+.wrapper-index .existing-rooms .room-join,
+.wrapper-index .existing-rooms .room-join:focus {
+  box-shadow: 7px 7px 3px rgba(0, 0, 0, 0.5);
+}
+
+.wrapper-index .existing-rooms .room-join {
+  transition: background 0.15s ease-in-out;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  display: flex;
+  margin: 2rem;
+  width: 15rem;
+}
+
+.wrapper-index .existing-rooms .room-join:hover {
+  background: green;
+  color: white;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+  }
+}
+
+.wrapper-index .existing-rooms .room-join * {
+  margin: auto 0;
+}
+
+.wrapper-index .existing-rooms .room-join span {
+  margin-bottom: 0.25rem;
+}
+
+.wrapper-index .existing-rooms .room-join .circle {
+  -webkit-animation: pulse 3s infinite;
+          animation: pulse 3s infinite;
+  background: lightgreen;
+  border-radius: 50%;
+  font-size: 1rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+.wrapper-index .room-create {
+  transition: background 0.15s ease-in-out;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: green;
+  font-size: 2rem;
+}
+
+.wrapper-index .room-create:hover {
+  background: dodgerblue;
+  color: white;
+}
+
 body {
-  background: #e1e1e1;
+  background: #141414;
   font-size: 0.9rem;
   overflow: hidden;
   color: white;
@@ -14,7 +102,6 @@ p {
 input,
 button {
   transition: border-color 0.15s ease-in-out;
-  box-shadow: none !important;
   vertical-align: middle;
   border-radius: 0.25rem;
   color: white;
@@ -64,7 +151,6 @@ input.form-control:focus {
 }
 
 #chat {
-  background: #141414;
   flex-direction: column;
   margin-left: auto;
   width: 26.6rem;
@@ -171,7 +257,6 @@ input.form-control:focus {
 }
 
 .btn {
-  box-shadow: none !important;
   background: dodgerblue;
   padding: 0.25rem 0.5rem;
   width: -webkit-fit-content;
@@ -190,6 +275,10 @@ input.form-control:focus {
 
 .btn:hover {
   color: black;
+}
+
+.btn:focus {
+  box-shadow: none;
 }
 
 .btn * {

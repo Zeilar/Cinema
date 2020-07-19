@@ -1,0 +1,74 @@
+.wrapper-index {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15%;
+    display: flex;
+    height: 100%;
+
+    .existing-rooms {
+        margin: 5rem auto 0 auto;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        display: flex;
+        width: 60%;
+
+        .room-join, .room-join:focus {
+            box-shadow: 7px 7px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .room-join {
+            transition: background 0.15s ease-in-out;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            font-size: 2rem;
+            display: flex;
+            margin: 2rem;
+            width: 15rem;
+
+            &:hover {
+                background: green;
+                color: white;
+            }
+
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+                }
+                100% {
+                    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+                }
+            }
+
+            * {
+                margin: auto 0;
+            }
+
+            span {
+                margin-bottom: 0.25rem;
+            }
+
+            .circle {
+                animation: pulse 3s infinite;
+                background: lightgreen;
+                border-radius: 50%;
+                font-size: 1rem;
+                height: 1rem;
+                width: 1rem;
+            }
+        }
+    }
+
+    .room-create {
+        transition: background 0.15s ease-in-out;
+        margin-bottom: 0.25rem;
+        padding: 0.5rem 1rem;
+        background: green;
+        font-size: 2rem;
+
+        &:hover {
+            background: dodgerblue;
+            color: white;
+        }
+    }
+}
