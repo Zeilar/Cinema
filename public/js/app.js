@@ -25359,8 +25359,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
+  var plyr = new Plyr('#videoWrapper');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
   var player = document.querySelector('#videoWrapper');
+  var roomId = $('meta[name=roomId]').attr('content');
   var chatMessages = document.querySelector('#chat-messages');
   chatMessages.scrollTop = 99999; //player.volume = 0.5;
 
@@ -25508,7 +25510,7 @@ $(document).ready(function () {
       }
     });
   }, 1500));
-  Echo.join('party').here(function (data) {
+  Echo.join("room-".concat(roomId)).here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
       $('#online-users').append("\n                    <div\n                        class=\"online-user\"\n                        style=\"background-color: ".concat(user.color, "; border-color: ").concat(user.color, "\" data-id=\"").concat(user.id, "\"\n                        title=\"").concat(user.username, "\"\n                    >\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));

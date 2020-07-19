@@ -1,8 +1,10 @@
 import './bootstrap';
 
 $(document).ready(function() {
+    const plyr = new Plyr('#videoWrapper');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const player = document.querySelector('#videoWrapper');
+    const roomId = $('meta[name=roomId]').attr('content');
     let chatMessages = document.querySelector('#chat-messages');
     chatMessages.scrollTop = 99999;
     //player.volume = 0.5;
@@ -168,7 +170,7 @@ $(document).ready(function() {
         });
     }, 1500));
 
-    Echo.join('party')
+    Echo.join(`room-${roomId}`)
         .here((data) => {
             data.forEach(({ user }) => {
                 $('#online-users').append(`

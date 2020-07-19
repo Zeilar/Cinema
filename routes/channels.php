@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('party', function($user) {
+Broadcast::channel('room-{id}', function($user) {
     return ['user' => $user];
 });

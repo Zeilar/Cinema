@@ -1,5 +1,9 @@
 @extends('head')
 
+@section('head')
+    hejhe
+@endsection
+
 @section('body')
     <div id="wrapper">
         <div id="theatre">
@@ -106,10 +110,4 @@
             </div>
         </div>
     </div> <!-- wrapper -->
-@endsection
-
-@section('scripts')
-    <script>
-        const player = new Plyr('#videoWrapper');
-    </script>
 @endsection

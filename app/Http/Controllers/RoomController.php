@@ -33,7 +33,13 @@ class RoomController extends Controller
         $room = Room::find($request->id);
         if (!$room) return redirect(route('index'));
 
+        if (!Auth::check()) {
+            $user = factory(User::class)->create();
+            Auth::login($user);
+        }
+
         return view('room', [
+            'id' => $room->id,
             'comments' => $room->comments,
             'videos' => $room->videos,
             'activeVideo' => $room->activeVideo(),
