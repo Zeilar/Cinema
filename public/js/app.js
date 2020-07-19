@@ -25373,8 +25373,9 @@ $(document).ready(function () {
       url: '/video/change',
       method: 'POST',
       data: {
+        video: Number(videoId),
         _token: csrfToken,
-        video: Number(videoId)
+        roomId: roomId
       },
       success: function success(data) {
         if (data.error) {
@@ -25404,9 +25405,9 @@ $(document).ready(function () {
     return abbreviatedName;
   }
 
-  function addComment(comment) {
-    var abbreviatedName = abbreviateName(comment.username);
-    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author\" style=\"background-color: ".concat(comment.color, "; border-color: ").concat(comment.color, "\" title=\"").concat(comment.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(comment.color, "; border-color: ").concat(comment.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+  function addComment(comment, user) {
+    var abbreviatedName = abbreviateName(user.username);
+    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author\" style=\"background-color: ".concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);
     $('#chat-messages').append(message);
@@ -25421,7 +25422,8 @@ $(document).ready(function () {
       url: '/video/play',
       method: 'POST',
       data: {
-        _token: csrfToken
+        _token: csrfToken,
+        roomId: roomId
       }
     });
   }, 1500));
@@ -25430,7 +25432,8 @@ $(document).ready(function () {
       url: '/video/pause',
       method: 'POST',
       data: {
-        _token: csrfToken
+        _token: csrfToken,
+        roomId: roomId
       }
     });
   }, 1500));
@@ -25442,7 +25445,8 @@ $(document).ready(function () {
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          _token: csrfToken
+          _token: csrfToken,
+          roomId: roomId
         }
       });
     } else {
@@ -25450,7 +25454,8 @@ $(document).ready(function () {
         url: '/chat/is_typing',
         method: 'POST',
         data: {
-          _token: csrfToken
+          _token: csrfToken,
+          roomId: roomId
         }
       });
     }
@@ -25461,7 +25466,8 @@ $(document).ready(function () {
           url: '/chat/is_not_typing',
           method: 'POST',
           data: {
-            _token: csrfToken
+            _token: csrfToken,
+            roomId: roomId
           }
         });
       }
@@ -25474,20 +25480,17 @@ $(document).ready(function () {
       url: '/comment/send',
       method: 'POST',
       data: {
+        content: chatInput.val(),
         _token: csrfToken,
-        content: chatInput.val()
-      },
-      success: function success(data) {
-        if (data.error) {
-          console.log(data.error);
-        } else {
-          addComment(data.comment);
-        }
+        roomId: roomId
       }
     });
     $.ajax({
       url: '/chat/is_not_typing',
-      method: 'POST'
+      method: 'POST',
+      data: {
+        roomId: roomId
+      }
     });
     chatInput.val('').focus();
   }, 1500));
@@ -25496,7 +25499,8 @@ $(document).ready(function () {
       url: '/video/reset',
       method: 'POST',
       data: {
-        _token: csrfToken
+        _token: csrfToken,
+        roomId: roomId
       }
     });
   }, 1500));
@@ -25505,8 +25509,9 @@ $(document).ready(function () {
       url: '/video/sync',
       method: 'POST',
       data: {
+        timestamp: Number(player.currentTime),
         _token: csrfToken,
-        timestamp: Number(player.currentTime)
+        roomId: roomId
       }
     });
   }, 1500));
@@ -25528,31 +25533,28 @@ $(document).ready(function () {
     var user = _ref3.user;
     $(".online-user[data-id=".concat(user.id, "]")).remove();
     chatMessages.scrollTop = 99999;
-  });
-  Echo.channel('chat').listen('NewComment', function (_ref4) {
-    var comment = _ref4.comment;
-    addComment(comment);
-  }).listen('IsTyping', function (_ref5) {
-    var user = _ref5.user;
+  }).listen('NewComment', function (data) {
+    addComment(data.comment, data.user);
+  }).listen('IsTyping', function (_ref4) {
+    var user = _ref4.user;
     user = $(".online-user[title=\"".concat(user.username, "\"]"));
     var dots = $("\n                <span class=\"dots\">\n                    <span>.</span>\n                    <span>.</span>\n                    <span>.</span>\n                </span>\n            ");
     if (!user.find('.dots').length) user.append(dots);
     setTimeout(function () {
       dots.remove();
     }, 10000);
-  }).listen('IsNotTyping', function (_ref6) {
-    var user = _ref6.user;
+  }).listen('IsNotTyping', function (_ref5) {
+    var user = _ref5.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('ConsoleLog', function (data) {
     console.log(data.user, data.message);
-  });
-  Echo.channel('video').listen('ChangeVideo', function (_ref7) {
-    var video = _ref7.video;
+  }).listen('ChangeVideo', function (_ref6) {
+    var video = _ref6.video;
     loadVideo(video);
   }).listen('VideoPlay', function () {
     player.play();
-  }).listen('VideoSync', function (_ref8) {
-    var timestamp = _ref8.timestamp;
+  }).listen('VideoSync', function (_ref7) {
+    var timestamp = _ref7.timestamp;
     player.currentTime = timestamp;
   }).listen('VideoReset', function () {
     player.pause();

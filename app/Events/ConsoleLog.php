@@ -16,26 +16,18 @@ class ConsoleLog implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $roomId;
     public $user;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct($user, $message)
+    public function __construct($user, $message, $roomId)
     {
         $this->message = $message;
+        $this->roomId = $roomId;
         $this->user = $user;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

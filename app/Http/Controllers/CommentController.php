@@ -18,26 +18,20 @@ class CommentController extends Controller
         $user = auth()->user();
         $comment = Comment::create([
             'user_id' => $user->id,
+            'room_id' => $request->roomId,
             'content' => $request->content,
         ]);
-        $comment['color'] = $user->color;
-        $comment['username'] = $user->username;
 
-        broadcast(new NewComment($comment))->toOthers();
-
-        return response()->json([
-            'comment' => $comment,
-            'user' => $user,
-        ]);
+        broadcast(new NewComment($comment, $user, $request->roomId));
     }
 
     public function isTyping(Request $request) {
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
-        broadcast(new IsTyping(auth()->user()));
+        broadcast(new IsTyping(auth()->user(), $request->roomId));
     }
 
     public function isNotTyping(Request $request) {
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
-        broadcast(new IsNotTyping(auth()->user()));
+        broadcast(new IsNotTyping(auth()->user(), $request->roomId));
     }
 }

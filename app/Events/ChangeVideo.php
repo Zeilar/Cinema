@@ -16,6 +16,7 @@ class ChangeVideo implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $roomId;
     public $video;
 
     /**
@@ -23,8 +24,9 @@ class ChangeVideo implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct(Video $video)
+    public function __construct($video, $roomId)
     {
+        $this->roomId = $roomId;
         $this->video = $video;
     }
 
@@ -35,6 +37,6 @@ class ChangeVideo implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('video');
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

@@ -25,7 +25,7 @@ class RoomController extends Controller
         ]);
         $comment['color'] = $user->color;
         $comment['username'] = $user->username;
-        broadcast(new NewComment($comment));
+        broadcast(new NewComment($comment, $user, $request->roomId));
         return redirect(route('visit_room', $room->id));
     }
 

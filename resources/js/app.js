@@ -17,8 +17,9 @@ $(document).ready(function() {
             url: '/video/change',
             method: 'POST',
             data: {
-                _token: csrfToken,
                 video: Number(videoId),
+                _token: csrfToken,
+                roomId: roomId,
             },
             success: function(data) {
                 if (data.error) {
@@ -50,14 +51,14 @@ $(document).ready(function() {
         return abbreviatedName;
     }
 
-    function addComment(comment) {
-        const abbreviatedName = abbreviateName(comment.username);
+    function addComment(comment, user) {
+        const abbreviatedName = abbreviateName(user.username);
         let message = $(`
             <div class="message">
-                <div class="message-author" style="background-color: ${comment.color}; border-color: ${comment.color}" title="${comment.username}">
+                <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
                     ${abbreviatedName}
                 </div>
-                <div class="message-content" style="background-color: ${comment.color}; border-color: ${comment.color}"></div>
+                <div class="message-content" style="background-color: ${user.color}; border-color: ${user.color}"></div>
             </div>
         `);
 
@@ -78,6 +79,7 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 _token: csrfToken,
+                roomId: roomId,
             }
         });
     }, 1500));
@@ -88,6 +90,7 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 _token: csrfToken,
+                roomId: roomId,
             }
         });
     }, 1500));
@@ -99,6 +102,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     _token: csrfToken,
+                    roomId: roomId,
                 },
             });
         } else {
@@ -107,6 +111,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     _token: csrfToken,
+                    roomId: roomId,
                 },
             });
         }
@@ -118,6 +123,7 @@ $(document).ready(function() {
                     method: 'POST',
                     data: {
                         _token: csrfToken,
+                        roomId: roomId,
                     },
                 });
             }
@@ -131,20 +137,17 @@ $(document).ready(function() {
             url: '/comment/send',
             method: 'POST',
             data: {
-                _token: csrfToken,
                 content: chatInput.val(),
-            },
-            success: function(data) {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    addComment(data.comment);
-                }
+                _token: csrfToken,
+                roomId: roomId,
             },
         });
         $.ajax({
             url: '/chat/is_not_typing',
             method: 'POST',
+            data: {
+                roomId: roomId,
+            }
         });
         chatInput.val('').focus();
     }, 1500));
@@ -155,6 +158,7 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 _token: csrfToken,
+                roomId: roomId,
             }
         });
     }, 1500));
@@ -164,8 +168,9 @@ $(document).ready(function() {
             url: '/video/sync',
             method: 'POST',
             data: {
-                _token: csrfToken,
                 timestamp: Number(player.currentTime),
+                _token: csrfToken,
+                roomId: roomId,
             },
         });
     }, 1500));
@@ -206,11 +211,9 @@ $(document).ready(function() {
         .leaving(({ user }) => {
             $(`.online-user[data-id=${user.id}]`).remove();
             chatMessages.scrollTop = 99999;
-        });
-
-    Echo.channel('chat')
-        .listen('NewComment', ({ comment }) => {
-            addComment(comment);
+        })
+        .listen('NewComment', (data) => {
+            addComment(data.comment, data.user);
         })
         .listen('IsTyping', ({ user }) => {
             user = $(`.online-user[title="${user.username}"]`);
@@ -231,9 +234,7 @@ $(document).ready(function() {
         })
         .listen('ConsoleLog', (data) => {
             console.log(data.user, data.message);
-        });
-
-    Echo.channel('video')
+        })
         .listen('ChangeVideo', ({ video }) => {
             loadVideo(video);
         })

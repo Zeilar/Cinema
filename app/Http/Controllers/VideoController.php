@@ -36,7 +36,7 @@ class VideoController extends Controller
                 'username' => $user->username,
                 'color' => $user->color,
                 'content' => "Changed video to $video->title",
-            ])));
+            ])), $user, $request->roomId);
         }
 
         Cache::add('activeVideo', $video->id);
@@ -47,23 +47,23 @@ class VideoController extends Controller
         ]);
     }
 
-    public function play() {
-        broadcast(new ConsoleLog(auth()->user()->username, 'played the video'));
-        broadcast(new VideoPlay());
+    public function play(Request $request) {
+        broadcast(new ConsoleLog(auth()->user()->username, 'played the video', $request->roomId));
+        broadcast(new VideoPlay($request->roomId));
     }
 
     public function sync(Request $request) {
-        broadcast(new ConsoleLog(auth()->user()->username, 'synced the video'));
+        broadcast(new ConsoleLog(auth()->user()->username, 'synced the video', $request->roomId));
         broadcast(new VideoSync($request->timestamp));
     }
 
-    public function reset() {
-        broadcast(new ConsoleLog(auth()->user()->username, 'reset the video'));
-        broadcast(new VideoReset());
+    public function reset(Request $request) {
+        broadcast(new ConsoleLog(auth()->user()->username, 'reset the video', $request->roomId));
+        broadcast(new VideoReset($request->roomId));
     }
 
-    public function pause() {
-        broadcast(new ConsoleLog(auth()->user()->username, 'paused the video'));
-        broadcast(new VideoPause());
+    public function pause(Request $request) {
+        broadcast(new ConsoleLog(auth()->user()->username, 'paused the video', $request->roomId));
+        broadcast(new VideoPause($request->roomId));
     }
 }

@@ -15,25 +15,17 @@ class IsTyping implements ShouldbroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $roomId;
     public $user;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct($user)
+    public function __construct($user, $roomId)
     {
+        $this->roomId = $roomId;
         $this->user = $user;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

@@ -16,24 +16,16 @@ class VideoSync implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $timestamp;
+    public $roomId;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct($timestamp)
+    public function __construct($timestamp, $roomId)
     {
         $this->timestamp = $timestamp;
+        $this->roomId = $roomId;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
-        return new Channel('video');
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }
