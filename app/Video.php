@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    public function isEmbed() {
-        return $this->embed() ?? false;
-    }
+    protected $guarded = [];
 
-    public function isLocal() {
-        return $this->path() ?? false;
+    public function playlists() {
+        return $this->belongsToMany(Playlist::class)->withTimestamps();
     }
 }

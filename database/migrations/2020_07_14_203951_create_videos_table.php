@@ -17,7 +17,7 @@ class CreateVideosTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('path')->nullable();
-            $table->text('embed')->nullable();
+            $table->string('type')->default('file');
             $table->timestamps();
         });
     }

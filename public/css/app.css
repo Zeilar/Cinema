@@ -48,8 +48,8 @@ button {
   background: #141414;
   flex-direction: column;
   width: 26.6rem;
-  display: flex;
   padding: 1rem;
+  display: flex;
 }
 
 #chat-send,

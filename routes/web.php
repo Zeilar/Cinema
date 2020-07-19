@@ -19,38 +19,15 @@ use App\User;
 */
 
 Route::get('/', function() {
-    // If user has no account, create one for them and log them in automatically
-    if (!Auth::check()) {
-        $r = rand(0, 127);
-        $g = rand(0, 127);
-        $b = rand(0, 127);
+   return view('index');
+})->name('index');
 
-        $user = User::create([
-            'username' => (new \Nubs\RandomNameGenerator\Alliteration())->getName(),
-            'role' => 'viewer',
-            'color' => "rgb($r, $g, $b)",
-        ]);
-        Auth::login($user);
 
-        $comment = Comment::create([
-            'user_id' => $user->id,
-            'content' => 'has joined the chat',
-        ]);
-        $comment['color'] = $user->color;
-        $comment['username'] = $user->username;
-
-        broadcast(new NewComment($comment));
-    }
-
-    return view('index', [
-        'comments' => Comment::all(),
-        'videos' => Video::all(),
-        'activeVideo' => Video::find(Cache::get('activeVideo')),
-    ]);
-});
-
+Route::get('/room/{id}', 'RoomController@visitRoom')->name('visit_room');
+Route::post('/room/create', 'RoomController@createRoom')->name('create_room');
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
+
 Route::middleware('throttle:10,1')->group(function () {
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
     Route::post('/video/change', 'VideoController@change')->name('video_change');
