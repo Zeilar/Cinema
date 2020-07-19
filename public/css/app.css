@@ -88,8 +88,8 @@
 
 body {
   background: #141414;
+  overflow-x: hidden;
   font-size: 0.9rem;
-  overflow: hidden;
   color: white;
   height: 100vh;
 }
