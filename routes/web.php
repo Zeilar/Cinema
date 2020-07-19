@@ -23,7 +23,7 @@ Route::get('/', function() {
 })->name('index');
 
 
-Route::get('/room/{id}', 'RoomController@visitRoom')->name('visit_room');
+Route::get('/room/{id}', 'RoomController@enterRoom')->name('visit_room');
 Route::post('/room/create', 'RoomController@createRoom')->name('create_room');
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');

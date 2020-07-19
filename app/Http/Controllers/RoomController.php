@@ -12,7 +12,7 @@ use Auth;
 class RoomController extends Controller
 {
     public function createRoom(Request $request) {
-        $room = Room::create();
+        $room = factory(Room::class)->create();
         $user = auth()->user();
         if (!Auth::check()) {
             $user = factory(User::class)->create();
@@ -26,11 +26,11 @@ class RoomController extends Controller
         $comment['color'] = $user->color;
         $comment['username'] = $user->username;
         broadcast(new NewComment($comment, $user, $request->roomId));
-        return redirect(route('visit_room', $room->id));
+        return redirect(route('visit_room', $room->anonymous_id));
     }
 
-    public function visitRoom(Request $request, int $id) {
-        $room = Room::find($request->id);
+    public function enterRoom(Request $request, string $id) {
+        $room = Room::where('anonymous_id', $request->id)->first();
         if (!$room) return redirect(route('index'));
 
         if (!Auth::check()) {
@@ -39,7 +39,7 @@ class RoomController extends Controller
         }
 
         return view('room', [
-            'id' => $room->id,
+            'id' => $room->anonymous_id,
             'comments' => $room->comments,
             'videos' => $room->videos,
             'activeVideo' => $room->activeVideo(),
