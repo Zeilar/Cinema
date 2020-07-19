@@ -13,9 +13,28 @@ p {
 
 input,
 button {
+  transition: border-color 0.15s ease-in-out;
+  box-shadow: none !important;
+  vertical-align: middle;
+  border-radius: 0.25rem;
   color: white;
   outline: 0;
   border: 0;
+}
+
+input,
+input.form-control {
+  border: 1px solid #232323;
+  background: #1e1e1e;
+  padding: 0 0.5rem;
+  color: white;
+  flex: 1;
+}
+
+input:focus,
+input.form-control:focus {
+  background: #1e1e1e;
+  border-color: dodgerblue;
 }
 
 #wrapper {
@@ -84,20 +103,6 @@ button {
 #chat-submit {
   flex-direction: row;
   display: flex;
-}
-
-#chat-send {
-  transition: border-color 0.15s ease-in-out;
-  background: #1e1e1e;
-  vertical-align: middle;
-  border-radius: 0.25rem;
-  padding: 0 0.5rem;
-  height: 2rem;
-  flex: 1;
-}
-
-#chat-send:focus {
-  border-color: dodgerblue;
 }
 
 #chat-send-button {
@@ -278,20 +283,51 @@ button {
   }
 }
 
-#changeVideoModal {
+.modal {
   margin-top: 15%;
 }
 
-#changeVideoModal .modal-header {
-  padding: 0;
+.modal .modal-dialog {
+  max-width: 600px;
 }
 
-#changeVideoModal .modal-header .modal-title,
-#changeVideoModal .modal-header .close {
+.modal .modal-dialog .modal-content {
+  border-color: #232323;
+  border-top: 3px solid dodgerblue;
+  background: #1e1e1e;
+}
+
+.modal .modal-dialog .modal-header {
+  padding: 0;
+  border: 0;
+}
+
+.modal .modal-dialog .modal-header .modal-title,
+.modal .modal-dialog .modal-header .close {
   margin: auto 0;
 }
 
-#changeVideoModal .modal-header .modal-title {
+.modal .modal-dialog .modal-header .modal-title {
   padding-left: 1rem;
+}
+
+.modal .modal-dialog .modal-header .close {
+  margin-bottom: 0.25rem;
+  text-shadow: none;
+  color: white;
+}
+
+.modal .modal-dialog .modal-header .close:hover {
+  color: dodgerblue;
+  opacity: 1;
+}
+
+.modal .modal-dialog .modal-body input {
+  color: white;
+}
+
+.modal .modal-dialog .modal-body .input-group-text {
+  border-color: #232323;
+  color: black;
 }
 

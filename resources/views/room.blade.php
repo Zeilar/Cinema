@@ -52,7 +52,7 @@
                     </form>
 
                     <div id="chat-controls">
-                        <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#changeVideoModal">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
 
@@ -94,11 +94,14 @@
                                             <i class="fab ml-2 fa-youtube"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="URL" id="youtubeUrl">
+                                    <input type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="youtubeUrl">
                                 </div>
-                                <select id="videoSelector">
-                                    <!-- Local videos selection here -->
-                                </select>
+
+                                @isset($videos)
+                                    <select id="videoSelector">
+                                        <!-- Local videos selection here -->
+                                    </select>
+                                @endif
                             </form>
                         </div>
                     </div>

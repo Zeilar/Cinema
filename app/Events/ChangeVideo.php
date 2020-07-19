@@ -18,16 +18,18 @@ class ChangeVideo implements ShouldBroadcastNow
 
     public $roomId;
     public $video;
+    public $user;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($video, $roomId)
+    public function __construct($video, $user, $roomId)
     {
         $this->roomId = $roomId;
         $this->video = $video;
+        $this->user = $user;
     }
 
     /**

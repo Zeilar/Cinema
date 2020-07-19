@@ -12,9 +12,26 @@ p {
 }
 
 input, button {
+    transition: border-color 0.15s ease-in-out;
+    box-shadow: none !important;
+    vertical-align: middle;
+    border-radius: 0.25rem;
     color: white;
     outline: 0;
     border: 0;
+}
+
+input, input.form-control {
+    border: 1px solid rgb(35, 35, 35);
+    background: rgb(30, 30, 30);
+    padding: 0 0.5rem;
+    color: white;
+    flex: 1;
+
+    &:focus {
+        background: rgb(30, 30, 30);
+        border-color: dodgerblue;
+    }
 }
 
 #wrapper {
@@ -79,20 +96,6 @@ input, button {
 #chat-submit {
     flex-direction: row;
     display: flex;
-}
-
-#chat-send {
-    transition: border-color 0.15s ease-in-out;
-    background: rgb(30, 30, 30);
-    vertical-align: middle;
-    border-radius: 0.25rem;
-    padding: 0 0.5rem;
-    height: 2rem;
-    flex: 1;
-
-    &:focus {
-        border-color: dodgerblue;
-    }
 }
 
 #chat-send-button {
@@ -244,18 +247,51 @@ input, button {
     }
 }
 
-#changeVideoModal {
+.modal {
     margin-top: 15%;
 
-    .modal-header {
-        padding: 0;
+    .modal-dialog {
+        max-width: 600px;
 
-        .modal-title, .close {
-            margin: auto 0;
+        .modal-content {
+            border-color: rgb(35, 35, 35);
+            border-top: 3px solid dodgerblue;
+            background: rgb(30, 30, 30);
         }
 
-        .modal-title {
-            padding-left: 1rem;
+        .modal-header {
+            padding: 0;
+            border: 0;
+
+            .modal-title, .close {
+                margin: auto 0;
+            }
+
+            .modal-title {
+                padding-left: 1rem;
+            }
+
+            .close {
+                margin-bottom: 0.25rem;
+                text-shadow: none;
+                color: white;
+
+                &:hover {
+                    color: dodgerblue;
+                    opacity: 1;
+                }
+            }
+        }
+
+        .modal-body {
+            input {
+                color: white;
+            }
+
+            .input-group-text {
+                border-color: rgb(35, 35, 35);
+                color: black;
+            }
         }
     }
 }

@@ -31,15 +31,24 @@ $(document).ready(function() {
         });
     });
 
-    $('#changeVideo').submit(function(e) {
-        e.preventDefault();
-        console.log(e);
-    });
-
-    $('#youtubeUrl').keydown(function(e) {
-       if (e.key === 'Enter') {
-           console.log('submit youtube video');
-       }
+    $('#youtubeUrl').keyup(function(e) {
+        let url = $(this).val();
+        if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
+            url = url.replace('watch?v=', 'embed/');
+            $.ajax({
+                url: '/video/change',
+                method: 'POST',
+                data: {
+                    _token: csrfToken,
+                    type: 'youtube',
+                    roomId: roomId,
+                    url: url,
+                },
+                success: () => {
+                    $('#changeVideoModal').modal('hide');
+                }
+            });
+        }
     });
 
     function abbreviateName(name) {
@@ -236,8 +245,12 @@ $(document).ready(function() {
         .listen('ConsoleLog', (data) => {
             console.log(data.user, data.message);
         })
-        .listen('ChangeVideo', ({ video }) => {
-            loadVideo(video);
+        .listen('ChangeVideo', (data) => {
+            switch (data.video.type) {
+                case 'youtube': 
+                    $('iframe').attr('src', data.video.url);
+                    break;
+            }
         })
         .listen('VideoPlay', () => {
             player.play();

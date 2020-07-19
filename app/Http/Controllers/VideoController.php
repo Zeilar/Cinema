@@ -22,29 +22,19 @@ class VideoController extends Controller
     }
 
     public function change(Request $request) {
-        if (is_null($request->video)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
+        if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
-        $video = Video::find($request->video);
+        $user = auth()->user();
 
-        if (empty($video)) return response()->json(['error' => 'That video does not exist, try another one']);
+        broadcast(new NewComment(Comment::create([
+            'user_id' => $user->id,
+            'content' => 'changed video',
+        ]), $user, $request->roomId));
 
-        broadcast(new ChangeVideo($video))->toOthers();
-        if (Auth::check()) {
-            $user = auth()->user();
-            broadcast(new NewComment(Comment::create([
-                'user_id' => $user->id,
-                'username' => $user->username,
-                'color' => $user->color,
-                'content' => "Changed video to $video->title",
-            ])), $user, $request->roomId);
-        }
-
-        Cache::add('activeVideo', $video->id);
-
-        return response()->json([
-            'video' => $video,
-            'user' => auth()->user(),
-        ]);
+        broadcast(new ChangeVideo([
+            'type' => $request->type,
+            'url' => $request->url,
+        ], $user, $request->roomId));
     }
 
     public function play(Request $request) {
