@@ -17,16 +17,14 @@ mix.react('resources/js/app.js', 'public/js')
 // Copy into dist folder for production
 if (mix.inProduction()) {
 	// App
-	mix.copyDirectory('app', 'dist/miss_hosting/zforum/app');
-	mix.copyDirectory('config', 'dist/miss_hosting/zforum/config');
-	mix.copyDirectory('database', 'dist/miss_hosting/zforum/database');
-	mix.copyDirectory('resources', 'dist/miss_hosting/zforum/resources');
-	mix.copyDirectory('routes', 'dist/miss_hosting/zforum/routes');
-	mix.copyDirectory('tests', 'dist/miss_hosting/zforum/tests');
+	mix.copyDirectory('app', 'dist/cinema/app');
+	mix.copyDirectory('config', 'dist/cinema/config');
+	mix.copyDirectory('database', 'dist/cinema/database');
+	mix.copyDirectory('resources', 'dist/cinema/resources');
+	mix.copyDirectory('routes', 'dist/cinema/routes');
+	mix.copyDirectory('tests', 'dist/cinema/tests');
 
 	// Public
-	mix.copyDirectory('public/images', 'dist/miss_hosting/public_html/images');
-	mix.copyDirectory('public/fonts', 'dist/miss_hosting/public_html/fonts');
-	mix.copyDirectory('public/css', 'dist/miss_hosting/public_html/css');
-	mix.copyDirectory('public/js', 'dist/miss_hosting/public_html/js');
+	mix.copyDirectory('public/css', 'dist/cinema.angelin.dev/css');
+	mix.copyDirectory('public/js', 'dist/cinema.angelin.dev/js');
 }
