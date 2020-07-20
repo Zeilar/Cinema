@@ -6,7 +6,7 @@
     height: 100%;
 
     .user-welcome {
-        margin-bottom: 5%;
+        margin-bottom: 7.5%;
         font-size: 3rem;
 
         .username {
@@ -17,8 +17,8 @@
     }
 
     .existing-rooms {
-        margin: 5rem auto 0 auto;
         justify-content: center;
+        margin: 1% auto 0 auto;
         flex-direction: row;
         flex-wrap: wrap;
         display: flex;
