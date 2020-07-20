@@ -17,6 +17,8 @@ class CommentController extends Controller
         if (is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
+        $user->isOwner = $user->isOwner(Room::where('anonymous_id', $request->roomId)->first());
+
         $comment = Comment::create([
             'user_id' => $user->id,
             'room_id' => Room::where('anonymous_id', $request->roomId)->first()->id,

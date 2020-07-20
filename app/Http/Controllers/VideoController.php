@@ -13,6 +13,7 @@ use App\Events\VideoPlay;
 use App\Events\VideoSync;
 use App\Comment;
 use App\Video;
+use App\Room;
 use Auth;
 
 class VideoController extends Controller
@@ -25,6 +26,7 @@ class VideoController extends Controller
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
+        $user->isOwner = $user->isOwner(Room::where('anonymous_id', $request->roomId)->first());
 
         broadcast(new NewComment(Comment::create([
             'user_id' => $user->id,

@@ -1,18 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use App\Room;
 
-/*
-|--------------------------------------------------------------------------
-| Broadcast Channels
-|--------------------------------------------------------------------------
-|
-| Here you may register all of the event broadcasting channels that your
-| application supports. The given channel authorization callbacks are
-| used to check if an authenticated user can listen to the channel.
-|
-*/
-
-Broadcast::channel('room-{id}', function($user) {
+Broadcast::channel('room-{id}', function($user, $id) {
+    $user->isOwner = $user->isOwner(Room::where('anonymous_id', $id)->first());
     return ['user' => $user];
 });

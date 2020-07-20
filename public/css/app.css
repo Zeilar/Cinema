@@ -343,9 +343,16 @@ input.form-control:focus {
   border-radius: 50%;
   position: relative;
   padding: 0.75rem;
-  margin: 0.5rem;
   display: flex;
+  margin: 1rem;
   width: 3rem;
+}
+
+#online-users .online-user .user-crown {
+  transform: translateX(-50%);
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
 }
 
 #online-users .online-user .username {

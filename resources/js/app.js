@@ -63,9 +63,10 @@ $(document).ready(function() {
 
     function addComment(comment, user) {
         const abbreviatedName = abbreviateName(user.username);
-        let message = $(`
+        const message = $(`
             <div class="message">
                 <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
+                    ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                     ${abbreviatedName}
                 </div>
                 <div class="message-content" style="background-color: ${user.color}; border-color: ${user.color}"></div>
@@ -193,10 +194,10 @@ $(document).ready(function() {
             data.forEach(({ user }) => {
                 $('#online-users').append(`
                     <div
-                        class="online-user"
-                        style="background-color: ${user.color}; border-color: ${user.color}" data-id="${user.id}"
-                        title="${user.username}"
+                        class="online-user" title="${user.username}" data-id="${user.id}"
+                        style="background-color: ${user.color}; border-color: ${user.color}"
                     >
+                        ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>
@@ -208,11 +209,11 @@ $(document).ready(function() {
         .joining(({ user }) => {
             if (!$(`.online-user[data-id=${user.id}]`).length) {
                 $('#online-users').append(`
-                    <div
-                        class="online-user"
-                        style="background-color: ${user.color}; border-color: ${user.color}" data-id="${user.id}"
-                        title="${user.username}"
+                   <div
+                        class="online-user" title="${user.username}" data-id="${user.id}"
+                        style="background-color: ${user.color}; border-color: ${user.color}"
                     >
+                        ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>

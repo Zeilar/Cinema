@@ -222,9 +222,16 @@ input, input.form-control {
         border-radius: 50%;
         position: relative;
         padding: 0.75rem;
-        margin: 0.5rem;
         display: flex;
+        margin: 1rem;
         width: 3rem;
+
+        .user-crown {
+            transform: translateX(-50%);
+            position: absolute;
+            top: -0.75rem;
+            left: 50%;
+        }
 
         .username {
             min-width: unset;
