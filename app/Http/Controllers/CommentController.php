@@ -14,7 +14,7 @@ use Auth;
 class CommentController extends Controller
 {
     public function store(Request $request) {
-        if (!Auth::check() || is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
+        if (is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
         $comment = Comment::create([
@@ -27,7 +27,6 @@ class CommentController extends Controller
     }
 
     public function isTyping(Request $request) {
-        if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
         broadcast(new IsTyping(auth()->user(), $request->roomId));
     }
 

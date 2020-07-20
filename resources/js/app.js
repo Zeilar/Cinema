@@ -140,32 +140,30 @@ $(document).ready(function() {
         }, 3000);
     }, 1500));
 
-    $('#chat-submit').submit(function(e) {
+    $('#chat-submit').submit(_.throttle(function(e) {
         e.preventDefault();
+        const chatInput = $('#chat-send');
         if ($('#chat-send').val() !== '') {
-            _.throttle(function() {
-                const chatInput = $('#chat-send');
-                $.ajax({
-                    url: '/comment/send',
-                    method: 'POST',
-                    data: {
-                        content: chatInput.val(),
-                        _token: csrfToken,
-                        roomId: roomId,
-                    },
-                });
-                $.ajax({
-                    url: '/chat/is_not_typing',
-                    method: 'POST',
-                    data: {
-                        _token: csrfToken,
-                        roomId: roomId,
-                    }
-                });
-                chatInput.val('').focus();
-            }, 1500);
+            $.ajax({
+                url: '/comment/send',
+                method: 'POST',
+                data: {
+                    content: chatInput.val(),
+                    _token: csrfToken,
+                    roomId: roomId,
+                },
+            });
+            $.ajax({
+                url: '/chat/is_not_typing',
+                method: 'POST',
+                data: {
+                    _token: csrfToken,
+                    roomId: roomId,
+                }
+            });
+            chatInput.val('').focus();
         }
-    });
+    }, 1500));
 
     $('#video-reset').click(_.throttle(function() {
         $.ajax({
