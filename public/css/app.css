@@ -32,9 +32,14 @@
 }
 
 .wrapper-index .existing-rooms .room-join {
-  transition: background 0.15s ease-in-out;
+  background-image: -webkit-linear-gradient(dodgerblue, rgba(135, 60, 255, 0) 0%), -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25) 45%, dodgerblue 0%);
+  transition: background-image 0.35s ease-in-out, background-size 0.35s ease-out, background-position-x 0.35s ease-out;
   justify-content: space-between;
+  background-position-x: 100%;
+  background-size: 205%;
   padding: 0.5rem 1rem;
+  position: relative;
+  overflow: hidden;
   font-size: 2rem;
   display: flex;
   margin: 2rem;
@@ -42,27 +47,28 @@
 }
 
 .wrapper-index .existing-rooms .room-join:hover {
-  background: #186fc7;
   color: white;
+  background-position-x: 0;
+  background-size: 255%;
 }
 
-@-webkit-keyframes pulse {
+@-webkit-keyframes circlePulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
   }
 
   100% {
-    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 1rem transparent;
   }
 }
 
-@keyframes pulse {
+@keyframes circlePulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
   }
 
   100% {
-    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 1rem transparent;
   }
 }
 
@@ -75,8 +81,8 @@
 }
 
 .wrapper-index .existing-rooms .room-join .circle {
-  -webkit-animation: pulse 3s infinite;
-          animation: pulse 3s infinite;
+  -webkit-animation: circlePulse 3s infinite;
+          animation: circlePulse 3s infinite;
   background: lightgreen;
   border-radius: 50%;
   font-size: 1rem;
@@ -86,15 +92,38 @@
 
 .wrapper-index .room-create {
   transition: background 0.15s ease-in-out;
-  border-bottom: 2px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 2px solid transparent;
   margin-bottom: 0.25rem;
   padding: 0.5rem 1rem;
   background: green;
   font-size: 2rem;
 }
 
+@-webkit-keyframes borderPulse {
+  50% {
+    border-color: white;
+  }
+
+  100% {
+    border-color: transparent;
+  }
+}
+
+@keyframes borderPulse {
+  50% {
+    border-color: white;
+  }
+
+  100% {
+    border-color: transparent;
+  }
+}
+
 .wrapper-index .room-create:hover {
   background: #006900;
+  -webkit-animation: borderPulse 2s infinite;
+          animation: borderPulse 2s infinite;
   color: white;
 }
 

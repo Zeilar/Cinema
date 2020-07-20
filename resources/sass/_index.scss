@@ -29,25 +29,49 @@
         }
 
         .room-join {
-            transition: background 0.15s ease-in-out;
+            background-image:
+                -webkit-linear-gradient(dodgerblue, rgba(135, 60, 255, 0.0) 0%), 
+                -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25) 45%, dodgerblue 0%);
+                
+            transition: background-image 0.35s ease-in-out, background-size 0.35s ease-out, background-position-x 0.35s ease-out;
             justify-content: space-between;
+            background-position-x: 100%;
+            background-size: 205%;
             padding: 0.5rem 1rem;
+            position: relative;
+            overflow: hidden;
             font-size: 2rem;
             display: flex;
             margin: 2rem;
             width: 15rem;
 
             &:hover {
-                background: rgb(24, 111, 199);
+                //background: rgb(24, 111, 199);
                 color: white;
+                background-position-x: 0;
+                background-size: 255%;
+
+                // &::after {
+                //     //background: rgb(24, 111, 199);
+                //     justify-content: center;
+                //     border-radius: 0.25rem;
+                //     align-items: center;
+                //     position: absolute;
+                //     content: 'GO';
+                //     display: flex;
+                //     height: 100%;
+                //     width: 100%;
+                //     left: 0;
+                //     top: 0;
+                // }
             }
 
-            @keyframes pulse {
+            @keyframes circlePulse {
                 0% {
-                    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
                 }
                 100% {
-                    box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
+                    box-shadow: 0 0 0 1rem transparent;
                 }
             }
 
@@ -60,7 +84,7 @@
             }
 
             .circle {
-                animation: pulse 3s infinite;
+                animation: circlePulse 3s infinite;
                 background: lightgreen;
                 border-radius: 50%;
                 font-size: 1rem;
@@ -72,14 +96,25 @@
 
     .room-create {
         transition: background 0.15s ease-in-out;
-        border-bottom: 2px solid white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        border: 2px solid transparent;
         margin-bottom: 0.25rem;
         padding: 0.5rem 1rem;
         background: green;
         font-size: 2rem;
 
+        @keyframes borderPulse {
+            50% {
+                border-color: white;
+            }
+            100% {
+                border-color: transparent;
+            }
+        }
+
         &:hover {
             background: rgb(0, 105, 0);
+            animation: borderPulse 2s infinite;
             color: white;
         }
     }
