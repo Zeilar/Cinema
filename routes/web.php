@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['throttle:100,1', 'CreateUser'])->group(function() {
     Route::get('/', function() {
+        $user = auth()->user();
         return view('index', [
-            'rooms' => auth()->user()->rooms,
+            'rooms' => $user->rooms,
+            'user' => $user,
         ]);
     })->name('index');
     Route::post('/room/create', 'RoomController@store')->name('room_create');

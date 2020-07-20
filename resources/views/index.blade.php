@@ -4,8 +4,8 @@
     <div class="wrapper-index">
         <div class="user-welcome">
             <span>Welcome</span>
-            <span class="username" style="background: {{ auth()->user()->color }};">
-                {{ auth()->user()->username }}
+            <span class="username" style="background: {{ $user->color }};">
+                {{ $user->username }}
             </span>
         </div>
 
