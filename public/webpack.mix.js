@@ -20,7 +20,7 @@ if (mix.inProduction()) {
 	mix.copyDirectory('app', 'dist/cinema/app');
 	mix.copyDirectory('config', 'dist/cinema/config');
 	mix.copyDirectory('database', 'dist/cinema/database');
-	mix.copyDirectory('resources', 'dist/cinema/resources');
+	mix.copyDirectory('resources/views', 'dist/cinema/resources/views');
 	mix.copyDirectory('routes', 'dist/cinema/routes');
     mix.copyDirectory('storage/app/public', 'dist/cinema/storage/app/public');
 	mix.copyDirectory('tests', 'dist/cinema/tests');

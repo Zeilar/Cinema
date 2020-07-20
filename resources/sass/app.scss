@@ -132,18 +132,29 @@ input, input.form-control {
         background: rgb(25, 25, 25);
     }
 
-    .message-author::after {
-        border-left: 0.5rem solid;
-        border-color: inherit;
-        border-bottom: 0.5rem solid transparent;
-        border-right: 0.5rem solid transparent;
-        border-top: 0.5rem solid transparent;
-        right: calc(2px - 1rem);
-        position: absolute;
-        top: 0.45rem;
-        content: '';
-        height: 0;
-        width: 0;
+    .message-author {
+        position: relative;
+
+        .user-crown {
+            transform: rotate(-45deg);
+            position: absolute;
+            left: -0.5rem;
+            top: -0.5rem;
+        }
+
+        &::after {
+            border-left: 0.5rem solid;
+            border-color: inherit;
+            border-bottom: 0.5rem solid transparent;
+            border-right: 0.5rem solid transparent;
+            border-top: 0.5rem solid transparent;
+            right: calc(2px - 1rem);
+            position: absolute;
+            top: 0.45rem;
+            content: '';
+            height: 0;
+            width: 0;
+        }
     }
 
     .message-content {

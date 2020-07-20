@@ -30,6 +30,7 @@ class RoomController extends Controller
         auth()->user()->rooms()->syncWithoutDetaching($room);
 
         return view('room', [
+            'room' => $room,
             'id' => $room->anonymous_id,
             'comments' => $room->comments,
             'videos' => $room->videos,

@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function owned_rooms() {
         return $this->hasMany(Room::class, 'owner_id');
     }
+
+    public function isOwner(Room $room) {
+        return $room->owner->id === $this->id;
+    }
 }
