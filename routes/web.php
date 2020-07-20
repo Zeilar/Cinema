@@ -8,8 +8,8 @@ Route::middleware(['throttle:100,1', 'CreateUser'])->group(function() {
             'rooms' => auth()->user()->rooms,
         ]);
     })->name('index');
-    Route::post('/room/create', 'RoomController@createRoom')->name('room_create');
-    Route::get('/room/{id}', 'RoomController@enterRoom')->name('room_enter');
+    Route::post('/room/create', 'RoomController@store')->name('room_create');
+    Route::get('/room/{id}', 'RoomController@view')->name('room_enter');
 });
 
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');

@@ -24,4 +24,8 @@ class Room extends Model
         }
         return $activeVideo;
     }
+
+    public function owner() {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }

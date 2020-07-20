@@ -16,6 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('anonymous_id');
+            $table->unsignedBigInteger('owner_id');
             $table->unsignedBigInteger('activeVideo')->nullable();
             $table->timestamps();
         });

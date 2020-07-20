@@ -2,6 +2,13 @@
 
 @section('body')
     <div class="wrapper-index">
+        <div class="user-welcome">
+            <span>Welcome</span>
+            <span class="username" style="background: {{ auth()->user()->color }};">
+                {{ auth()->user()->username }}
+            </span>
+        </div>
+
         <form class="new-room" action="{{ route('room_create') }}" method="post">
             @csrf
             <button class="btn room-create" type="submit">Create a new room</button>
