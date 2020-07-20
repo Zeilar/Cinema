@@ -47,9 +47,9 @@
 }
 
 .wrapper-index .existing-rooms .room-join:hover {
-  color: white;
   background-position-x: 0;
   background-size: 255%;
+  color: white;
 }
 
 @-webkit-keyframes circlePulse {

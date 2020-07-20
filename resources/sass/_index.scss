@@ -32,7 +32,7 @@
             background-image:
                 -webkit-linear-gradient(dodgerblue, rgba(135, 60, 255, 0.0) 0%), 
                 -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25) 45%, dodgerblue 0%);
-                
+
             transition: background-image 0.35s ease-in-out, background-size 0.35s ease-out, background-position-x 0.35s ease-out;
             justify-content: space-between;
             background-position-x: 100%;
@@ -46,24 +46,9 @@
             width: 15rem;
 
             &:hover {
-                //background: rgb(24, 111, 199);
-                color: white;
                 background-position-x: 0;
                 background-size: 255%;
-
-                // &::after {
-                //     //background: rgb(24, 111, 199);
-                //     justify-content: center;
-                //     border-radius: 0.25rem;
-                //     align-items: center;
-                //     position: absolute;
-                //     content: 'GO';
-                //     display: flex;
-                //     height: 100%;
-                //     width: 100%;
-                //     left: 0;
-                //     top: 0;
-                // }
+                color: white;
             }
 
             @keyframes circlePulse {
