@@ -25421,7 +25421,7 @@ $(document).ready(function () {
 
   function addComment(comment, user) {
     var abbreviatedName = abbreviateName(user.username);
-    var message = $("\n            <div class=\"message\">\n                <div class=\"message-author\" style=\"background-color: ".concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+    var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);
     $('#chat-messages').append(message);
@@ -25559,6 +25559,8 @@ $(document).ready(function () {
     chatMessages.scrollTop = 99999;
   }).listen('NewComment', function (data) {
     addComment(data.comment, data.user);
+  }).listen('DeleteComment', function (data) {
+    $(".message[data-id=".concat(data.id, "]")).remove();
   }).listen('IsTyping', function (_ref4) {
     var user = _ref4.user;
     user = $(".online-user[title=\"".concat(user.username, "\"]"));
@@ -25588,6 +25590,35 @@ $(document).ready(function () {
     player.currentTime = 0;
   }).listen('VideoPause', function () {
     player.pause();
+  });
+  $('.comment-remove').click(function () {
+    $.ajax({
+      url: '/comment/delete',
+      method: 'POST',
+      data: {
+        id: $(this).parents('.message').attr('data-id'),
+        _token: csrfToken,
+        roomId: roomId
+      }
+    });
+  });
+
+  function onPlayerReady() {
+    console.log('hi again');
+  }
+
+  window.YT.ready(function () {
+    var ytPlayer = new YT.Player('yt-player', {
+      height: '390',
+      width: '640',
+      videoId: 'M7lc1UVf-VE',
+      events: {
+        onReady: onPlayerReady
+      },
+      playerVars: {
+        'origin': 'http://cinema.test'
+      }
+    });
   });
 });
 

@@ -135,6 +135,12 @@ body {
   height: 100vh;
 }
 
+iframe {
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+
 p {
   color: white;
   margin: 0;
@@ -302,10 +308,10 @@ input.form-control:focus {
 
 .message .message-content {
   word-break: break-word;
-  margin-left: 1.5rem;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  margin: 0 1.5rem;
 }
 
 .btn {
@@ -481,5 +487,22 @@ input.form-control:focus {
 .modal .modal-dialog .modal-body .input-group-text {
   border-color: #232323;
   color: black;
+}
+
+.comment-remove {
+  background: url("/storage/icons/cross.png");
+  transform: translateY(-50%);
+  position: relative;
+  margin-left: auto;
+  min-height: 20px;
+  min-width: 20px;
+  height: 20px;
+  width: 20px;
+  right: 0;
+  top: 50%;
+}
+
+.comment-remove:focus {
+  outline: 0;
 }
 

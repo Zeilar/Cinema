@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function isOwner(Room $room) {
         return $room->owner->id === $this->id;
     }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+    }
 }

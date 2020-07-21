@@ -9,7 +9,10 @@
         <div id="theatre">
             @if ($activeVideo)
                 @if ($activeVideo->type === 'youtube')
-                    <iframe width="100%" src="https://www.youtube.com/embed/{{$activeVideo->path ?? 'dQw4w9WgXcQ'}}" frameborder="0"></iframe>
+                    <iframe 
+                        id="yt-player" width="100%" allowfullscreen
+                        src="https://www.youtube.com/embed/{{$activeVideo->path ?? 'dQw4w9WgXcQ'}}">
+                    </iframe>
                 @endif
                 @if ($activeVideo->type === 'file')
                     <video id="videoWrapper" controls playsinline>
@@ -17,7 +20,7 @@
                     </video> 
                 @endif
             @else
-                <iframe width="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"; allowfullscreen></iframe>
+                <div id="yt-player"></div>
             @endif
 
             <div id="chat">
@@ -25,7 +28,7 @@
                     @isset($comments)  
                         @foreach ($comments as $comment)
                             @php $user = $comment->user; @endphp
-                            <div class="message">
+                            <div class="message" data-id="{{ $comment->id }}">
                                 <div 
                                     class="message-author" 
                                     style="background-color: {{ $user->color }}; border-color: {{ $user->color }}"
@@ -39,6 +42,11 @@
                                 <div class="message-content" style="background: {{ $user->color }}">
                                     {{ $comment->content }}
                                 </div>  
+                                @can('delete', $comment)
+                                    <button class="comment-remove" title="Delete comment">
+                                        <!-- Background image -->
+                                    </button>
+                                @endcan
                             </div>
                         @endforeach
                     @endisset
@@ -120,6 +128,7 @@
 
 @section('scripts')
     <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script
         src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="

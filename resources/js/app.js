@@ -64,7 +64,7 @@ $(document).ready(function() {
     function addComment(comment, user) {
         const abbreviatedName = abbreviateName(user.username);
         const message = $(`
-            <div class="message">
+            <div class="message" data-id="${comment.id}">
                 <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
                     ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                     ${abbreviatedName}
@@ -231,6 +231,9 @@ $(document).ready(function() {
         .listen('NewComment', (data) => {
             addComment(data.comment, data.user);
         })
+        .listen('DeleteComment', (data) => {
+            $(`.message[data-id=${data.id}]`).remove();
+        })
         .listen('IsTyping', ({ user }) => {
             user = $(`.online-user[title="${user.username}"]`);
             const dots = $(`
@@ -271,4 +274,34 @@ $(document).ready(function() {
         .listen('VideoPause', () => {
             player.pause();
         });
+
+    $('.comment-remove').click(function() {
+        $.ajax({
+            url: '/comment/delete',
+            method: 'POST',
+            data: {
+                id: $(this).parents('.message').attr('data-id'),
+                _token: csrfToken,
+                roomId: roomId,
+            },
+        }); 
+    });
+
+    function onPlayerReady() {
+        console.log('hi again');
+    }
+
+    window.YT.ready(function() {
+        const ytPlayer = new YT.Player('yt-player', {
+            height: '390',
+            width: '640',
+            videoId: 'M7lc1UVf-VE',
+            events: {
+                onReady: onPlayerReady,
+            },
+            playerVars: {
+                'origin': 'http://cinema.test',
+            }
+        });
+    });
 });

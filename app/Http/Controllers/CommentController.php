@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeleteComment;
 use Illuminate\Http\Request;
 use App\Events\IsNotTyping;
 use App\Events\NewComment;
@@ -14,6 +15,7 @@ use Auth;
 class CommentController extends Controller
 {
     public function store(Request $request) {
+        $this->authorize('create', Comment::class);
         if (is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
@@ -26,6 +28,13 @@ class CommentController extends Controller
         ]);
 
         broadcast(new NewComment($comment, $user, $request->roomId));
+    }
+
+    public function destroy(Request $request) {
+        $comment = Comment::find($request->id);
+        $this->authorize('delete', $comment);
+        $comment->delete();
+        broadcast(new DeleteComment($comment->id, $request->roomId));
     }
 
     public function isTyping(Request $request) {

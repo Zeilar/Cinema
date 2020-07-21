@@ -18,6 +18,7 @@ Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
 
 Route::middleware('throttle:10,1')->group(function() {
+    Route::post('/comment/delete', 'CommentController@destroy')->name('comment_delete');
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
     Route::post('/video/change', 'VideoController@change')->name('video_change');
     Route::post('/video/reset', 'VideoController@reset')->name('video_reset');

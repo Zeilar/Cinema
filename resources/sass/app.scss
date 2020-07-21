@@ -8,6 +8,12 @@ body {
     height: 100vh;
 }
 
+iframe {
+    height: 100%;
+    width: 100%;
+    border: 0;
+}
+
 p {
     color: white;
     margin: 0;
@@ -159,8 +165,8 @@ input, input.form-control {
 
     .message-content {
         word-break: break-word;
-        margin-left: 1.5rem;
         height: fit-content;
+        margin: 0 1.5rem;
     }
 }
 
@@ -318,5 +324,22 @@ input, input.form-control {
                 color: black;
             }
         }
+    }
+}
+
+.comment-remove {
+    background: url('/storage/icons/cross.png');
+	transform: translateY(-50%);
+	position: relative;
+	margin-left: auto;
+    min-height: 20px;
+    min-width: 20px;
+    height: 20px;
+    width: 20px;
+	right: 0;
+	top: 50%;
+
+    &:focus {
+        outline: 0;
     }
 }
