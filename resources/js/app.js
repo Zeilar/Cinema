@@ -207,6 +207,7 @@ $(document).ready(function() {
             chatMessages.scrollTop = 99999;
         })
         .joining(({ user }) => {
+            addComment({content: 'has joined the chat'}, user);
             if (!$(`.online-user[data-id=${user.id}]`).length) {
                 $('#online-users').append(`
                    <div
@@ -223,6 +224,7 @@ $(document).ready(function() {
             chatMessages.scrollTop = 99999;
         })
         .leaving(({ user }) => {
+            addComment({content: 'has left the chat'}, user);
             $(`.online-user[data-id=${user.id}]`).remove();
             chatMessages.scrollTop = 99999;
         })
