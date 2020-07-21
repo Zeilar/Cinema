@@ -42,11 +42,6 @@
                                 <div class="message-content" style="background: {{ $user->color }}">
                                     {{ $comment->content }}
                                 </div>  
-                                @can('delete', $comment)
-                                    <button class="comment-remove" title="Delete comment">
-                                        <!-- Background image -->
-                                    </button>
-                                @endcan
                             </div>
                         @endforeach
                     @endisset
