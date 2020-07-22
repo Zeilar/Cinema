@@ -89,6 +89,7 @@ $(document).ready(function() {
             url: '/video/play',
             method: 'POST',
             data: {
+                type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
             }
@@ -100,6 +101,7 @@ $(document).ready(function() {
             url: '/video/pause',
             method: 'POST',
             data: {
+                type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
             }
@@ -166,14 +168,29 @@ $(document).ready(function() {
         }
     }, 1500));
 
+    function notification(message, user, type) {
+        $('.notification').remove();
+        $('body').append(`
+            <div class="notification">
+                <div class="notification-icon">
+                    <i class="${type}"></i>
+                </div>
+                <div class="notification-message">
+                    ${user} ${message}
+                </div>
+            </div>
+        `);
+    }
+
     $('#video-reset').click(_.throttle(function() {
         $.ajax({
             url: '/video/reset',
             method: 'POST',
             data: {
+                type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
-            }
+            },
         });
     }, 1500));
 
@@ -183,6 +200,7 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 timestamp: Number(player.currentTime),
+                type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
             },
@@ -251,8 +269,8 @@ $(document).ready(function() {
         .listen('IsNotTyping', ({ user }) => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
         })
-        .listen('ConsoleLog', (data) => {
-            console.log(data.user, data.message);
+        .listen('Notification', (data) => {
+            notification(data.message, data.user, data.type);
         })
         .listen('ChangeVideo', (data) => {
             switch (data.video.type) {

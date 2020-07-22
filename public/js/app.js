@@ -25436,6 +25436,7 @@ $(document).ready(function () {
       url: '/video/play',
       method: 'POST',
       data: {
+        type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
       }
@@ -25446,6 +25447,7 @@ $(document).ready(function () {
       url: '/video/pause',
       method: 'POST',
       data: {
+        type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
       }
@@ -25512,11 +25514,18 @@ $(document).ready(function () {
       chatInput.val('').focus();
     }
   }, 1500));
+
+  function notification(message, user, type) {
+    $('.notification').remove();
+    $('body').append("\n            <div class=\"notification\">\n                <div class=\"notification-icon\">\n                    <i class=\"".concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(user, " ").concat(message, "\n                </div>\n            </div>\n        "));
+  }
+
   $('#video-reset').click(_.throttle(function () {
     $.ajax({
       url: '/video/reset',
       method: 'POST',
       data: {
+        type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
       }
@@ -25528,6 +25537,7 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         timestamp: Number(player.currentTime),
+        type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
       }
@@ -25572,8 +25582,8 @@ $(document).ready(function () {
   }).listen('IsNotTyping', function (_ref5) {
     var user = _ref5.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
-  }).listen('ConsoleLog', function (data) {
-    console.log(data.user, data.message);
+  }).listen('Notification', function (data) {
+    notification(data.message, data.user, data.type);
   }).listen('ChangeVideo', function (data) {
     switch (data.video.type) {
       case 'youtube':

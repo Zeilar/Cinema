@@ -11,18 +11,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ConsoleLog implements ShouldBroadcastNow
+class Notification implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
     public $roomId;
+    public $type;
     public $user;
 
-    public function __construct($user, $message, $roomId)
+    public function __construct($user, $roomId, $message, $type)
     {
         $this->message = $message;
         $this->roomId = $roomId;
+        $this->type = $type;
         $this->user = $user;
     }
 

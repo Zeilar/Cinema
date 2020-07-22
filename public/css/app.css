@@ -488,3 +488,45 @@ input.form-control:focus {
   color: black;
 }
 
+.notification {
+  -webkit-animation: fade-out 1s 3s forwards;
+          animation: fade-out 1s 3s forwards;
+  box-shadow: 0 0 5px 1px black;
+  background: #232323;
+  border-radius: 0.25rem;
+  padding: 1rem 1.5rem;
+  flex-direction: row;
+  position: absolute;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: flex;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+@-webkit-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.notification .notification-icon {
+  margin-right: 0.5rem;
+}
+

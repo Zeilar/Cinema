@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\DeleteComment;
+use App\Events\Notification;
 use Illuminate\Http\Request;
 use App\Events\IsNotTyping;
 use App\Events\NewComment;
-use App\Events\ConsoleLog;
 use App\Events\IsTyping;
 use App\Comment;
 use App\Room;

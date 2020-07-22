@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
+use App\Events\Notification;
 use App\Events\ChangeVideo;
 use App\Events\NewComment;
 use App\Events\VideoReset;
-use App\Events\ConsoleLog;
 use App\Events\VideoPause;
 use App\Events\VideoPlay;
 use App\Events\VideoSync;
@@ -40,22 +40,23 @@ class VideoController extends Controller
     }
 
     public function play(Request $request) {
-        broadcast(new ConsoleLog(auth()->user()->username, 'played the video', $request->roomId));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'played the video', $request->type));
         broadcast(new VideoPlay($request->roomId));
     }
 
     public function sync(Request $request) {
-        broadcast(new ConsoleLog(auth()->user()->username, 'synced the video', $request->roomId));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'synced the video', $request->type));
         broadcast(new VideoSync($request->timestamp));
     }
 
     public function reset(Request $request) {
-        broadcast(new ConsoleLog(auth()->user()->username, 'reset the video', $request->roomId));
+        //return response()->json($request);
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'reset the video', $request->type));
         broadcast(new VideoReset($request->roomId));
     }
 
     public function pause(Request $request) {
-        broadcast(new ConsoleLog(auth()->user()->username, 'paused the video', $request->roomId));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'paused the video', $request->type));
         broadcast(new VideoPause($request->roomId));
     }
 }

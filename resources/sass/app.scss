@@ -325,3 +325,30 @@ input, input.form-control {
         }
     }
 }
+
+.notification {
+    animation: fade-out 1s 3s forwards;
+    box-shadow: 0 0 5px 1px black;
+    background: rgb(35, 35, 35);
+    border-radius: 0.25rem;
+    padding: 1rem 1.5rem;
+    flex-direction: row;
+    position: absolute;
+    user-select: none;
+    display: flex;
+    bottom: 1rem;
+    left: 1rem;
+
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    
+    .notification-icon {
+        margin-right: 0.5rem;
+    }
+}
