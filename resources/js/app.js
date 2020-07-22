@@ -170,7 +170,7 @@ $(document).ready(function() {
 
     function notification(message, user, type) {
         $('.notification').remove();
-        $('body').append(`
+        const notification = $(`
             <div class="notification">
                 <div class="notification-icon">
                     <i class="${type}"></i>
@@ -180,6 +180,11 @@ $(document).ready(function() {
                 </div>
             </div>
         `);
+        $('body').append(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 4000);
     }
 
     $('#video-reset').click(_.throttle(function() {
@@ -199,7 +204,7 @@ $(document).ready(function() {
             url: '/video/sync',
             method: 'POST',
             data: {
-                timestamp: Number(player.currentTime),
+                //timestamp: Number(player.currentTime),
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
@@ -280,17 +285,17 @@ $(document).ready(function() {
             }
         })
         .listen('VideoPlay', () => {
-            player.play();
+            //player.play();
         })
         .listen('VideoSync', ({ timestamp }) => {
-            player.currentTime = timestamp;
+            //player.currentTime = timestamp;
         })
         .listen('VideoReset', () => {
-            player.pause();
-            player.currentTime = 0; 
+            //player.pause();
+            //player.currentTime = 0; 
         })
         .listen('VideoPause', () => {
-            player.pause();
+            //player.pause();
         });
 
     $('.comment-remove').click(function() {

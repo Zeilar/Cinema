@@ -25517,7 +25517,11 @@ $(document).ready(function () {
 
   function notification(message, user, type) {
     $('.notification').remove();
-    $('body').append("\n            <div class=\"notification\">\n                <div class=\"notification-icon\">\n                    <i class=\"".concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(user, " ").concat(message, "\n                </div>\n            </div>\n        "));
+    var notification = $("\n            <div class=\"notification\">\n                <div class=\"notification-icon\">\n                    <i class=\"".concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(user, " ").concat(message, "\n                </div>\n            </div>\n        "));
+    $('body').append(notification);
+    setTimeout(function () {
+      notification.remove();
+    }, 4000);
   }
 
   $('#video-reset').click(_.throttle(function () {
@@ -25536,7 +25540,7 @@ $(document).ready(function () {
       url: '/video/sync',
       method: 'POST',
       data: {
-        timestamp: Number(player.currentTime),
+        //timestamp: Number(player.currentTime),
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
@@ -25590,16 +25594,13 @@ $(document).ready(function () {
         $('iframe').attr('src', data.video.url);
         break;
     }
-  }).listen('VideoPlay', function () {
-    player.play();
-  }).listen('VideoSync', function (_ref6) {
+  }).listen('VideoPlay', function () {//player.play();
+  }).listen('VideoSync', function (_ref6) {//player.currentTime = timestamp;
+
     var timestamp = _ref6.timestamp;
-    player.currentTime = timestamp;
-  }).listen('VideoReset', function () {
-    player.pause();
-    player.currentTime = 0;
-  }).listen('VideoPause', function () {
-    player.pause();
+  }).listen('VideoReset', function () {//player.pause();
+    //player.currentTime = 0; 
+  }).listen('VideoPause', function () {//player.pause();
   });
   $('.comment-remove').click(function () {
     $.ajax({

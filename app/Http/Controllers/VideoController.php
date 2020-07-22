@@ -50,7 +50,6 @@ class VideoController extends Controller
     }
 
     public function reset(Request $request) {
-        //return response()->json($request);
         broadcast(new Notification(auth()->user()->username, $request->roomId, 'reset the video', $request->type));
         broadcast(new VideoReset($request->roomId));
     }
