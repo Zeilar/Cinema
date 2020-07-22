@@ -375,11 +375,12 @@ input.form-control:focus {
 
 #online-users .online-user {
   flex-direction: column;
-  margin: 1rem 0.37rem;
+  margin: 1rem 0.35rem;
   border-radius: 50%;
   position: relative;
   padding: 0.75rem;
   display: flex;
+  width: 3rem;
 }
 
 #online-users .online-user .user-crown {

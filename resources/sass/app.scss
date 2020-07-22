@@ -225,11 +225,12 @@ input, input.form-control {
 
     .online-user {
         flex-direction: column;
-        margin: 1rem 0.37rem;
+        margin: 1rem 0.35rem;
         border-radius: 50%;
         position: relative;
         padding: 0.75rem;
         display: flex;
+        width: 3rem;
 
         .user-crown {
             transform: translateX(-50%);

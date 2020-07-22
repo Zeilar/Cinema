@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="message-content" style="background: {{ $user->color }}">
                                     {{ $comment->content }}
-                                </div>  
+                                </div>
                             </div>
                         @endforeach
                     @endisset
