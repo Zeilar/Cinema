@@ -224,13 +224,11 @@ input.form-control:focus {
 }
 
 #chat-messages::-webkit-scrollbar {
-  border-radius: 1rem;
   width: 0.5rem;
 }
 
 #chat-messages::-webkit-scrollbar-thumb {
   background-color: dodgerblue;
-  border-radius: 0.5rem;
 }
 
 #chat-controls,

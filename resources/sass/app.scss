@@ -90,13 +90,11 @@ input, input.form-control {
     flex: 1;
 
     &::-webkit-scrollbar {
-        border-radius: 1rem;
         width: 0.5rem;
     }
     
     &::-webkit-scrollbar-thumb {
         background-color: dodgerblue;
-        border-radius: 0.5rem;
     }
 }
 
