@@ -23,7 +23,7 @@ $factory->define(User::class, function(Faker $faker) {
     $b = rand(0, 127);
     return [
         'username' => (new \Nubs\RandomNameGenerator\Alliteration())->getName(),
-        'role' => 'viewer',
         'color' => "rgb($r, $g, $b)",
+        'role' => 'viewer',
     ];
 });

@@ -39,11 +39,13 @@
   background-size: 205%;
   padding: 0.5rem 1rem;
   position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   overflow: hidden;
   font-size: 2rem;
   display: flex;
   margin: 2rem;
-  width: 15rem;
 }
 
 .wrapper-index .existing-rooms .room-join:hover {
@@ -85,6 +87,7 @@
           animation: circlePulse 3s infinite;
   background: lightgreen;
   border-radius: 50%;
+  margin-left: 2rem;
   font-size: 1rem;
   height: 1rem;
   width: 1rem;
@@ -528,5 +531,12 @@ input.form-control:focus {
 
 .notification .notification-icon {
   margin-right: 0.5rem;
+}
+
+.room-name {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
 }
 

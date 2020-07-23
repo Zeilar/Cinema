@@ -27,11 +27,12 @@ class RoomController extends Controller
         $user->rooms()->syncWithoutDetaching($room);
 
         return view('room', [
-            'isOwner'     => $user->isOwner($room),
             'roomId'      => $room->id,
+            'name'        => $room->name,
             'comments'    => $room->comments,
             'videos'      => $room->videos,
             'activeVideo' => $room->activeVideo(),
+            'isOwner'     => $user->isOwner($room),
         ]);
     }
 }

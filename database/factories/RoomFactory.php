@@ -9,5 +9,6 @@ use App\Room;
 $factory->define(Room::class, function(Faker $faker) {
     return [
         'uuid' => (string)Str::uuid(),
+        'name' => (new \Nubs\RandomNameGenerator\Vgng())->getName(),
     ];
 });

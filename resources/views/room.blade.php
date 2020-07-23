@@ -24,6 +24,8 @@
             @endif
 
             <div id="chat">
+                <p class="room-name">{{ $name }}</p>
+
                 <div id="chat-messages">
                     @isset($comments)  
                         @foreach ($comments as $comment)
@@ -36,7 +38,7 @@
                                     @if ($isOwner)
                                         <img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />
                                     @endif
-                                    {{ abbreviateName($user->username) }}
+                                    <span>{{ abbreviateName($user->username) }}</span>
                                 </div>
                                 <div class="message-content" style="background: {{ $user->color }}">
                                     {{ $comment->content }}
