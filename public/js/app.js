@@ -25633,10 +25633,6 @@ $(document).ready(function () {
       // change to something else
       events: {
         onReady: onPlayerReady
-      },
-      playerVars: {
-        'origin': 'http://cinema.test' // remove this in production
-
       }
     });
   });
