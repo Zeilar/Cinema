@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,600">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        @isset($id)
-            <meta name="roomUuid" content="{{ $id }}">
+        @isset($roomId)
+            <meta name="roomId" content="{{ $roomId }}">
         @endisset
     </head>
     <body>

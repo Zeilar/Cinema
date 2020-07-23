@@ -4,7 +4,7 @@ $(document).ready(() => {
     const plyr = new Plyr('#videoWrapper');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const player = document.querySelector('#videoWrapper');
-    const roomUuid = $('meta[name=roomUuid]').attr('content');
+    const roomId = $('meta[name=roomId]').attr('content');
     let chatMessages = document.querySelector('#chat-messages');
     $.ajax({
         url: '/user/info',
@@ -34,7 +34,7 @@ $(document).ready(() => {
             data: {
                 video: Number(videoId),
                 _token: csrfToken,
-                roomUuid: roomUuid,
+                roomId: roomId,
             },
             success: function(data) {
                 if (data.error) {
@@ -56,7 +56,7 @@ $(document).ready(() => {
                 data: {
                     _token: csrfToken,
                     type: 'youtube',
-                    roomUuid: roomUuid,
+                    roomId: roomId,
                     url: url,
                 },
                 success: () => {
@@ -105,7 +105,7 @@ $(document).ready(() => {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                roomUuid: roomUuid,
+                roomId: roomId,
                 _token: csrfToken,
             }
         });
@@ -117,7 +117,7 @@ $(document).ready(() => {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                roomUuid: roomUuid,
+                roomId: roomId,
                 _token: csrfToken,
             }
         });
@@ -129,7 +129,7 @@ $(document).ready(() => {
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    roomUuid: roomUuid,
+                    roomId: roomId,
                     _token: csrfToken,
                 },
             });
@@ -138,7 +138,7 @@ $(document).ready(() => {
                 url: '/chat/is_typing',
                 method: 'POST',
                 data: {
-                    roomUuid: roomUuid,
+                    roomId: roomId,
                     _token: csrfToken,
                 },
             });
@@ -150,7 +150,7 @@ $(document).ready(() => {
                     url: '/chat/is_not_typing',
                     method: 'POST',
                     data: {
-                        roomUuid: roomUuid,
+                        roomId: roomId,
                         _token: csrfToken,
                     },
                 });
@@ -167,7 +167,7 @@ $(document).ready(() => {
                 method: 'POST',
                 data: {
                     content: chatInput.val(),
-                    roomUuid: roomUuid,
+                    roomId: roomId,
                     _token: csrfToken,
                 },
             });
@@ -175,7 +175,7 @@ $(document).ready(() => {
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    roomUuid: roomUuid,
+                    roomId: roomId,
                     _token: csrfToken,
                 }
             });
@@ -208,7 +208,7 @@ $(document).ready(() => {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                roomUuid: roomUuid,
+                roomId: roomId,
                 _token: csrfToken,
             },
         });
@@ -222,12 +222,12 @@ $(document).ready(() => {
                 //timestamp: Number(player.currentTime),
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
-                roomUuid: roomUuid,
+                roomId: roomId,
             },
         });
     }, 1500));
 
-    Echo.join(`room-${roomUuid}`)
+    Echo.join(`room-${roomId}`)
         .here((data) => {
             data.forEach(({ user }) => {
                 $('#online-users').append(`
@@ -320,7 +320,7 @@ $(document).ready(() => {
             data: {
                 id: $(this).parents('.message').attr('data-id'),
                 _token: csrfToken,
-                roomUuid: roomUuid,
+                roomId: roomId,
             },
         }); 
     });

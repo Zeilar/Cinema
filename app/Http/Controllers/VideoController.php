@@ -26,36 +26,36 @@ class VideoController extends Controller
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
-        $user->isOwner = $user->isOwner(Room::where('uuid', $request->roomUuid)->first());
+        $user->isOwner = $user->isOwner(Room::find($request->roomId));
 
         broadcast(new NewComment(Comment::create([
-            'user_id' => $user->id,
             'content' => 'changed video',
-        ]), $user, $request->roomUuid));
+            'user_id' => $user->id,
+        ]), $user, $request->roomId));
 
         broadcast(new ChangeVideo([
             'type' => $request->type,
             'url' => $request->url,
-        ], $user, $request->roomUuid));
+        ], $user, $request->roomId));
     }
 
     public function play(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomUuid, 'played the video', $request->type));
-        broadcast(new VideoPlay($request->roomUuid));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'played the video', $request->type));
+        broadcast(new VideoPlay($request->roomId));
     }
 
     public function sync(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomUuid, 'synced the video', $request->type));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'synced the video', $request->type));
         broadcast(new VideoSync($request->timestamp));
     }
 
     public function reset(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomUuid, 'reset the video', $request->type));
-        broadcast(new VideoReset($request->roomUuid));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'reset the video', $request->type));
+        broadcast(new VideoReset($request->roomId));
     }
 
     public function pause(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomUuid, 'paused the video', $request->type));
-        broadcast(new VideoPause($request->roomUuid));
+        broadcast(new Notification(auth()->user()->username, $request->roomId, 'paused the video', $request->type));
+        broadcast(new VideoPause($request->roomId));
     }
 }

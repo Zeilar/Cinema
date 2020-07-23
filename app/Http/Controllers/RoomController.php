@@ -23,12 +23,12 @@ class RoomController extends Controller
         $room = Room::where('uuid', $request->id)->first();
         if (!$room) return redirect(route('index'));
         $this->authorize('view', $room);
-
-        auth()->user()->rooms()->syncWithoutDetaching($room);
+        $user = auth()->user();
+        $user->rooms()->syncWithoutDetaching($room);
 
         return view('room', [
-            'room'        => $room,
-            'id'          => $room->uuid,
+            'isOwner'     => $user->isOwner($room),
+            'roomId'      => $room->id,
             'comments'    => $room->comments,
             'videos'      => $room->videos,
             'activeVideo' => $room->activeVideo(),

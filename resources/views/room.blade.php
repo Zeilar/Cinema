@@ -34,7 +34,7 @@
                                     style="background-color: {{ $user->color }}; border-color: {{ $user->color }}"
                                     title="{{ $user->username }}"
                                 >
-                                    @if ($user->isOwner($room))
+                                    @if ($isOwner)
                                         <img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />
                                     @endif
                                     {{ abbreviateName($user->username) }}

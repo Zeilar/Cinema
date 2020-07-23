@@ -18,10 +18,10 @@ Route::post('/user/info', function() {
     if (!Auth::check()) return;
     $user = auth()->user();
     return response()->json([
-        'id' => $user->id,
+        'id'       => $user->id,
         'username' => $user->username,
         'color'    => $user->color,
-        'role' => $user->role,
+        'role'     => $user->role,
     ]);
 })->name('user_info');
 

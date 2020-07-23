@@ -25362,7 +25362,7 @@ $(document).ready(function () {
   var plyr = new Plyr('#videoWrapper');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
   var player = document.querySelector('#videoWrapper');
-  var roomUuid = $('meta[name=roomUuid]').attr('content');
+  var roomId = $('meta[name=roomId]').attr('content');
   var chatMessages = document.querySelector('#chat-messages');
   $.ajax({
     url: '/user/info',
@@ -25389,7 +25389,7 @@ $(document).ready(function () {
       data: {
         video: Number(videoId),
         _token: csrfToken,
-        roomUuid: roomUuid
+        roomId: roomId
       },
       success: function success(data) {
         if (data.error) {
@@ -25413,7 +25413,7 @@ $(document).ready(function () {
         data: {
           _token: csrfToken,
           type: 'youtube',
-          roomUuid: roomUuid,
+          roomId: roomId,
           url: url
         },
         success: function success() {
@@ -25451,7 +25451,7 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        roomUuid: roomUuid,
+        roomId: roomId,
         _token: csrfToken
       }
     });
@@ -25462,7 +25462,7 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        roomUuid: roomUuid,
+        roomId: roomId,
         _token: csrfToken
       }
     });
@@ -25475,7 +25475,7 @@ $(document).ready(function () {
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          roomUuid: roomUuid,
+          roomId: roomId,
           _token: csrfToken
         }
       });
@@ -25484,7 +25484,7 @@ $(document).ready(function () {
         url: '/chat/is_typing',
         method: 'POST',
         data: {
-          roomUuid: roomUuid,
+          roomId: roomId,
           _token: csrfToken
         }
       });
@@ -25496,7 +25496,7 @@ $(document).ready(function () {
           url: '/chat/is_not_typing',
           method: 'POST',
           data: {
-            roomUuid: roomUuid,
+            roomId: roomId,
             _token: csrfToken
           }
         });
@@ -25513,7 +25513,7 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           content: chatInput.val(),
-          roomUuid: roomUuid,
+          roomId: roomId,
           _token: csrfToken
         }
       });
@@ -25521,7 +25521,7 @@ $(document).ready(function () {
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          roomUuid: roomUuid,
+          roomId: roomId,
           _token: csrfToken
         }
       });
@@ -25544,7 +25544,7 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        roomUuid: roomUuid,
+        roomId: roomId,
         _token: csrfToken
       }
     });
@@ -25557,11 +25557,11 @@ $(document).ready(function () {
         //timestamp: Number(player.currentTime),
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
-        roomUuid: roomUuid
+        roomId: roomId
       }
     });
   }, 1500));
-  Echo.join("room-".concat(roomUuid)).here(function (data) {
+  Echo.join("room-".concat(roomId)).here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
       $('#online-users').append("\n                    <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
@@ -25623,7 +25623,7 @@ $(document).ready(function () {
       data: {
         id: $(this).parents('.message').attr('data-id'),
         _token: csrfToken,
-        roomUuid: roomUuid
+        roomId: roomId
       }
     });
   });
