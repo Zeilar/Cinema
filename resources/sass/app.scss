@@ -331,7 +331,7 @@ input, input.form-control {
     box-shadow: 0 0 5px 1px black;
     background: rgb(35, 35, 35);
     border-radius: 0.25rem;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem;
     flex-direction: row;
     position: absolute;
     user-select: none;
@@ -347,9 +347,21 @@ input, input.form-control {
             opacity: 0;
         }
     }
+
+    .notification-message {
+        flex-direction: row;
+        display: flex;
+
+        .username {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            align-self: center;
+        }
+    }
     
     .notification-icon {
         margin-right: 0.5rem;
+        align-self: center;
     }
 }
 

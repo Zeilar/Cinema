@@ -497,7 +497,7 @@ input.form-control:focus {
   box-shadow: 0 0 5px 1px black;
   background: #232323;
   border-radius: 0.25rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   flex-direction: row;
   position: absolute;
   -webkit-user-select: none;
@@ -529,8 +529,20 @@ input.form-control:focus {
   }
 }
 
+.notification .notification-message {
+  flex-direction: row;
+  display: flex;
+}
+
+.notification .notification-message .username {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  align-self: center;
+}
+
 .notification .notification-icon {
   margin-right: 0.5rem;
+  align-self: center;
 }
 
 .room-name {

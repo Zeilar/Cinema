@@ -22,8 +22,8 @@ class Notification implements ShouldBroadcastNow
 
     public function __construct($user, $roomUuid, $message, $type)
     {
-        $this->message = $message;
         $this->roomUuid = $roomUuid;
+        $this->message = $message;
         $this->type = $type;
         $this->user = $user;
     }

@@ -25534,10 +25534,9 @@ $(document).ready(function () {
 
   function notification(message, user, type) {
     $('.notification').remove();
-    var notification = $("\n            <div class=\"notification\">\n                <div class=\"notification-icon\">\n                    <i class=\"".concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(user, " ").concat(message, "\n                </div>\n            </div>\n        "));
+    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 5px 1px ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"message\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
     $('body').append(notification);
-    setTimeout(function () {
-      notification.remove();
+    setTimeout(function () {//notification.remove();
     }, 4000);
   }
 

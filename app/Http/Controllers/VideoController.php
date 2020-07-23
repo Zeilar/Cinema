@@ -40,22 +40,22 @@ class VideoController extends Controller
     }
 
     public function play(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomId, 'played the video', $request->type));
+        broadcast(new Notification(auth()->user(), $request->roomId, 'played the video', $request->type));
         broadcast(new VideoPlay($request->roomId));
     }
 
     public function sync(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomId, 'synced the video', $request->type));
+        broadcast(new Notification(auth()->user(), $request->roomId, 'synced the video', $request->type));
         broadcast(new VideoSync($request->timestamp));
     }
 
     public function reset(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomId, 'reset the video', $request->type));
+        broadcast(new Notification(auth()->user(), $request->roomId, 'reset the video', $request->type));
         broadcast(new VideoReset($request->roomId));
     }
 
     public function pause(Request $request) {
-        broadcast(new Notification(auth()->user()->username, $request->roomId, 'paused the video', $request->type));
+        broadcast(new Notification(auth()->user(), $request->roomId, 'paused the video', $request->type));
         broadcast(new VideoPause($request->roomId));
     }
 }

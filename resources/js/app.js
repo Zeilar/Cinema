@@ -187,19 +187,20 @@ $(document).ready(() => {
     function notification(message, user, type) {
         $('.notification').remove();
         const notification = $(`
-            <div class="notification">
+            <div class="notification" style="box-shadow: 0 0 5px 1px ${user.color};">
                 <div class="notification-icon">
                     <i class="${type}"></i>
                 </div>
                 <div class="notification-message">
-                    ${user} ${message}
+                    <span class="username" style="background: ${user.color};">${user.username}</span>
+                    <span class="message">${message}</span>
                 </div>
             </div>
         `);
         $('body').append(notification);
 
         setTimeout(() => {
-            notification.remove();
+            //notification.remove();
         }, 4000);
     }
 
