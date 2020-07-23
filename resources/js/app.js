@@ -110,8 +110,8 @@ $(document).ready(() => {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                roomId: roomId,
                 _token: csrfToken,
+                roomId: roomId,
             }
         });
     }, 1500));
@@ -122,8 +122,8 @@ $(document).ready(() => {
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    roomId: roomId,
                     _token: csrfToken,
+                    roomId: roomId,
                 },
             });
         } else {
@@ -131,8 +131,8 @@ $(document).ready(() => {
                 url: '/chat/is_typing',
                 method: 'POST',
                 data: {
-                    roomId: roomId,
                     _token: csrfToken,
+                    roomId: roomId,
                 },
             });
         }
@@ -143,8 +143,8 @@ $(document).ready(() => {
                     url: '/chat/is_not_typing',
                     method: 'POST',
                     data: {
-                        roomId: roomId,
                         _token: csrfToken,
+                        roomId: roomId,
                     },
                 });
             }
@@ -160,16 +160,16 @@ $(document).ready(() => {
                 method: 'POST',
                 data: {
                     content: chatInput.val(),
-                    roomId: roomId,
                     _token: csrfToken,
+                    roomId: roomId,
                 },
             });
             $.ajax({
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    roomId: roomId,
                     _token: csrfToken,
+                    roomId: roomId,
                 }
             });
             chatInput.val('').focus();
@@ -201,8 +201,8 @@ $(document).ready(() => {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                roomId: roomId,
                 _token: csrfToken,
+                roomId: roomId,
             },
         });
     }, 1500));
@@ -319,17 +319,17 @@ $(document).ready(() => {
     });
 
     function onPlayerReady() {
-        console.log('hi again');
+        console.log('YT player is ready');
     }
 
     window.YT.ready(function() {
         const ytPlayer = new YT.Player('yt-player', {
-            videoId: 'M7lc1UVf-VE',
+            videoId: 'M7lc1UVf-VE', // change to something else
             events: {
                 onReady: onPlayerReady,
             },
             playerVars: {
-                'origin': 'http://cinema.test',
+                'origin': 'http://cinema.test', // remove this in production
             }
         });
     });
