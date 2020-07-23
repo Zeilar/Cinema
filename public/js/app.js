@@ -25364,7 +25364,21 @@ $(document).ready(function () {
   var player = document.querySelector('#videoWrapper');
   var roomUuid = $('meta[name=roomUuid]').attr('content');
   var chatMessages = document.querySelector('#chat-messages');
+  $.ajax({
+    url: '/user/info',
+    method: 'POST',
+    data: {
+      _token: csrfToken
+    },
+    success: function success(data) {
+      localStorage.setItem('user', JSON.stringify(data));
+    }
+  });
   chatMessages.scrollTop = 99999; //player.volume = 0.5;
+
+  function getUser() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
 
   $('#videoSelector').change(function () {
     var index = $(this)[0].selectedIndex;
@@ -25437,8 +25451,8 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        _token: csrfToken,
-        roomUuid: roomUuid
+        roomUuid: roomUuid,
+        _token: csrfToken
       }
     });
   }, 1500));
@@ -25448,8 +25462,8 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        _token: csrfToken,
-        roomUuid: roomUuid
+        roomUuid: roomUuid,
+        _token: csrfToken
       }
     });
   }, 1500));
@@ -25461,8 +25475,8 @@ $(document).ready(function () {
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          _token: csrfToken,
-          roomUuid: roomUuid
+          roomUuid: roomUuid,
+          _token: csrfToken
         }
       });
     } else {
@@ -25470,8 +25484,8 @@ $(document).ready(function () {
         url: '/chat/is_typing',
         method: 'POST',
         data: {
-          _token: csrfToken,
-          roomUuid: roomUuid
+          roomUuid: roomUuid,
+          _token: csrfToken
         }
       });
     }
@@ -25482,8 +25496,8 @@ $(document).ready(function () {
           url: '/chat/is_not_typing',
           method: 'POST',
           data: {
-            _token: csrfToken,
-            roomUuid: roomUuid
+            roomUuid: roomUuid,
+            _token: csrfToken
           }
         });
       }
@@ -25499,16 +25513,16 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           content: chatInput.val(),
-          _token: csrfToken,
-          roomUuid: roomUuid
+          roomUuid: roomUuid,
+          _token: csrfToken
         }
       });
       $.ajax({
         url: '/chat/is_not_typing',
         method: 'POST',
         data: {
-          _token: csrfToken,
-          roomUuid: roomUuid
+          roomUuid: roomUuid,
+          _token: csrfToken
         }
       });
       chatInput.val('').focus();
@@ -25530,8 +25544,8 @@ $(document).ready(function () {
       method: 'POST',
       data: {
         type: $(this).find('i').attr('class'),
-        _token: csrfToken,
-        roomUuid: roomUuid
+        roomUuid: roomUuid,
+        _token: csrfToken
       }
     });
   }, 1500));

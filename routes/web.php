@@ -14,6 +14,17 @@ Route::middleware(['throttle:100,1', 'CreateUser'])->group(function() {
     Route::get('/room/{id}', 'RoomController@view')->name('room_enter');
 });
 
+Route::post('/user/info', function() {
+    if (!Auth::check()) return;
+    $user = auth()->user();
+    return response()->json([
+        'id' => $user->id,
+        'username' => $user->username,
+        'color'    => $user->color,
+        'role' => $user->role,
+    ]);
+})->name('user_info');
+
 Route::post('/chat/is_not_typing', 'CommentController@isNotTyping')->name('chat_is_not_typing');
 Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typing');
 

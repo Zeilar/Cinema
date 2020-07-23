@@ -1,13 +1,28 @@
 import './bootstrap';
 
-$(document).ready(function() {
+$(document).ready(() => {
     const plyr = new Plyr('#videoWrapper');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const player = document.querySelector('#videoWrapper');
     const roomUuid = $('meta[name=roomUuid]').attr('content');
     let chatMessages = document.querySelector('#chat-messages');
+    $.ajax({
+        url: '/user/info',
+        method: 'POST',
+        data: {
+            _token: csrfToken,
+        },
+        success: function(data) {
+            localStorage.setItem('user', JSON.stringify(data));
+        },
+    });
+
     chatMessages.scrollTop = 99999;
     //player.volume = 0.5;
+
+    function getUser() {
+        return JSON.parse(localStorage.getItem('user'));
+    }
 
     $('#videoSelector').change(function() {
         const index = $(this)[0].selectedIndex;
@@ -90,8 +105,8 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                _token: csrfToken,
                 roomUuid: roomUuid,
+                _token: csrfToken,
             }
         });
     }, 1500));
@@ -102,8 +117,8 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                _token: csrfToken,
                 roomUuid: roomUuid,
+                _token: csrfToken,
             }
         });
     }, 1500));
@@ -114,8 +129,8 @@ $(document).ready(function() {
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    _token: csrfToken,
                     roomUuid: roomUuid,
+                    _token: csrfToken,
                 },
             });
         } else {
@@ -123,8 +138,8 @@ $(document).ready(function() {
                 url: '/chat/is_typing',
                 method: 'POST',
                 data: {
-                    _token: csrfToken,
                     roomUuid: roomUuid,
+                    _token: csrfToken,
                 },
             });
         }
@@ -135,8 +150,8 @@ $(document).ready(function() {
                     url: '/chat/is_not_typing',
                     method: 'POST',
                     data: {
-                        _token: csrfToken,
                         roomUuid: roomUuid,
+                        _token: csrfToken,
                     },
                 });
             }
@@ -152,16 +167,16 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     content: chatInput.val(),
-                    _token: csrfToken,
                     roomUuid: roomUuid,
+                    _token: csrfToken,
                 },
             });
             $.ajax({
                 url: '/chat/is_not_typing',
                 method: 'POST',
                 data: {
-                    _token: csrfToken,
                     roomUuid: roomUuid,
+                    _token: csrfToken,
                 }
             });
             chatInput.val('').focus();
@@ -193,8 +208,8 @@ $(document).ready(function() {
             method: 'POST',
             data: {
                 type: $(this).find('i').attr('class'),
-                _token: csrfToken,
                 roomUuid: roomUuid,
+                _token: csrfToken,
             },
         });
     }, 1500));
