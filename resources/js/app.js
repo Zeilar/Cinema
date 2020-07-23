@@ -155,7 +155,7 @@ $(document).ready(() => {
         submitComment();
     }, 1500));
 
-    $('#chat-send').keydown(_.throttle(function() {
+    $('#chat-send').keydown(_.throttle(function(e) {
         if (e.key === 'Enter') submitComment();
     }, 1500));
 

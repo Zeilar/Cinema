@@ -25501,7 +25501,7 @@ $(document).ready(function () {
   $('#chat-send-button').click(_.throttle(function () {
     submitComment();
   }, 1500));
-  $('#chat-send').keydown(_.throttle(function () {
+  $('#chat-send').keydown(_.throttle(function (e) {
     if (e.key === 'Enter') submitComment();
   }, 1500));
 

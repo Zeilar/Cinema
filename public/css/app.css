@@ -138,10 +138,43 @@ body {
   height: 100vh;
 }
 
+::-moz-selection {
+  background: rgba(35, 35, 35, 0.75);
+  color: dodgerblue;
+}
+
+::selection {
+  background: rgba(35, 35, 35, 0.75);
+  color: dodgerblue;
+}
+
 iframe {
   height: 100%;
   width: 100%;
   border: 0;
+}
+
+::-moz-placeholder {
+  -moz-user-select: none;
+       user-select: none;
+}
+
+:-ms-input-placeholder {
+  -ms-user-select: none;
+      user-select: none;
+}
+
+::-ms-input-placeholder {
+  -ms-user-select: none;
+      user-select: none;
+}
+
+img,
+::placeholder {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 p {
