@@ -4,7 +4,7 @@ $(document).ready(function() {
     const plyr = new Plyr('#videoWrapper');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const player = document.querySelector('#videoWrapper');
-    const roomId = $('meta[name=roomId]').attr('content');
+    const roomUuid = $('meta[name=roomUuid]').attr('content');
     let chatMessages = document.querySelector('#chat-messages');
     chatMessages.scrollTop = 99999;
     //player.volume = 0.5;
@@ -19,7 +19,7 @@ $(document).ready(function() {
             data: {
                 video: Number(videoId),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             },
             success: function(data) {
                 if (data.error) {
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 data: {
                     _token: csrfToken,
                     type: 'youtube',
-                    roomId: roomId,
+                    roomUuid: roomUuid,
                     url: url,
                 },
                 success: () => {
@@ -91,7 +91,7 @@ $(document).ready(function() {
             data: {
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             }
         });
     }, 1500));
@@ -103,7 +103,7 @@ $(document).ready(function() {
             data: {
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             }
         });
     }, 1500));
@@ -115,7 +115,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     _token: csrfToken,
-                    roomId: roomId,
+                    roomUuid: roomUuid,
                 },
             });
         } else {
@@ -124,7 +124,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     _token: csrfToken,
-                    roomId: roomId,
+                    roomUuid: roomUuid,
                 },
             });
         }
@@ -136,7 +136,7 @@ $(document).ready(function() {
                     method: 'POST',
                     data: {
                         _token: csrfToken,
-                        roomId: roomId,
+                        roomUuid: roomUuid,
                     },
                 });
             }
@@ -153,7 +153,7 @@ $(document).ready(function() {
                 data: {
                     content: chatInput.val(),
                     _token: csrfToken,
-                    roomId: roomId,
+                    roomUuid: roomUuid,
                 },
             });
             $.ajax({
@@ -161,7 +161,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     _token: csrfToken,
-                    roomId: roomId,
+                    roomUuid: roomUuid,
                 }
             });
             chatInput.val('').focus();
@@ -194,7 +194,7 @@ $(document).ready(function() {
             data: {
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             },
         });
     }, 1500));
@@ -207,12 +207,12 @@ $(document).ready(function() {
                 //timestamp: Number(player.currentTime),
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             },
         });
     }, 1500));
 
-    Echo.join(`room-${roomId}`)
+    Echo.join(`room-${roomUuid}`)
         .here((data) => {
             data.forEach(({ user }) => {
                 $('#online-users').append(`
@@ -305,7 +305,7 @@ $(document).ready(function() {
             data: {
                 id: $(this).parents('.message').attr('data-id'),
                 _token: csrfToken,
-                roomId: roomId,
+                roomUuid: roomUuid,
             },
         }); 
     });

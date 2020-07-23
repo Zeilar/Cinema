@@ -19,30 +19,30 @@ class CommentController extends Controller
         if (is_null($request->content)) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
-        $user->isOwner = $user->isOwner(Room::where('uuid', $request->roomId)->first());
+        $user->isOwner = $user->isOwner(Room::where('uuid', $request->roomUuid)->first());
 
         $comment = Comment::create([
             'user_id' => $user->id,
-            'room_id' => Room::where('uuid', $request->roomId)->first()->id,
+            'room_id' => Room::where('uuid', $request->roomUuid)->first()->id,
             'content' => $request->content,
         ]);
 
-        broadcast(new NewComment($comment, $user, $request->roomId));
+        broadcast(new NewComment($comment, $user, $request->roomUuid));
     }
 
     public function destroy(Request $request) {
         $comment = Comment::find($request->id);
         $this->authorize('delete', $comment);
         $comment->delete();
-        broadcast(new DeleteComment($comment->id, $request->roomId));
+        broadcast(new DeleteComment($comment->id, $request->roomUuid));
     }
 
     public function isTyping(Request $request) {
-        broadcast(new IsTyping(auth()->user(), $request->roomId));
+        broadcast(new IsTyping(auth()->user(), $request->roomUuid));
     }
 
     public function isNotTyping(Request $request) {
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
-        broadcast(new IsNotTyping(auth()->user(), $request->roomId));
+        broadcast(new IsNotTyping(auth()->user(), $request->roomUuid));
     }
 }

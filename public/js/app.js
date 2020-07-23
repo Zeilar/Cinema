@@ -25362,7 +25362,7 @@ $(document).ready(function () {
   var plyr = new Plyr('#videoWrapper');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
   var player = document.querySelector('#videoWrapper');
-  var roomId = $('meta[name=roomId]').attr('content');
+  var roomUuid = $('meta[name=roomUuid]').attr('content');
   var chatMessages = document.querySelector('#chat-messages');
   chatMessages.scrollTop = 99999; //player.volume = 0.5;
 
@@ -25375,7 +25375,7 @@ $(document).ready(function () {
       data: {
         video: Number(videoId),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       },
       success: function success(data) {
         if (data.error) {
@@ -25399,7 +25399,7 @@ $(document).ready(function () {
         data: {
           _token: csrfToken,
           type: 'youtube',
-          roomId: roomId,
+          roomUuid: roomUuid,
           url: url
         },
         success: function success() {
@@ -25438,7 +25438,7 @@ $(document).ready(function () {
       data: {
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       }
     });
   }, 1500));
@@ -25449,7 +25449,7 @@ $(document).ready(function () {
       data: {
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       }
     });
   }, 1500));
@@ -25462,7 +25462,7 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: csrfToken,
-          roomId: roomId
+          roomUuid: roomUuid
         }
       });
     } else {
@@ -25471,7 +25471,7 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: csrfToken,
-          roomId: roomId
+          roomUuid: roomUuid
         }
       });
     }
@@ -25483,7 +25483,7 @@ $(document).ready(function () {
           method: 'POST',
           data: {
             _token: csrfToken,
-            roomId: roomId
+            roomUuid: roomUuid
           }
         });
       }
@@ -25500,7 +25500,7 @@ $(document).ready(function () {
         data: {
           content: chatInput.val(),
           _token: csrfToken,
-          roomId: roomId
+          roomUuid: roomUuid
         }
       });
       $.ajax({
@@ -25508,7 +25508,7 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: csrfToken,
-          roomId: roomId
+          roomUuid: roomUuid
         }
       });
       chatInput.val('').focus();
@@ -25531,7 +25531,7 @@ $(document).ready(function () {
       data: {
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       }
     });
   }, 1500));
@@ -25543,11 +25543,11 @@ $(document).ready(function () {
         //timestamp: Number(player.currentTime),
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       }
     });
   }, 1500));
-  Echo.join("room-".concat(roomId)).here(function (data) {
+  Echo.join("room-".concat(roomUuid)).here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
       $('#online-users').append("\n                    <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
@@ -25609,7 +25609,7 @@ $(document).ready(function () {
       data: {
         id: $(this).parents('.message').attr('data-id'),
         _token: csrfToken,
-        roomId: roomId
+        roomUuid: roomUuid
       }
     });
   });

@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         @isset($id)
-            <meta name="roomId" content="{{ $id }}">
+            <meta name="roomUuid" content="{{ $id }}">
         @endisset
     </head>
     <body>

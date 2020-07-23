@@ -16,20 +16,20 @@ class Notification implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
-    public $roomId;
+    public $roomUuid;
     public $type;
     public $user;
 
-    public function __construct($user, $roomId, $message, $type)
+    public function __construct($user, $roomUuid, $message, $type)
     {
         $this->message = $message;
-        $this->roomId = $roomId;
+        $this->roomUuid = $roomUuid;
         $this->type = $type;
         $this->user = $user;
     }
 
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomId);
+        return new PresenceChannel('room-' . $this->roomUuid);
     }
 }

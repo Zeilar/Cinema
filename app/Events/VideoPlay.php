@@ -15,15 +15,15 @@ class VideoPlay implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $roomId;
+    public $roomUuid;
 
-    public function __construct($roomId)
+    public function __construct($roomUuid)
     {
-        $this->roomId = $roomId;
+        $this->roomUuid = $roomUuid;
     }
 
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomId);
+        return new PresenceChannel('room-' . $this->roomUuid);
     }
 }
