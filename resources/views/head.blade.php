@@ -25,6 +25,6 @@
     </body>
 
     <!-- JavaScript -->
-    @yield('scripts')
     <script src="https://kit.fontawesome.com/24d5fb23dd.js" crossorigin="anonymous"></script>
+    @yield('scripts')
 </html>
