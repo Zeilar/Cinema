@@ -428,7 +428,6 @@ input.form-control:focus {
 #online-users .online-user .username {
   transform: translateX(-50%);
   min-width: unset;
-  margin: auto;
   left: 50%;
 }
 
