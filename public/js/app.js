@@ -25506,7 +25506,6 @@ $(document).ready(function () {
   }, 1500));
 
   function submitComment() {
-    console.log('submit comment');
     var chatInput = $('#chat-send');
     var value = chatInput.val();
 

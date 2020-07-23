@@ -160,7 +160,6 @@ $(document).ready(() => {
     }, 1500));
 
     function submitComment() {
-        console.log('submit comment');
         const chatInput = $('#chat-send');
         const value = chatInput.val();
         if (value !== '') {
