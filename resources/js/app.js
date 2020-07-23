@@ -151,30 +151,39 @@ $(document).ready(() => {
         }, 3000);
     }, 1500));
 
-    $('#chat-submit').submit(_.throttle(function(e) {
-        e.preventDefault();
+    $('#chat-send-button').click(_.throttle(function() {
+        submitComment();
+    }, 1500));
+
+    $('#chat-send').keydown(_.throttle(function() {
+        if (e.key === 'Enter') submitComment();
+    }, 1500));
+
+    function submitComment() {
+        console.log('submit comment');
         const chatInput = $('#chat-send');
-        if ($('#chat-send').val() !== '') {
+        const value = chatInput.val();
+        if (value !== '') {
             $.ajax({
                 url: '/comment/send',
                 method: 'POST',
                 data: {
-                    content: chatInput.val(),
                     _token: csrfToken,
+                    content: value,
                     roomId: roomId,
                 },
             });
-            $.ajax({
-                url: '/chat/is_not_typing',
-                method: 'POST',
-                data: {
-                    _token: csrfToken,
-                    roomId: roomId,
-                }
-            });
-            chatInput.val('').focus();
         }
-    }, 1500));
+        $.ajax({
+            url: '/chat/is_not_typing',
+            method: 'POST',
+            data: {
+                _token: csrfToken,
+                roomId: roomId,
+            }
+        });
+        chatInput.val('').focus();
+    }
 
     function notification(message, user, type) {
         $('.notification').remove();

@@ -53,10 +53,10 @@
                 </div>
 
                 <div id="chat-input">
-                    <form id="chat-submit">
+                    <div id="chat-submit">
                         <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message" />
                         <button class="btn" id="chat-send-button" type="submit">Send</button>
-                    </form>
+                    </div>
 
                     <div id="chat-controls">
                         <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
