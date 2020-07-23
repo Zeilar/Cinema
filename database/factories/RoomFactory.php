@@ -8,6 +8,6 @@ use App\Room;
 
 $factory->define(Room::class, function (Faker $faker) {
     return [
-        'anonymous_id' => Str::random(30),
+        'uuid' => (string)Str::uuid(),
     ];
 });

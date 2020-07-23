@@ -16,11 +16,11 @@ class RoomController extends Controller
         $user = auth()->user();
         $room = factory(Room::class)->create(['owner_id' => $user->id]);
         $user->rooms()->syncWithoutDetaching($room);
-        return redirect(route('room_enter', $room->anonymous_id));
+        return redirect(route('room_enter', $room->uuid));
     }
 
     public function view(Request $request, string $id) {
-        $room = Room::where('anonymous_id', $request->id)->first();
+        $room = Room::where('uuid', $request->id)->first();
         if (!$room) return redirect(route('index'));
         $this->authorize('view', $room);
 
@@ -28,7 +28,7 @@ class RoomController extends Controller
 
         return view('room', [
             'room'        => $room,
-            'id'          => $room->anonymous_id,
+            'id'          => $room->uuid,
             'comments'    => $room->comments,
             'videos'      => $room->videos,
             'activeVideo' => $room->activeVideo(),

@@ -16,7 +16,7 @@
 
         <div class="existing-rooms">
             @foreach ($rooms as $room)
-                <a class="btn room-join" href="{{ route('room_enter', $room->anonymous_id) }}">
+                <a class="btn room-join" href="{{ route('room_enter', $room->uuid) }}">
                     <span>Enter</span>
                     <div class="circle"></div>
                 </a>
