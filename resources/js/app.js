@@ -1,27 +1,27 @@
 import './bootstrap';
 
 $(document).ready(() => {
-    const plyr = new Plyr('#videoWrapper');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    const player = document.querySelector('#videoWrapper');
-    const roomId = $('meta[name=roomId]').attr('content');
-    let chatMessages = document.querySelector('#chat-messages');
     $.ajax({
         url: '/user/info',
         method: 'POST',
         data: {
             _token: csrfToken,
         },
-        success: function(data) {
-            localStorage.setItem('user', JSON.stringify(data));
+        success: function(user) {
+            localStorage.setItem('user', JSON.stringify(user));
         },
     });
+    const plyr = new Plyr('#videoWrapper');
+    const player = document.querySelector('#videoWrapper');
+    const roomId = $('meta[name=roomId]').attr('content');
+    const chatMessages = document.querySelector('#chat-messages');
 
     chatMessages.scrollTop = 99999;
     //player.volume = 0.5;
 
     function getUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        return JSON.parse(localStorage.getItem('user')) ?? false;
     }
 
     $('#videoSelector').change(function() {
@@ -331,8 +331,6 @@ $(document).ready(() => {
 
     window.YT.ready(function() {
         const ytPlayer = new YT.Player('yt-player', {
-            height: '390',
-            width: '640',
             videoId: 'M7lc1UVf-VE',
             events: {
                 onReady: onPlayerReady,

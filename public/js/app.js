@@ -25359,25 +25359,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
-  var plyr = new Plyr('#videoWrapper');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
-  var player = document.querySelector('#videoWrapper');
-  var roomId = $('meta[name=roomId]').attr('content');
-  var chatMessages = document.querySelector('#chat-messages');
   $.ajax({
     url: '/user/info',
     method: 'POST',
     data: {
       _token: csrfToken
     },
-    success: function success(data) {
-      localStorage.setItem('user', JSON.stringify(data));
+    success: function success(user) {
+      localStorage.setItem('user', JSON.stringify(user));
     }
   });
+  var plyr = new Plyr('#videoWrapper');
+  var player = document.querySelector('#videoWrapper');
+  var roomId = $('meta[name=roomId]').attr('content');
+  var chatMessages = document.querySelector('#chat-messages');
   chatMessages.scrollTop = 99999; //player.volume = 0.5;
 
   function getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    var _JSON$parse;
+
+    return (_JSON$parse = JSON.parse(localStorage.getItem('user'))) !== null && _JSON$parse !== void 0 ? _JSON$parse : false;
   }
 
   $('#videoSelector').change(function () {
@@ -25634,8 +25636,6 @@ $(document).ready(function () {
 
   window.YT.ready(function () {
     var ytPlayer = new YT.Player('yt-player', {
-      height: '390',
-      width: '640',
       videoId: 'M7lc1UVf-VE',
       events: {
         onReady: onPlayerReady

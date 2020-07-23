@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <!-- Setup -->
+        <!-- Setup and variables -->
+        @isset($roomId)
+            <meta name="roomId" content="{{ $roomId }}">
+        @endisset
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,9 +18,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,600">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        @isset($roomId)
-            <meta name="roomId" content="{{ $roomId }}">
-        @endisset
     </head>
     <body>
         @yield('body')
