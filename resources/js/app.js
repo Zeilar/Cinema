@@ -36,13 +36,6 @@ $(document).ready(() => {
                 _token: csrfToken,
                 roomId: roomId,
             },
-            success: function(data) {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    loadVideo(data.video);
-                }
-            },
         });
     });
 

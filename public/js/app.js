@@ -25392,13 +25392,6 @@ $(document).ready(function () {
         video: Number(videoId),
         _token: csrfToken,
         roomId: roomId
-      },
-      success: function success(data) {
-        if (data.error) {
-          console.log(data.error);
-        } else {
-          loadVideo(data.video);
-        }
       }
     });
   });
