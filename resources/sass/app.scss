@@ -249,6 +249,7 @@ input, input.form-control {
 
         .username {
             transform: translateX(-50%);
+            align-self: baseline;
             min-width: unset;
 	        left: 50%;
         }
