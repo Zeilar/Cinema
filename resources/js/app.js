@@ -200,7 +200,7 @@ $(document).ready(() => {
         $('body').append(notification);
 
         setTimeout(() => {
-            //notification.remove();
+            notification.remove();
         }, 4000);
     }
 
