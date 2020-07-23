@@ -189,7 +189,8 @@ input, input.form-control {
     border: 0;
 
     &:hover {
-        color: black;
+        background: rgb(20, 103, 185);
+        color: white;
     }
 
     &:focus {

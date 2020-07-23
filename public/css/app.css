@@ -366,7 +366,8 @@ input.form-control:focus {
 }
 
 .btn:hover {
-  color: black;
+  background: #1467b9;
+  color: white;
 }
 
 .btn:focus {
