@@ -248,13 +248,16 @@ input, input.form-control {
         }
 
         .username {
+            transform: translateX(-50%);
             min-width: unset;
             margin: auto;
+	        left: 50%;
         }
 
         .dots {
             justify-content: center;
             position: absolute;
+            user-select: none;
             font-size: 2rem;
             bottom: 0.25rem;
             line-height: 1;

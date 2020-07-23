@@ -25367,7 +25367,7 @@ $(document).ready(function () {
       _token: csrfToken
     },
     success: function success(user) {
-      localStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('user', JSON.stringify(user));
     }
   });
   var plyr = new Plyr('#videoWrapper');
@@ -25379,7 +25379,7 @@ $(document).ready(function () {
   function getUser() {
     var _JSON$parse;
 
-    return (_JSON$parse = JSON.parse(localStorage.getItem('user'))) !== null && _JSON$parse !== void 0 ? _JSON$parse : false;
+    return (_JSON$parse = JSON.parse(sessionStorage.getItem('user'))) !== null && _JSON$parse !== void 0 ? _JSON$parse : false;
   }
 
   $('#videoSelector').change(function () {

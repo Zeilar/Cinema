@@ -9,7 +9,7 @@ $(document).ready(() => {
             _token: csrfToken,
         },
         success: function(user) {
-            localStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('user', JSON.stringify(user));
         },
     });
     const plyr = new Plyr('#videoWrapper');
@@ -21,7 +21,7 @@ $(document).ready(() => {
     //player.volume = 0.5;
 
     function getUser() {
-        return JSON.parse(localStorage.getItem('user')) ?? false;
+        return JSON.parse(sessionStorage.getItem('user')) ?? false;
     }
 
     $('#videoSelector').change(function() {
