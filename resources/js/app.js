@@ -328,9 +328,6 @@ $(document).ready(() => {
             events: {
                 onReady: onPlayerReady,
             },
-            playerVars: {
-                'origin': 'http://cinema.test', // remove this in production
-            }
         });
     });
 });

@@ -159,6 +159,29 @@ button {
   border: 0;
 }
 
+input::-moz-placeholder {
+  -moz-user-select: none;
+       user-select: none;
+}
+
+input:-ms-input-placeholder {
+  -ms-user-select: none;
+      user-select: none;
+}
+
+input::-ms-input-placeholder {
+  -ms-user-select: none;
+      user-select: none;
+}
+
+img,
+input::placeholder {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 input,
 input.form-control {
   border: 1px solid #232323;

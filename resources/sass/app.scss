@@ -28,6 +28,10 @@ input, button {
     border: 0;
 }
 
+img, input::placeholder {
+    user-select: none;
+}
+
 input, input.form-control {
     border: 1px solid rgb(35, 35, 35);
     background: rgb(30, 30, 30);
