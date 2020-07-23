@@ -151,17 +151,18 @@ $(document).ready(() => {
         }, 3000);
     }, 1500));
 
-    $('#chat-send-button').click(_.throttle(function() {
+    $('#chat-send-button').click(function() {
         submitComment();
-    }, 1500));
+    });
 
-    $('#chat-send').keydown(_.throttle(function(e) {
+    $('#chat-send').keydown(function(e) {
         if (e.key === 'Enter') submitComment();
-    }, 1500));
+    });
 
     function submitComment() {
         const chatInput = $('#chat-send');
         const value = chatInput.val();
+        chatInput.val('').focus();
         if (value !== '') {
             $.ajax({
                 url: '/comment/send',
@@ -181,7 +182,6 @@ $(document).ready(() => {
                 roomId: roomId,
             }
         });
-        chatInput.val('').focus();
     }
 
     function notification(message, user, type) {
