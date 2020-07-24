@@ -130,6 +130,99 @@
   color: white;
 }
 
+#login-wrapper {
+  justify-content: center;
+  padding-top: 30rem;
+  display: flex;
+}
+
+#login-wrapper #login {
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background: white;
+  padding: 3rem 2rem;
+  min-width: 15%;
+  display: flex;
+}
+
+#login-wrapper #login h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: black;
+}
+
+#login-wrapper #login .form-row {
+  flex-direction: column;
+  position: relative;
+  margin: 1rem 0;
+  display: flex;
+}
+
+#login-wrapper #login .form-row label {
+  transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out;
+  color: #c8c8c8;
+  position: absolute;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  bottom: 0.25rem;
+  cursor: text;
+  margin: 0;
+}
+
+#login-wrapper #login .form-row label.stay {
+  pointer-events: none;
+  font-size: 0.65rem;
+  bottom: 1.75rem;
+  cursor: default;
+}
+
+#login-wrapper #login .form-row input {
+  border: 0;
+  border-bottom: 1px solid #c8c8c8;
+  transition: border-color 0.25s ease-in-out;
+  position: relative;
+  padding: 0.25rem 0;
+  border-radius: 0;
+  background: none;
+  color: black;
+  width: 100%;
+}
+
+#login-wrapper #login .form-row input:focus {
+  border-color: black;
+}
+
+#login-wrapper #login .form-row input:focus ~ label {
+  pointer-events: none;
+  font-size: 0.65rem;
+  bottom: 1.75rem;
+  cursor: default;
+}
+
+#login-wrapper #login #login-submit {
+  transition: background 0.15s ease-in-out;
+  background: dodgerblue;
+  margin-top: 1.5rem;
+  border-radius: 0;
+  padding: 0.5rem;
+  outline: 0;
+}
+
+#login-wrapper #login #login-submit:hover {
+  background: #1467b9;
+}
+
+#login-wrapper #login #login-submit[disabled] {
+  background: black;
+  opacity: 0.5;
+}
+
 body {
   background: #141414;
   overflow-x: hidden;
