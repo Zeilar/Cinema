@@ -141,8 +141,8 @@
   border-radius: 0.5rem;
   background: white;
   padding: 3rem 2rem;
-  min-width: 15%;
   display: flex;
+  width: 15%;
 }
 
 #login-wrapper #login h1 {
@@ -153,6 +153,12 @@
       -ms-user-select: none;
           user-select: none;
   color: black;
+}
+
+#login-wrapper #login .form-error {
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }
 
 #login-wrapper #login .form-row {
@@ -209,6 +215,10 @@
   transition: background 0.15s ease-in-out;
   background: dodgerblue;
   margin-top: 1.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   border-radius: 0;
   padding: 0.5rem;
   outline: 0;

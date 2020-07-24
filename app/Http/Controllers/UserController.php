@@ -24,10 +24,15 @@ class UserController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
-        return $success ? redirect(route('index')) : redirect()->back();
+        return $success ? redirect(route('index')) : redirect()->back()->with('error', 'Incorrect username or password');
     }
 
     public function loginPage(Request $request) {
         return view('login');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect(route('index'));
     }
 }

@@ -7,6 +7,10 @@
 
             <h1>Login</h1>
 
+            @if (session('error'))
+                <p class="form-error">{{ session('error') }}</p>
+            @endif
+
             <div class="form-row">
                 <input type="text" name="username" id="username" required>
                 <label for="username">Username</label>
