@@ -131,9 +131,23 @@
 }
 
 #login-wrapper {
+  transform: translate(-50%, -50%);
   justify-content: center;
-  padding-top: 30rem;
+  position: absolute;
   display: flex;
+  width: 17.5%;
+  left: 50%;
+  top: 50%;
+}
+
+#login-wrapper ::-moz-selection {
+  color: dodgerblue;
+  background: none;
+}
+
+#login-wrapper ::selection {
+  color: dodgerblue;
+  background: none;
 }
 
 #login-wrapper #login {
@@ -142,7 +156,7 @@
   background: white;
   padding: 3rem 2rem;
   display: flex;
-  width: 15%;
+  width: 100%;
 }
 
 #login-wrapper #login h1 {
@@ -156,6 +170,7 @@
 }
 
 #login-wrapper #login .form-error {
+  margin-bottom: 1rem;
   text-align: center;
   font-weight: bold;
   color: red;
@@ -168,9 +183,16 @@
   display: flex;
 }
 
+#login-wrapper #login .form-row .field-error {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: red;
+}
+
 #login-wrapper #login .form-row label {
   transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out;
   color: #c8c8c8;
+  letter-spacing: 1px;
   position: absolute;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -201,12 +223,12 @@
 }
 
 #login-wrapper #login .form-row input:focus {
-  border-color: black;
+  border-color: dodgerblue;
 }
 
 #login-wrapper #login .form-row input:focus ~ label {
   pointer-events: none;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   bottom: 1.75rem;
   cursor: default;
 }

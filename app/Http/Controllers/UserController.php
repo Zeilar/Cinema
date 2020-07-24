@@ -20,11 +20,20 @@ class UserController extends Controller
     }
 
     public function loginSubmit(Request $request) {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        
         $success = Auth::attempt([
             'username' => $request->username,
             'password' => $request->password,
         ]);
-        return $success ? redirect(route('index')) : redirect()->back()->with('error', 'Incorrect username or password');
+        
+        if ($success) return redirect(route('index'));
+
+        $message = count(User::where('username', $request->username)->get()) ? 'Incorrect password' : 'That user does not exist';
+        return redirect()->back()->with('error', $message);
     }
 
     public function loginPage(Request $request) {

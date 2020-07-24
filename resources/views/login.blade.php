@@ -8,16 +8,31 @@
             <h1>Login</h1>
 
             @if (session('error'))
-                <p class="form-error">{{ session('error') }}</p>
+                <p class="form-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ session('error') }}</span>
+                </p>
             @endif
 
             <div class="form-row">
-                <input type="text" name="username" id="username" required>
+                @error('username')
+                    <p class="field-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>{{ $message }}</span>
+                    </p>
+                @enderror
+                <input type="text" name="username" id="username">
                 <label for="username">Username</label>
             </div>
 
             <div class="form-row">
-                <input type="password" name="password" id="password" autocomplete="off" required>
+                @error('password')
+                    <p class="field-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>{{ $message }}</span>
+                    </p>
+                @enderror
+                <input type="password" name="password" id="password" autocomplete="off">
                 <label for="password">Password</label>
             </div>
 
