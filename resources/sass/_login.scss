@@ -47,6 +47,13 @@
                 color: red;
             }
 
+            label.stay, input:focus ~ label {
+                pointer-events: none;
+                font-size: 0.7rem;
+                bottom: 1.75rem;
+                cursor: default;
+            }
+
             label {
                 transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out;
                 color: rgb(200, 200, 200);
@@ -56,13 +63,6 @@
                 bottom: 0.25rem;
                 cursor: text;
                 margin: 0;
-
-                &.stay {
-                    pointer-events: none;
-                    font-size: 0.65rem;
-                    bottom: 1.75rem;
-                    cursor: default;
-                }
             }
 
             input {
@@ -78,13 +78,6 @@
 
                 &:focus {
                     border-color: dodgerblue;
-
-                    ~ label {
-                        pointer-events: none;
-                        font-size: 0.7rem;
-                        bottom: 1.75rem;
-                        cursor: default;
-                    }
                 }
             }
         }
