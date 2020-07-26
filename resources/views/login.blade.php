@@ -14,7 +14,7 @@
                 </p>
             @endif
 
-            <div class="form-row">
+            <div class="form-row @error('username') error @enderror">
                 @error('username')
                     <p class="field-error">
                         <i class="fas fa-exclamation-circle"></i>
@@ -25,7 +25,7 @@
                 <label for="username">Username</label>
             </div>
 
-            <div class="form-row">
+            <div class="form-row @error('password') error @enderror">
                 @error('password')
                     <p class="field-error">
                         <i class="fas fa-exclamation-circle"></i>

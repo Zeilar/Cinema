@@ -21,9 +21,8 @@
         width: 100%;
 
         h1 {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: center;
-            user-select: none;
             color: black;
         }
 
@@ -34,12 +33,21 @@
             color: red;
         }
 
-
         .form-row {
             flex-direction: column;
             position: relative;
             margin: 1rem 0;
             display: flex;
+
+            &.error {
+                label {
+                    color: red;
+                }
+
+                input {
+                    border-color: red;
+                }
+            }
 
             .field-error {
                 margin-bottom: 1rem;
@@ -49,13 +57,14 @@
 
             label.stay, input:focus ~ label {
                 pointer-events: none;
+                color: dodgerblue;
                 font-size: 0.7rem;
                 bottom: 1.75rem;
                 cursor: default;
             }
 
             label {
-                transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out;
+                transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out, color 0.25s ease-in-out;
                 color: rgb(200, 200, 200);
                 letter-spacing: 1px;
                 position: absolute;
@@ -85,9 +94,9 @@
         #login-submit {
             transition: background 0.15s ease-in-out;
             background: dodgerblue;
-            margin-top: 1.5rem;
             user-select: none;
             border-radius: 0;
+            margin-top: 2rem;
             padding: 0.5rem;
             outline: 0;
 

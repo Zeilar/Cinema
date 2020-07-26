@@ -160,12 +160,8 @@
 }
 
 #login-wrapper #login h1 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   color: black;
 }
 
@@ -183,6 +179,14 @@
   display: flex;
 }
 
+#login-wrapper #login .form-row.error label {
+  color: red;
+}
+
+#login-wrapper #login .form-row.error input {
+  border-color: red;
+}
+
 #login-wrapper #login .form-row .field-error {
   margin-bottom: 1rem;
   font-weight: bold;
@@ -192,13 +196,14 @@
 #login-wrapper #login .form-row label.stay,
 #login-wrapper #login .form-row input:focus ~ label {
   pointer-events: none;
+  color: dodgerblue;
   font-size: 0.7rem;
   bottom: 1.75rem;
   cursor: default;
 }
 
 #login-wrapper #login .form-row label {
-  transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out;
+  transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out, color 0.25s ease-in-out;
   color: #c8c8c8;
   letter-spacing: 1px;
   position: absolute;
@@ -230,12 +235,12 @@
 #login-wrapper #login #login-submit {
   transition: background 0.15s ease-in-out;
   background: dodgerblue;
-  margin-top: 1.5rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   border-radius: 0;
+  margin-top: 2rem;
   padding: 0.5rem;
   outline: 0;
 }
