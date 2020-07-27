@@ -5,7 +5,9 @@
         <form id="login" action="{{ route('login_submit') }}" method="post">
             @csrf
 
-            <h1>Login</h1>
+            <div class="login-banner">
+                <img src="/storage/icons/camera.svg" alt="Site icon" class="img-fluid">
+            </div>
 
             @if (session('error'))
                 <p class="form-error">

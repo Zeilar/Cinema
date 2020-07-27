@@ -61,10 +61,11 @@ $(document).ready(() => {
     });
 
     function abbreviateName(name) {
-        const matches = name.match('([A-Z]+)');
+        const regex = RegExp('[A-Z]+', 'g');
+        const matches = [...name.matchAll(regex)];
         let abbreviatedName = '';
         matches.forEach(element => {
-            abbreviatedName += element;
+            abbreviatedName += element[0];
         });
         return abbreviatedName;
     }

@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'username' => 'Admin Admin',
+            'username' => 'Admin',
             'password' => Hash::make('cinema-admin-123'),
             'color'    => 'rgb(255, 0, 0)',
             'role'     => 'admin',
