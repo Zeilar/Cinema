@@ -31,7 +31,7 @@
         .room-join {
             background-image:
                 -webkit-linear-gradient(dodgerblue, rgba(135, 60, 255, 0.0) 0%), 
-                -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25) 45%, dodgerblue 0%);
+                -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 45%, dodgerblue 0%);
 
             transition: background-image 0.35s ease-in-out, background-size 0.35s ease-out, background-position-x 0.35s ease-out;
             justify-content: space-between;
