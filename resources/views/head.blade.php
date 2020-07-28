@@ -2,8 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <!-- Setup and variables -->
-        @isset($roomId)
-            <meta name="roomId" content="{{ $roomId }}">
+        @isset($room->id)
+            <meta name="roomId" content="{{ $room->id }}">
         @endisset
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
