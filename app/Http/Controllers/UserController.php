@@ -32,8 +32,13 @@ class UserController extends Controller
         
         if ($success) return redirect(route('index'));
 
-        $message = count(User::where('username', $request->username)->get()) ? 'Incorrect password' : 'That user does not exist';
-        return redirect()->back()->with('error', $message);
+        if (count(User::where('username', $request->username)->get())) {
+            $errors = ['password' => 'Incorrect password'];
+        } else {
+            $errors = ['username' => 'That user does not exist'];
+        }
+
+        return redirect()->back()->withInput()->withErrors($errors);
     }
 
     public function loginPage(Request $request) {

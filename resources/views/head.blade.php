@@ -20,6 +20,9 @@
 
     </head>
     <body>
+        @empty($hideNavbar)
+            @include('navbar')
+        @endempty
         @yield('body')
         @yield('footer')
     </body>

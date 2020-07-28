@@ -1,14 +1,9 @@
 #login-wrapper {
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    position: absolute;
-    display: flex;
+    @include centerSelf;
     width: 15%;
-    left: 50%;
-    top: 50%;
 
     #login {
-        border: 1px solid black;
+        border: 2px solid black;
         flex-direction: column;
         border-radius: 0.25rem;
         background: white;
@@ -37,11 +32,11 @@
 
             &.error {
                 label {
-                    color: red;
+                    color: red !important;
                 }
 
                 input {
-                    border-color: red;
+                    border-color: red !important;
                 }
             }
 

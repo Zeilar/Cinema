@@ -28,10 +28,6 @@ class RoomController extends Controller
 
         return view('room', [
             'room'        => $room,
-            'roomId'      => $room->id,
-            'name'        => $room->name,
-            'comments'    => $room->comments,
-            'videos'      => $room->videos,
             'activeVideo' => $room->activeVideo(),
         ]);
     }

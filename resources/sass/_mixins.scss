@@ -1,0 +1,22 @@
+@mixin centerSelf($direction: 'all') {
+    position: absolute;
+    @if $direction == 'all' {
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+    } @else if $direction == 'x' {
+        transform: translateX(-50%);
+        left: 50%;
+    } @else if $direction == 'y' {
+        transform: translateY(-50%);
+        top: 50%;
+    } @else {
+        @error 'Unknown direction: #{$direction}';
+    }
+}
+
+@mixin centerAll {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

@@ -23,7 +23,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   display: flex;
-  width: 60%;
+  width: 80%;
 }
 
 .wrapper-index .existing-rooms .room-join,
@@ -38,11 +38,6 @@
   background-position-x: 100%;
   background-size: 205%;
   padding: 0.5rem 1rem;
-  position: relative;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  overflow: hidden;
   font-size: 2rem;
   display: flex;
   margin: 2rem;
@@ -131,17 +126,15 @@
 }
 
 #login-wrapper {
-  transform: translate(-50%, -50%);
-  justify-content: center;
   position: absolute;
-  display: flex;
-  width: 15%;
+  transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
+  width: 15%;
 }
 
 #login-wrapper #login {
-  border: 1px solid black;
+  border: 2px solid black;
   flex-direction: column;
   border-radius: 0.25rem;
   background: white;
@@ -171,11 +164,11 @@
 }
 
 #login-wrapper #login .form-row.error label {
-  color: red;
+  color: red !important;
 }
 
 #login-wrapper #login .form-row.error input {
-  border-color: red;
+  border-color: red !important;
 }
 
 #login-wrapper #login .form-row .field-error {
@@ -246,21 +239,46 @@
   opacity: 0.25;
 }
 
+html {
+  height: 100vh;
+}
+
 body {
+  flex-direction: column;
   background: #141414;
   overflow-x: hidden;
   font-size: 0.9rem;
   color: white;
-  height: 100vh;
+  display: flex;
+  height: 100%;
+}
+
+ul,
+ol,
+dl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: dodgerblue;
+  padding: 0;
+  margin: 0;
+}
+
+a:hover {
+  color: #0080ff;
+  text-decoration: none;
 }
 
 ::-moz-selection {
-  background: rgba(35, 35, 35, 0.75);
+  background: rgba(35, 35, 35, 0.85);
   color: dodgerblue;
 }
 
 ::selection {
-  background: rgba(35, 35, 35, 0.75);
+  background: rgba(35, 35, 35, 0.85);
   color: dodgerblue;
 }
 
@@ -294,7 +312,6 @@ img,
 }
 
 p {
-  color: white;
   margin: 0;
 }
 
@@ -706,5 +723,38 @@ input.form-control:focus {
   text-align: center;
   font-weight: bold;
   font-size: 1rem;
+}
+
+.navbar {
+  box-shadow: 0 0 0.5rem 1px black;
+  background: white;
+  color: black;
+  padding: 0;
+}
+
+.navbar .nav-list {
+  flex-direction: row;
+  display: flex;
+  height: 100%;
+}
+
+.navbar .nav-list .nav-item {
+  padding: 0.5rem 1rem;
+}
+
+.navbar .nav-list .nav-item.active {
+  border-bottom: 4px solid dodgerblue;
+}
+
+.navbar .nav-list .nav-item.active .nav-link {
+  color: dodgerblue;
+}
+
+.navbar .nav-list .nav-item .nav-link {
+  color: black;
+}
+
+.navbar .nav-list .nav-item .nav-link:hover {
+  color: dodgerblue;
 }
 

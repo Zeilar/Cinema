@@ -22,7 +22,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         display: flex;
-        width: 60%;
+        width: 80%;
 
         .room-join, .room-join:focus {
             box-shadow: 7px 7px 3px rgba(0, 0, 0, 0.5);
@@ -38,9 +38,6 @@
             background-position-x: 100%;
             background-size: 205%;
             padding: 0.5rem 1rem;
-            position: relative;
-            width: fit-content;
-            overflow: hidden;
             font-size: 2rem;
             display: flex;
             margin: 2rem;

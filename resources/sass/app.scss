@@ -1,16 +1,41 @@
+@import 'variables';
+@import 'mixins';
 @import 'index';
 @import 'login';
 
-body {
-    background: rgb(20, 20, 20);
-    overflow-x: hidden;
-    font-size: 0.9rem;
-    color: white;
+html {
     height: 100vh;
 }
 
+body {
+    flex-direction: column;
+    background: $body-bg;
+    overflow-x: hidden;
+    font-size: 0.9rem;
+    color: white;
+    display: flex;
+    height: 100%;
+}
+
+ul, ol, dl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: dodgerblue;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+        color: rgb(0, 128, 255);
+        text-decoration: none;
+    }
+}
+
 ::selection {
-    background: rgba(35, 35, 35, 0.75);
+    background: rgba(35, 35, 35, 0.85);
     color: dodgerblue;
 }
 
@@ -25,7 +50,6 @@ img, ::placeholder {
 }
 
 p {
-    color: white;
     margin: 0;
 }
 
@@ -384,4 +408,37 @@ input, input.form-control {
     text-align: center;
     font-weight: bold;
     font-size: 1rem;
+}
+
+.navbar {
+    box-shadow: 0 0 0.5rem 1px black;
+    background: white;
+    color: black;
+    padding: 0;
+
+    .nav-list {
+        flex-direction: row;
+        display: flex;
+        height: 100%;
+
+        .nav-item {
+            padding: 0.5rem 1rem;
+
+            &.active {
+                border-bottom: 4px solid dodgerblue;
+
+                .nav-link {
+                    color: dodgerblue;
+                }
+            }
+
+            .nav-link {
+                color: black;
+
+                &:hover {
+                    color: dodgerblue;
+                }
+            }
+        }
+    }
 }

@@ -1,9 +1,5 @@
 @extends('head')
 
-@section('head')
-    hejhe
-@endsection
-
 @section('body')
     <div id="wrapper">
         <div id="theatre">
@@ -24,11 +20,11 @@
             @endif
 
             <div id="chat">
-                <p class="room-name">{{ $name }}</p>
+                <p class="room-name">{{ $room->name }}</p>
 
                 <div id="chat-messages">
-                    @isset($comments)  
-                        @foreach ($comments as $comment)
+                    @isset($room->comments)  
+                        @foreach ($room->comments as $comment)
                             @php $user = $comment->user; @endphp
                             <div class="message" data-id="{{ $comment->id }}">
                                 <div 

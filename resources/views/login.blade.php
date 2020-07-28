@@ -23,8 +23,8 @@
                         <span>{{ $message }}</span>
                     </p>
                 @enderror
-                <input type="text" name="username" id="username">
-                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="{{ old('username') ?? '' }}">
+                <label @if(old('username')) class="stay" @endif for="username">Username</label>
             </div>
 
             <div class="form-row @error('password') error @enderror">
