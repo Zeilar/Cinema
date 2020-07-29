@@ -10,6 +10,13 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('room_enter', $room->uuid) }}">{{ $room->name }}</a>
             </li>
-        @endisset
+        @else
+            @isset($_COOKIE['lastRoom'])
+                @php $room = App\Room::find($_COOKIE['lastRoom']) @endphp
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('room_enter', $room->uuid) }}">{{ $room->name }}</a>
+                </li>
+            @endisset
+        @endif
     </ul>
 </nav>

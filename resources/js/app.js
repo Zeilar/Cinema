@@ -71,7 +71,6 @@ $(document).ready(() => {
     }
 
     function addComment(comment, user) {
-        const abbreviatedName = abbreviateName(user.username);
         if (!comment.timestamp) {
             const date = new Date();
             comment.timestamp = `${date.getHours()}:${date.getMinutes()}`;
@@ -83,7 +82,7 @@ $(document).ready(() => {
                 </div>
                 <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
                     ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
-                    ${abbreviatedName}
+                    ${abbreviateName(user.username)}
                 </div>
                 <div class="message-content" style="background-color: ${user.color}; border-color: ${user.color}"></div>
             </div>

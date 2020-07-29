@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\NewComment;
+use Carbon\Carbon;
 use App\Comment;
 use App\User;
 use App\Room;
@@ -21,8 +22,9 @@ class RoomController extends Controller
 
     public function view(Request $request, string $id) {
         $room = Room::where('uuid', $request->id)->first();
-        if (!$room) return redirect(route('index'));
+        if (!$room) return abort(404);
         $this->authorize('view', $room);
+        setcookie('lastRoom', $room->id, Carbon::now()->addYear()->timestamp, '/');
         $user = auth()->user();
         $user->rooms()->syncWithoutDetaching($room);
 
