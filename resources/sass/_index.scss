@@ -20,7 +20,7 @@
         margin: 1% auto 0 auto;
         flex-wrap: wrap;
         @include row;
-        width: 90%;
+        width: 80%;
 
         .room-join, .room-join:focus {
             box-shadow: 7px 7px 3px rgba(0, 0, 0, 0.5);
