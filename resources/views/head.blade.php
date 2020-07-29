@@ -26,7 +26,6 @@
         <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
         <script src="https://www.youtube.com/iframe_api"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
     </head>
     <body>
         @empty($hideNavbar)

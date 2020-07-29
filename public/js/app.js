@@ -47662,11 +47662,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.timezone = moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess();
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+window.timezone = moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess();
+window.cookieCutter = cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"];
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 if (!cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].get('timezone')) {
   cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
@@ -47674,9 +47675,9 @@ if (!cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].get('timezone
 }
 
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  broadcaster: 'pusher',
-  key: "84e7fa8ec74c0b0a8949",
   cluster: "eu",
+  key: "84e7fa8ec74c0b0a8949",
+  broadcaster: 'pusher',
   forceTLS: true
 });
 

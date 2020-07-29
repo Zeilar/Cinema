@@ -8,7 +8,7 @@ $(document).ready(() => {
         data: {
             _token: csrfToken,
         },
-        success: function(user) {
+        success: user => {
             sessionStorage.setItem('user', JSON.stringify(user));
         },
     });
