@@ -170,6 +170,12 @@ input, input.form-control {
         background: rgb(25, 25, 25);
     }
 
+    .message-timestamp {
+        align-items: center;
+        margin-right: 1rem;
+        display: flex;
+    }
+
     .message-author {
         position: relative;
 
@@ -412,8 +418,7 @@ input, input.form-control {
 
 .navbar {
     box-shadow: 0 0 0.5rem 1px black;
-    background: white;
-    color: black;
+    background: rgb(30, 30, 30);
     padding: 0;
 
     .nav-list {
@@ -422,10 +427,19 @@ input, input.form-control {
         height: 100%;
 
         .nav-item {
-            padding: 0.5rem 1rem;
+            transition: border 0.15s ease-in-out;
+            border-bottom: 2px solid transparent;
 
+            &:hover {
+                border-bottom: 2px solid rgba(30, 144, 255, 0.5);
+
+                .nav-link {
+                    color: dodgerblue;
+                }
+            }
+            
             &.active {
-                border-bottom: 4px solid dodgerblue;
+                border-bottom: 2px solid dodgerblue;
 
                 .nav-link {
                     color: dodgerblue;
@@ -433,11 +447,9 @@ input, input.form-control {
             }
 
             .nav-link {
-                color: black;
-
-                &:hover {
-                    color: dodgerblue;
-                }
+                transition: color 0.15s ease-in-out;
+                padding: 1rem 1.5rem;
+                color: white;
             }
         }
     }

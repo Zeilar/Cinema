@@ -27,6 +27,9 @@
                         @foreach ($room->comments as $comment)
                             @php $user = $comment->user; @endphp
                             <div class="message" data-id="{{ $comment->id }}">
+                                <div class="message-timestamp">
+                                    <span>{{ commentTimeFormat($comment->created_at) }}</span>
+                                </div>
                                 <div 
                                     class="message-author" title="{{ $user->username }}"
                                     style="background-color: {{ $user->color }}; border-color: {{ $user->color }}"
@@ -115,15 +118,4 @@
             </div>
         </div>
     </div> <!-- wrapper -->
-@endsection
-
-@section('scripts')
-    <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script
-        src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    ></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

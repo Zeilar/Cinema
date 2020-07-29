@@ -30,3 +30,9 @@ if (!function_exists('getOnlineUsers')) {
         return collect($online_users);
     }
 }
+
+if (!function_exists('commentTimeFormat')) {
+    function commentTimeFormat($timestamp) {
+        return Carbon::parse($timestamp)->setTimezone($_COOKIE['timezone'] ?? 'UTC')->format('H:i');
+    }
+}
