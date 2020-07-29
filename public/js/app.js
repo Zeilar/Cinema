@@ -47420,6 +47420,12 @@ $(document).ready(function () {
 
   function addComment(comment, user) {
     var abbreviatedName = abbreviateName(user.username);
+
+    if (!comment.timestamp) {
+      var date = new Date();
+      comment.timestamp = "".concat(date.getHours(), ":").concat(date.getMinutes());
+    }
+
     var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-timestamp\">\n                    <span>").concat(comment.timestamp, "</span>\n                </div>\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);

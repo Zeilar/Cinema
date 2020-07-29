@@ -72,6 +72,10 @@ $(document).ready(() => {
 
     function addComment(comment, user) {
         const abbreviatedName = abbreviateName(user.username);
+        if (!comment.timestamp) {
+            const date = new Date();
+            comment.timestamp = `${date.getHours()}:${date.getMinutes()}`;
+        }
         const message = $(`
             <div class="message" data-id="${comment.id}">
                 <div class="message-timestamp">
