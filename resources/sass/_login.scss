@@ -4,17 +4,15 @@
 
     #login {
         border: 2px solid black;
-        flex-direction: column;
         border-radius: 0.25rem;
         background: white;
-        display: flex;
+        @include column;
         padding: 2rem;
         width: 100%;
 
         .login-banner {
-            justify-content: center;
+            @include centerAll('horizontal');
             margin-bottom: 2rem;
-            display: flex;
         }
 
         .form-error {
@@ -25,10 +23,9 @@
         }
 
         .form-row {
-            flex-direction: column;
             position: relative;
+            @include column;
             margin: 1rem 0;
-            display: flex;
 
             &.error {
                 label {
@@ -48,10 +45,10 @@
 
             label.stay, input:focus ~ label {
                 pointer-events: none;
-                color: dodgerblue;
                 font-size: 0.7rem;
                 bottom: 2.25rem;
                 cursor: default;
+                color: $primary;
             }
 
             label {
@@ -77,7 +74,7 @@
                 width: 100%;
 
                 &:focus {
-                    border-color: dodgerblue;
+                    border-color: $primary;
                 }
             }
         }
@@ -85,7 +82,7 @@
         #login-submit {
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
             transition: background 0.15s ease-in-out;
-            background: dodgerblue;
+            background: $primary;
             user-select: none;
             border-radius: 0;
             margin-top: 2rem;
@@ -93,7 +90,7 @@
             outline: 0;
 
             &:hover {
-                background: rgb(20, 103, 185);
+                background: $primaryDark;
             }
 
             &[disabled] {

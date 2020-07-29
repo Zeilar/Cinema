@@ -8,12 +8,11 @@ html {
 }
 
 body {
-    flex-direction: column;
     background: $body-bg;
     overflow-x: hidden;
     font-size: 0.9rem;
+    @include column;
     color: white;
-    display: flex;
     height: 100%;
 }
 
@@ -24,19 +23,18 @@ ul, ol, dl {
 }
 
 a {
-    color: dodgerblue;
+    color: $primary;
     padding: 0;
     margin: 0;
 
     &:hover {
-        color: rgb(0, 128, 255);
-        text-decoration: none;
+        color: $primaryDark;
     }
 }
 
 ::selection {
     background: rgba(35, 35, 35, 0.85);
-    color: dodgerblue;
+    color: $primary;
 }
 
 iframe {
@@ -71,13 +69,12 @@ input, input.form-control {
 
     &:focus {
         background: rgb(30, 30, 30);
-        border-color: dodgerblue;
+        border-color: $primary;
     }
 }
 
 #wrapper {
-    flex-direction: column;
-    display: flex;
+    @include column;
     margin: auto;
     height: 100%;
     width: 100%;
@@ -94,18 +91,16 @@ input, input.form-control {
 }
 
 #theatre {
-    flex-direction: row;
-    display: flex;
+    @include row;
     height: 100%;
     width: 100%;
 }
 
 #chat {
-    flex-direction: column;
     margin-left: auto;
+    @include column;
     width: 26.6rem;
     padding: 1rem;
-    display: flex;
 }
 
 #chat-send, #chat-messages, #online-users {
@@ -113,14 +108,13 @@ input, input.form-control {
 }
 
 #chat-send:focus {
-    border-color: dodgerblue;
+    border-color: $primary;
 }
 
 #chat-messages {
     background: rgb(30, 30, 30);
-    flex-direction: column;
     overflow-y: auto;
-    display: flex;
+    @include column;
     flex: 1;
 
     &::-webkit-scrollbar {
@@ -128,7 +122,7 @@ input, input.form-control {
     }
     
     &::-webkit-scrollbar-thumb {
-        background-color: dodgerblue;
+        background-color: $primary;
     }
 }
 
@@ -137,8 +131,7 @@ input, input.form-control {
 }
 
 #chat-submit {
-    flex-direction: row;
-    display: flex;
+    @include row;
 }
 
 #chat-send-button {
@@ -161,18 +154,16 @@ input, input.form-control {
 }
 
 .message {
-    flex-direction: row;
     padding: 0.5rem;
-    display: flex;
+    @include row;
 
     &:nth-child(odd) {
         background: rgb(25, 25, 25);
     }
 
     .message-timestamp {
-        align-items: center;
+        @include centerAll('vertical');
         margin-right: 1rem;
-        display: flex;
     }
 
     .message-author {
@@ -208,8 +199,8 @@ input, input.form-control {
 }
 
 .btn {
-    background: dodgerblue;
     padding: 0.25rem 0.5rem;
+    background: $primary;
     width: fit-content;
     user-select: none;
     min-height: 2rem;
@@ -219,7 +210,7 @@ input, input.form-control {
     border: 0;
 
     &:hover {
-        background: rgb(20, 103, 185);
+        background: $primaryDark;
         color: white;
     }
 
@@ -255,19 +246,17 @@ input, input.form-control {
 #online-users {
     background: rgb(30, 30, 30);
     min-height: calc(4rem + 1px);
-    flex-direction: row;
     padding: 0 0.75rem;
     flex-wrap: wrap;
     border-top: 0;
-    display: flex;
+    @include row;
 
     .online-user {
-        flex-direction: column;
         margin: 1rem 0.35rem;
         border-radius: 50%;
         position: relative;
         padding: 0.75rem;
-        display: flex;
+        @include column;
         width: 3rem;
 
         .user-crown {
@@ -285,13 +274,12 @@ input, input.form-control {
         }
 
         .dots {
-            justify-content: center;
+            @include centerAll('horizontal');
             position: absolute;
             user-select: none;
             font-size: 2rem;
             bottom: 0.25rem;
             line-height: 1;
-            display: flex;
             width: 100%;
             left: 0;
 
@@ -328,7 +316,7 @@ input, input.form-control {
 
         .modal-content {
             border-color: rgb(35, 35, 35);
-            border-top: 3px solid dodgerblue;
+            border-top: 3px solid $primary;
             background: rgb(30, 30, 30);
         }
 
@@ -350,7 +338,7 @@ input, input.form-control {
                 color: white;
 
                 &:hover {
-                    color: dodgerblue;
+                    color: $primary;
                     opacity: 1;
                 }
             }
@@ -375,10 +363,9 @@ input, input.form-control {
     background: rgb(35, 35, 35);
     border-radius: 0.25rem;
     padding: 0.75rem 1rem;
-    flex-direction: row;
     position: absolute;
     user-select: none;
-    display: flex;
+    @include row;
     bottom: 1rem;
     left: 1rem;
 
@@ -392,8 +379,7 @@ input, input.form-control {
     }
 
     .notification-message {
-        flex-direction: row;
-        display: flex;
+        @include row;
 
         .username {
             padding: 0.25rem 0.5rem;
@@ -421,27 +407,26 @@ input, input.form-control {
     padding: 0;
 
     .nav-list {
-        flex-direction: row;
-        display: flex;
+        @include row;
         height: 100%;
 
         .nav-item {
-            transition: border 0.15s ease-in-out;
             border-bottom: 2px solid transparent;
+            transition: border 0.15s ease-in-out;
 
             &:hover {
-                border-bottom: 2px solid rgba(30, 144, 255, 0.5);
+                border-bottom: 2px solid $primaryTransparent;
 
                 .nav-link {
-                    color: dodgerblue;
+                    color: $primary;
                 }
             }
             
             &.active {
-                border-bottom: 2px solid dodgerblue;
+                border-bottom: 2px solid $primary;
 
                 .nav-link {
-                    color: dodgerblue;
+                    color: $primary;
                 }
             }
 

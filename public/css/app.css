@@ -1,7 +1,8 @@
 .wrapper-index {
-  flex-direction: column;
+  display: flex;
   align-items: center;
   padding-top: 10%;
+  flex-direction: column;
   display: flex;
   height: 100%;
 }
@@ -18,12 +19,12 @@
 }
 
 .wrapper-index .existing-rooms {
+  display: flex;
   justify-content: center;
   margin: 1% auto 0 auto;
   flex-direction: row;
   flex-wrap: wrap;
-  display: flex;
-  width: 80%;
+  width: 90%;
 }
 
 .wrapper-index .existing-rooms .room-join,
@@ -119,9 +120,9 @@
 }
 
 .wrapper-index .room-create:hover {
-  background: #006900;
   -webkit-animation: borderPulse 2s infinite;
           animation: borderPulse 2s infinite;
+  background: #006900;
   color: white;
 }
 
@@ -135,18 +136,18 @@
 
 #login-wrapper #login {
   border: 2px solid black;
-  flex-direction: column;
   border-radius: 0.25rem;
   background: white;
+  flex-direction: column;
   display: flex;
   padding: 2rem;
   width: 100%;
 }
 
 #login-wrapper #login .login-banner {
+  display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  display: flex;
 }
 
 #login-wrapper #login .form-error {
@@ -157,10 +158,10 @@
 }
 
 #login-wrapper #login .form-row {
-  flex-direction: column;
   position: relative;
-  margin: 1rem 0;
+  flex-direction: column;
   display: flex;
+  margin: 1rem 0;
 }
 
 #login-wrapper #login .form-row.error label {
@@ -180,10 +181,10 @@
 #login-wrapper #login .form-row label.stay,
 #login-wrapper #login .form-row input:focus ~ label {
   pointer-events: none;
-  color: dodgerblue;
   font-size: 0.7rem;
   bottom: 2.25rem;
   cursor: default;
+  color: dodgerblue;
 }
 
 #login-wrapper #login .form-row label {
@@ -244,12 +245,12 @@ html {
 }
 
 body {
-  flex-direction: column;
   background: #141414;
   overflow-x: hidden;
   font-size: 0.9rem;
-  color: white;
+  flex-direction: column;
   display: flex;
+  color: white;
   height: 100%;
 }
 
@@ -268,8 +269,7 @@ a {
 }
 
 a:hover {
-  color: #0080ff;
-  text-decoration: none;
+  color: #1467b9;
 }
 
 ::-moz-selection {
@@ -367,11 +367,11 @@ input.form-control:focus {
 }
 
 #chat {
-  flex-direction: column;
   margin-left: auto;
+  flex-direction: column;
+  display: flex;
   width: 26.6rem;
   padding: 1rem;
-  display: flex;
 }
 
 #chat-send,
@@ -386,8 +386,8 @@ input.form-control:focus {
 
 #chat-messages {
   background: #1e1e1e;
-  flex-direction: column;
   overflow-y: auto;
+  flex-direction: column;
   display: flex;
   flex: 1;
 }
@@ -435,8 +435,8 @@ input.form-control:focus {
 }
 
 .message {
-  flex-direction: row;
   padding: 0.5rem;
+  flex-direction: row;
   display: flex;
 }
 
@@ -445,9 +445,9 @@ input.form-control:focus {
 }
 
 .message .message-timestamp {
+  display: flex;
   align-items: center;
   margin-right: 1rem;
-  display: flex;
 }
 
 .message .message-author {
@@ -484,8 +484,8 @@ input.form-control:focus {
 }
 
 .btn {
-  background: dodgerblue;
   padding: 0.25rem 0.5rem;
+  background: dodgerblue;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -536,19 +536,19 @@ input.form-control:focus {
 #online-users {
   background: #1e1e1e;
   min-height: calc(4rem + 1px);
-  flex-direction: row;
   padding: 0 0.75rem;
   flex-wrap: wrap;
   border-top: 0;
+  flex-direction: row;
   display: flex;
 }
 
 #online-users .online-user {
-  flex-direction: column;
   margin: 1rem 0.35rem;
   border-radius: 50%;
   position: relative;
   padding: 0.75rem;
+  flex-direction: column;
   display: flex;
   width: 3rem;
 }
@@ -568,6 +568,7 @@ input.form-control:focus {
 }
 
 #online-users .online-user .dots {
+  display: flex;
   justify-content: center;
   position: absolute;
   -webkit-user-select: none;
@@ -577,7 +578,6 @@ input.form-control:focus {
   font-size: 2rem;
   bottom: 0.25rem;
   line-height: 1;
-  display: flex;
   width: 100%;
   left: 0;
 }
@@ -673,12 +673,12 @@ input.form-control:focus {
   background: #232323;
   border-radius: 0.25rem;
   padding: 0.75rem 1rem;
-  flex-direction: row;
   position: absolute;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  flex-direction: row;
   display: flex;
   bottom: 1rem;
   left: 1rem;
@@ -740,8 +740,8 @@ input.form-control:focus {
 }
 
 .navbar .nav-list .nav-item {
-  transition: border 0.15s ease-in-out;
   border-bottom: 2px solid transparent;
+  transition: border 0.15s ease-in-out;
 }
 
 .navbar .nav-list .nav-item:hover {

@@ -15,8 +15,26 @@
     }
 }
 
-@mixin centerAll {
-    justify-content: center;
-    align-items: center;
+@mixin centerAll($direction: 'all') {
+    display: flex;
+    @if $direction == 'all' {
+        justify-content: center;
+        align-items: center;
+    } @else if ($direction == 'horizontal') {
+        justify-content: center;
+    } @else if ($direction == 'vertical') {
+        align-items: center;
+    } @else {
+        @error 'Unknown direction: #{$direction}';
+    }
+}
+
+@mixin row {
+    flex-direction: row;
+    display: flex;
+}
+
+@mixin column {
+    flex-direction: column;
     display: flex;
 }
