@@ -18,8 +18,8 @@
     .existing-rooms {
         @include centerAll('horizontal');
         margin: 1% auto 0 auto;
-        flex-direction: row;
         flex-wrap: wrap;
+        @include row;
         width: 90%;
 
         .room-join, .room-join:focus {
