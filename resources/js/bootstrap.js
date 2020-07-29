@@ -8,7 +8,10 @@ window.timezone = moment.tz.guess();
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = require('pusher-js');
 
-cookieCutter.set('timezone', moment.tz.guess());
+if (!cookieCutter.get('timezone')) {
+    cookieCutter.set('timezone', moment.tz.guess());
+    location.reload();
+}
 
 window.Echo = new Echo({
     broadcaster: 'pusher',

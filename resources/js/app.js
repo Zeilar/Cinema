@@ -74,6 +74,9 @@ $(document).ready(() => {
         const abbreviatedName = abbreviateName(user.username);
         const message = $(`
             <div class="message" data-id="${comment.id}">
+                <div class="message-timestamp">
+                    <span>${comment.timestamp}</span>
+                </div>
                 <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
                     ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                     ${abbreviatedName}

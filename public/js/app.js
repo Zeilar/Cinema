@@ -47420,7 +47420,7 @@ $(document).ready(function () {
 
   function addComment(comment, user) {
     var abbreviatedName = abbreviateName(user.username);
-    var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+    var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-timestamp\">\n                    <span>").concat(comment.timestamp, "</span>\n                </div>\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviatedName, "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);
     $('#chat-messages').append(message);
@@ -47663,7 +47663,12 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 window.timezone = moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess();
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
+
+if (!cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].get('timezone')) {
+  cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
+  location.reload();
+}
+
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: 'pusher',
   key: "84e7fa8ec74c0b0a8949",

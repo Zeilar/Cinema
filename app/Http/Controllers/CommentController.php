@@ -27,6 +27,7 @@ class CommentController extends Controller
             'room_id' => $room->id,
             'content' => $request->content,
         ]);
+        $comment->timestamp = commentTimeFormat($comment->created_at);
 
         broadcast(new NewComment($comment, $user, $request->roomId));
     }
