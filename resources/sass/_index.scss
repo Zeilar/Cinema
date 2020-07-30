@@ -16,7 +16,7 @@
     }
 
     .existing-rooms {
-        @include centerAll('horizontal');
+        justify-content: space-evenly;
         margin: 1% auto 0 auto;
         flex-wrap: wrap;
         @include row;
@@ -33,10 +33,11 @@
             justify-content: space-between;
             background-position-x: 100%;
             background-size: 205%;
-            padding: 0.5rem 1rem;
-            font-size: 2rem;
+            padding: 0.75rem 1rem;
+            font-size: 1.25rem;
             display: flex;
             margin: 2rem;
+            width: 20%;
 
             &:hover {
                 background-position-x: 0;
@@ -55,10 +56,6 @@
 
             * {
                 margin: auto 0;
-            }
-
-            span {
-                margin-bottom: 0.25rem;
             }
 
             .circle {
@@ -82,17 +79,7 @@
         background: green;
         font-size: 2rem;
 
-        @keyframes borderPulse {
-            50% {
-                border-color: white;
-            }
-            100% {
-                border-color: transparent;
-            }
-        }
-
         &:hover {
-            animation: borderPulse 2s infinite;
             background: rgb(0, 105, 0);
             color: white;
         }
