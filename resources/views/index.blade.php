@@ -11,7 +11,10 @@
 
         <form class="new-room" action="{{ route('room_create') }}" method="post">
             @csrf
-            <button class="btn room-create" type="submit">Create a new room</button>
+            <input type="text" name="roomName" id="room-name-input" placeholder="Room name" autocomplete="off">
+            <button class="btn room-create" type="submit">
+                <span class="original-text">Create new room</span>
+            </button>
         </form>
 
         <div class="existing-rooms">

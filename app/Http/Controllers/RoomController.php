@@ -13,9 +13,11 @@ use Auth;
 class RoomController extends Controller
 {
     public function store(Request $request) {
-        $this->authorize('create', Comment::class);
+        $this->authorize('create', Room::class);
         $user = auth()->user();
-        $room = factory(Room::class)->create(['owner_id' => $user->id]);
+        $room = ['owner_id' => $user->id];
+        if (isset($request->roomName)) $room['name'] = $request->roomName;
+        $room = factory(Room::class)->create($room);
         $user->rooms()->syncWithoutDetaching($room);
         return redirect(route('room_enter', $room->uuid));
     }

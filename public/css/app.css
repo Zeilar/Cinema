@@ -8,7 +8,6 @@
 }
 
 .wrapper-index .user-welcome {
-  margin-bottom: 5%;
   font-size: 3rem;
 }
 
@@ -19,7 +18,7 @@
 }
 
 .wrapper-index .existing-rooms {
-  justify-content: space-evenly;
+  justify-content: flex-start;
   margin: 1% auto 0 auto;
   flex-wrap: wrap;
   flex-direction: row;
@@ -40,8 +39,8 @@
   background-size: 205%;
   padding: 0.75rem 1rem;
   font-size: 1.25rem;
+  margin: 1% 2.5%;
   display: flex;
-  margin: 2rem;
   width: 20%;
 }
 
@@ -86,19 +85,31 @@
   width: 1rem;
 }
 
-.wrapper-index .room-create {
+.wrapper-index .new-room {
+  flex-direction: column;
+  display: flex;
+  margin: 5% 0;
+}
+
+.wrapper-index .new-room .room-create {
   transition: background 0.15s ease-in-out;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border: 2px solid transparent;
-  margin-bottom: 0.25rem;
+  margin: 1rem auto auto auto;
   padding: 0.5rem 1rem;
   background: green;
   font-size: 2rem;
+  height: 5rem;
+  width: 100%;
 }
 
-.wrapper-index .room-create:hover {
+.wrapper-index .new-room .room-create:hover {
   background: #006900;
   color: white;
+}
+
+.wrapper-index .new-room #room-name-input {
+  font-size: 1.5rem;
 }
 
 #login-wrapper {

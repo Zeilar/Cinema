@@ -5,7 +5,6 @@
     height: 100%;
 
     .user-welcome {
-        margin-bottom: 5%;
         font-size: 3rem;
 
         .username {
@@ -16,7 +15,7 @@
     }
 
     .existing-rooms {
-        justify-content: space-evenly;
+        justify-content: flex-start;
         margin: 1% auto 0 auto;
         flex-wrap: wrap;
         @include row;
@@ -35,8 +34,8 @@
             background-size: 205%;
             padding: 0.75rem 1rem;
             font-size: 1.25rem;
+            margin: 1% 2.5%;
             display: flex;
-            margin: 2rem;
             width: 20%;
 
             &:hover {
@@ -70,18 +69,29 @@
         }
     }
 
-    .room-create {
-        transition: background 0.15s ease-in-out;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        border: 2px solid transparent;
-        margin-bottom: 0.25rem;
-        padding: 0.5rem 1rem;
-        background: green;
-        font-size: 2rem;
+    .new-room {
+        @include column;
+        margin: 5% 0;
 
-        &:hover {
-            background: rgb(0, 105, 0);
-            color: white;
+        .room-create {
+            transition: background 0.15s ease-in-out;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
+            margin: 1rem auto auto auto;
+            padding: 0.5rem 1rem;
+            background: green;
+            font-size: 2rem;
+            height: 5rem;
+            width: 100%;
+
+            &:hover {
+                background: rgb(0, 105, 0);
+                color: white;
+            }
+        }
+
+        #room-name-input {
+            font-size: 1.5rem;
         }
     }
 }
