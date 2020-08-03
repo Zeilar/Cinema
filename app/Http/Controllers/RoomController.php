@@ -14,6 +14,11 @@ class RoomController extends Controller
 {
     public function store(Request $request) {
         $this->authorize('create', Room::class);
+
+        $request->validate([
+            'roomName' => 'unique:rooms,name|max:20',
+        ]);
+
         $user = auth()->user();
         $room = ['owner_id' => $user->id];
         if (isset($request->roomName)) $room['name'] = $request->roomName;

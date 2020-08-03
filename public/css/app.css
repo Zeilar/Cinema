@@ -86,9 +86,9 @@
 }
 
 .wrapper-index .new-room {
-  border: 2px solid black;
+  border: 1px solid #232323;
+  background: #1e1e1e;
   border-radius: 0.25rem;
-  background: dodgerblue;
   flex-direction: column;
   display: flex;
   margin: 4rem 0;
@@ -129,7 +129,7 @@
   font-size: 0.7rem;
   bottom: 2.25rem;
   cursor: default;
-  color: white;
+  color: dodgerblue;
 }
 
 .wrapper-index .new-room .form-row label {
@@ -159,7 +159,7 @@
 }
 
 .wrapper-index .new-room .form-row input:focus {
-  border-color: white;
+  border-color: dodgerblue;
 }
 
 .wrapper-index .new-room .room-create {
@@ -177,9 +177,13 @@
   outline: 0;
 }
 
+.wrapper-index .new-room .room-create:hover {
+  background: dodgerblue !important;
+}
+
 .wrapper-index .new-room .room-create[disabled] {
   background: black;
-  opacity: 0.75;
+  opacity: 0.25;
 }
 
 #login-wrapper {

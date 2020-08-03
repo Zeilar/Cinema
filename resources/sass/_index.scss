@@ -70,9 +70,9 @@
     }
 
     .new-room {
-        border: 2px solid black;
+        border: 1px solid rgb(35, 35, 35);
+        background: rgb(30, 30, 30);
         border-radius: 0.25rem;
-        background: $primary;
         @include column;
         margin: 4rem 0;
         padding: 2rem;
@@ -110,7 +110,7 @@
                 font-size: 0.7rem;
                 bottom: 2.25rem;
                 cursor: default;
-                color: white;
+                color: $primary;
             }
 
             label {
@@ -136,7 +136,7 @@
                 width: 100%;
 
                 &:focus {
-                    border-color: white;
+                    border-color: $primary;
                 }
             }
         }
@@ -152,9 +152,13 @@
             width: 100%;
             outline: 0;
 
+            &:hover {
+                background: $primary !important;
+            }
+
             &[disabled] {
                 background: black;
-                opacity: 0.75;
+                opacity: 0.25;
             }
         }
     }
