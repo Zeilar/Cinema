@@ -1,7 +1,7 @@
 .wrapper-index {
   display: flex;
   align-items: center;
-  padding-top: 10%;
+  padding-top: 4rem;
   flex-direction: column;
   display: flex;
   height: 100%;
@@ -18,9 +18,9 @@
 }
 
 .wrapper-index .existing-rooms {
-  justify-content: flex-start;
-  margin: 1% auto 0 auto;
+  justify-content: center;
   flex-wrap: wrap;
+  margin: 0 auto;
   flex-direction: row;
   display: flex;
   width: 80%;
@@ -86,30 +86,100 @@
 }
 
 .wrapper-index .new-room {
+  border: 2px solid black;
+  border-radius: 0.25rem;
+  background: dodgerblue;
   flex-direction: column;
   display: flex;
-  margin: 5% 0;
+  margin: 4rem 0;
+  padding: 2rem;
 }
 
-.wrapper-index .new-room .room-create {
-  transition: background 0.15s ease-in-out;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  border: 2px solid transparent;
-  margin: 1rem auto auto auto;
-  padding: 0.5rem 1rem;
-  background: green;
-  font-size: 2rem;
-  height: 5rem;
-  width: 100%;
+.wrapper-index .new-room .form-error {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }
 
-.wrapper-index .new-room .room-create:hover {
-  background: #006900;
+.wrapper-index .new-room .form-row {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  margin: 1rem 0;
+}
+
+.wrapper-index .new-room .form-row.error label {
+  color: red !important;
+}
+
+.wrapper-index .new-room .form-row.error input {
+  border-color: red !important;
+}
+
+.wrapper-index .new-room .form-row .field-error {
+  margin-bottom: 1.25rem;
+  font-weight: bold;
+  color: red;
+}
+
+.wrapper-index .new-room .form-row label.stay,
+.wrapper-index .new-room .form-row input:focus ~ label {
+  pointer-events: none;
+  font-size: 0.7rem;
+  bottom: 2.25rem;
+  cursor: default;
   color: white;
 }
 
-.wrapper-index .new-room #room-name-input {
-  font-size: 1.5rem;
+.wrapper-index .new-room .form-row label {
+  transition: bottom 0.25s ease-in-out, font-size 0.25s ease-in-out, color 0.25s ease-in-out;
+  color: #c8c8c8;
+  letter-spacing: 1px;
+  position: absolute;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  bottom: 0.5rem;
+  cursor: text;
+  margin: 0;
+}
+
+.wrapper-index .new-room .form-row input {
+  border: 0;
+  border-bottom: 1px solid #c8c8c8;
+  transition: border-color 0.25s ease-in-out;
+  position: relative;
+  padding: 0.5rem 0;
+  border-radius: 0;
+  background: none;
+  color: white;
+  width: 100%;
+}
+
+.wrapper-index .new-room .form-row input:focus {
+  border-color: white;
+}
+
+.wrapper-index .new-room .room-create {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+  transition: background 0.15s ease-in-out;
+  background: dodgerblue;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 0;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  outline: 0;
+}
+
+.wrapper-index .new-room .room-create[disabled] {
+  background: black;
+  opacity: 0.75;
 }
 
 #login-wrapper {
