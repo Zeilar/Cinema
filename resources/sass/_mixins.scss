@@ -38,3 +38,8 @@
     flex-direction: column;
     display: flex;
 }
+
+@mixin gray {
+    border: 1px solid rgb(35, 35, 35);
+    background: rgb(30, 30, 30);
+}
