@@ -86,6 +86,7 @@
 }
 
 .wrapper-index .new-room {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 0.25rem;
   flex-direction: column;
   display: flex;
