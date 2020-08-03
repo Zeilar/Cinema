@@ -152,7 +152,7 @@
             width: 100%;
             outline: 0;
 
-            &:hover {
+            &:hover:not([disabled]) {
                 background: $primary !important;
             }
 
