@@ -12,6 +12,8 @@
         <form class="new-room" action="{{ route('room_create') }}" method="post">
             @csrf
 
+            <h4>Create a new room</h4>
+
             @if (session('error'))
                 <p class="form-error">
                     <i class="fas fa-exclamation-circle"></i>
@@ -27,7 +29,7 @@
                     </p>
                 @enderror
                 <input type="text" name="roomName" id="room-name-input" autocomplete="off" value="{{ old('roomName') ?? '' }}" />
-                <label @if(old('roomName')) class="stay" @endif for="room-name-input">Room name</label>
+                <label @if(old('roomName')) class="stay" @endif for="room-name-input">Room name (optional)</label>
             </div>
             <button class="btn room-create" type="submit" style="background: {{ $user->color }};">
                 <span class="original-text">Create new room</span>
