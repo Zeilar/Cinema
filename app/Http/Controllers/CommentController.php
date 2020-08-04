@@ -20,7 +20,7 @@ class CommentController extends Controller
 
         $user = auth()->user();
         $room = Room::find($request->roomId);
-        $user->isOwner = $user->isOwner($room);
+        $user->isRoomOwner = $user->isRoomOwner($room);
 
         $comment = Comment::create([
             'user_id' => $user->id,

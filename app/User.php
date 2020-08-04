@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany(Room::class, 'owner_id');
     }
 
-    public function isOwner(Room $room) {
+    public function isRoomOwner(Room $room) {
         return $room->owner->id === $this->id;
     }
 

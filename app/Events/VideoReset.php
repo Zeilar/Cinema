@@ -15,15 +15,15 @@ class VideoReset implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $roomUuid;
+    public $roomId;
 
-    public function __construct($roomUuid)
+    public function __construct($roomId)
     {
-        $this->roomUuid = $roomUuid;
+        $this->roomId = $roomId;
     }
 
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomUuid);
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

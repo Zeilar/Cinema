@@ -53,7 +53,7 @@ class RoomPolicy
      */
     public function update(User $user, Room $room)
     {
-        return Auth::check() && ($user->isAdmin() || $user->isOwner($room));
+        return Auth::check() && ($user->isAdmin() || $user->isRoomOwner($room));
     }
 
     /**
@@ -65,6 +65,6 @@ class RoomPolicy
      */
     public function delete(User $user, Room $room)
     {
-        return Auth::check() && ($user->isAdmin() || $user->isOwner($room));
+        return Auth::check() && ($user->isAdmin() || $user->isRoomOwner($room));
     }
 }

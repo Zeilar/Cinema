@@ -17,18 +17,18 @@ class NewComment implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $comment;
-    public $roomUuid;
+    public $roomId;
     public $user;
 
-    public function __construct($comment, $user, $roomUuid)
+    public function __construct($comment, $user, $roomId)
     {
         $this->comment = $comment;
-        $this->roomUuid = $roomUuid;
+        $this->roomId = $roomId;
         $this->user = $user;
     }
 
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomUuid);
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

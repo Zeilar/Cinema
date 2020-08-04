@@ -47357,11 +47357,9 @@ $(document).ready(function () {
       sessionStorage.setItem('user', JSON.stringify(user));
     }
   });
-  var plyr = new Plyr('#videoWrapper');
-  var player = document.querySelector('#videoWrapper');
   var roomId = $('meta[name=roomId]').attr('content');
   var chatMessages = document.querySelector('#chat-messages');
-  chatMessages.scrollTop = 99999; //player.volume = 0.5;
+  chatMessages.scrollTop = 99999;
 
   function getUser() {
     var _JSON$parse;
@@ -47390,11 +47388,10 @@ $(document).ready(function () {
     if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
       url = url.replace('watch?v=', 'embed/');
       $.ajax({
-        url: '/video/change',
+        url: '/video/add',
         method: 'POST',
         data: {
           _token: csrfToken,
-          type: 'youtube',
           roomId: roomId,
           url: url
         },
@@ -47424,7 +47421,7 @@ $(document).ready(function () {
       comment.timestamp = "".concat(date.getHours(), ":").concat(date.getMinutes());
     }
 
-    var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-timestamp\">\n                    <span>").concat(comment.timestamp, "</span>\n                </div>\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviateName(user.username), "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
+    var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-timestamp\">\n                    <span>").concat(comment.timestamp, "</span>\n                </div>\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviateName(user.username), "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
 
     message.find('.message-content').text(comment.content);
     $('#chat-messages').append(message);
@@ -47561,7 +47558,7 @@ $(document).ready(function () {
   Echo.join("room-".concat(roomId)).here(function (data) {
     data.forEach(function (_ref) {
       var user = _ref.user;
-      $('#online-users').append("\n                    <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
+      $('#online-users').append("\n                    <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     });
     chatMessages.scrollTop = 99999;
   }).joining(function (_ref2) {
@@ -47571,7 +47568,7 @@ $(document).ready(function () {
     }, user);
 
     if (!$(".online-user[data-id=".concat(user.id, "]")).length) {
-      $('#online-users').append("\n                   <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
+      $('#online-users').append("\n                   <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     }
 
     chatMessages.scrollTop = 99999;
@@ -47599,20 +47596,9 @@ $(document).ready(function () {
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('Notification', function (data) {
     notification(data.message, data.user, data.type);
-  }).listen('ChangeVideo', function (data) {
-    switch (data.video.type) {
-      case 'youtube':
-        $('iframe').attr('src', data.video.url);
-        break;
-    }
-  }).listen('VideoPlay', function () {//player.play();
-  }).listen('VideoSync', function (_ref6) {//player.currentTime = timestamp;
-
+  }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {}).listen('VideoSync', function (_ref6) {
     var timestamp = _ref6.timestamp;
-  }).listen('VideoReset', function () {//player.pause();
-    //player.currentTime = 0; 
-  }).listen('VideoPause', function () {//player.pause();
-  });
+  }).listen('VideoReset', function () {}).listen('VideoPause', function () {});
   $('.comment-remove').click(function () {
     $.ajax({
       url: '/comment/delete',
@@ -47631,8 +47617,6 @@ $(document).ready(function () {
 
   window.YT.ready(function () {
     var ytPlayer = new YT.Player('yt-player', {
-      videoId: 'M7lc1UVf-VE',
-      // change to something else
       events: {
         onReady: onPlayerReady
       },

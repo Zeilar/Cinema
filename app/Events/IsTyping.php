@@ -15,17 +15,17 @@ class IsTyping implements ShouldbroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $roomUuid;
+    public $roomId;
     public $user;
 
-    public function __construct($user, $roomUuid)
+    public function __construct($user, $roomId)
     {
-        $this->roomUuid = $roomUuid;
+        $this->roomId = $roomId;
         $this->user = $user;
     }
 
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomUuid);
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

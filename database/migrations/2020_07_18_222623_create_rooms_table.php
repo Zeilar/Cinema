@@ -18,7 +18,7 @@ class CreateRoomsTable extends Migration
             $table->string('uuid');
             $table->string('name');
             $table->unsignedBigInteger('owner_id');
-            $table->unsignedBigInteger('activeVideo')->nullable();
+            $table->string('activeVideo')->default('dQw4w9WgXcQ');
             $table->timestamps();
         });
     }

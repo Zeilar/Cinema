@@ -16,7 +16,7 @@ class ChangeVideo implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $roomUuid;
+    public $roomId;
     public $video;
     public $user;
 
@@ -25,9 +25,9 @@ class ChangeVideo implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($video, $user, $roomUuid)
+    public function __construct($video, $user, $roomId)
     {
-        $this->roomUuid = $roomUuid;
+        $this->roomId = $roomId;
         $this->video = $video;
         $this->user = $user;
     }

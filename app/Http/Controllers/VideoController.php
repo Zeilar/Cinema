@@ -18,15 +18,11 @@ use Auth;
 
 class VideoController extends Controller
 {
-    public function store(Request $request, Video $video) {
-        //
-    }
-
     public function change(Request $request) {
         if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
 
         $user = auth()->user();
-        $user->isOwner = $user->isOwner(Room::find($request->roomId));
+        $user->isRoomOwner = $user->isRoomOwner(Room::find($request->roomId));
 
         broadcast(new NewComment(Comment::create([
             'content' => 'changed video',
@@ -34,8 +30,7 @@ class VideoController extends Controller
         ]), $user, $request->roomId));
 
         broadcast(new ChangeVideo([
-            'type' => $request->type,
-            'url' => $request->url,
+            'id' => $request->id,
         ], $user, $request->roomId));
     }
 

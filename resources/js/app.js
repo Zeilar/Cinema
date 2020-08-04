@@ -12,13 +12,10 @@ $(document).ready(() => {
             sessionStorage.setItem('user', JSON.stringify(user));
         },
     });
-    const plyr = new Plyr('#videoWrapper');
-    const player = document.querySelector('#videoWrapper');
     const roomId = $('meta[name=roomId]').attr('content');
     const chatMessages = document.querySelector('#chat-messages');
 
     chatMessages.scrollTop = 99999;
-    //player.volume = 0.5;
 
     function getUser() {
         return JSON.parse(sessionStorage.getItem('user')) ?? false;
@@ -44,11 +41,10 @@ $(document).ready(() => {
         if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
             url = url.replace('watch?v=', 'embed/');
             $.ajax({
-                url: '/video/change',
+                url: '/video/add',
                 method: 'POST',
                 data: {
                     _token: csrfToken,
-                    type: 'youtube',
                     roomId: roomId,
                     url: url,
                 },
@@ -81,7 +77,7 @@ $(document).ready(() => {
                     <span>${comment.timestamp}</span>
                 </div>
                 <div class="message-author" style="background-color: ${user.color}; border-color: ${user.color}" title="${user.username}">
-                    ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
+                    ${user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                     ${abbreviateName(user.username)}
                 </div>
                 <div class="message-content" style="background-color: ${user.color}; border-color: ${user.color}"></div>
@@ -244,7 +240,7 @@ $(document).ready(() => {
                         class="online-user" title="${user.username}" data-id="${user.id}"
                         style="background-color: ${user.color}; border-color: ${user.color}"
                     >
-                        ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
+                        ${user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>
@@ -261,7 +257,7 @@ $(document).ready(() => {
                         class="online-user" title="${user.username}" data-id="${user.id}"
                         style="background-color: ${user.color}; border-color: ${user.color}"
                     >
-                        ${user.isOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
+                        ${user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : ''}
                         <span class="username">
                             ${abbreviateName(user.username)}
                         </span>
@@ -302,24 +298,19 @@ $(document).ready(() => {
             notification(data.message, data.user, data.type);
         })
         .listen('ChangeVideo', (data) => {
-            switch (data.video.type) {
-                case 'youtube': 
-                    $('iframe').attr('src', data.video.url);
-                    break;
-            }
+            
         })
         .listen('VideoPlay', () => {
-            //player.play();
+            
         })
         .listen('VideoSync', ({ timestamp }) => {
-            //player.currentTime = timestamp;
+            
         })
         .listen('VideoReset', () => {
-            //player.pause();
-            //player.currentTime = 0; 
+            
         })
         .listen('VideoPause', () => {
-            //player.pause();
+            
         });
 
     $('.comment-remove').click(function() {
@@ -340,7 +331,6 @@ $(document).ready(() => {
 
     window.YT.ready(function() {
         const ytPlayer = new YT.Player('yt-player', {
-            videoId: 'M7lc1UVf-VE', // change to something else
             events: {
                 onReady: onPlayerReady,
             },

@@ -26,8 +26,6 @@
         "laravel-echo": "^1.8.0",
         "moment": "^2.27.0",
         "moment-timezone": "^0.5.31",
-        "plyr": "^3.6.2",
-        "pusher-js": "^6.0.3",
         "webpack": "^4.43.0"
     }
 }

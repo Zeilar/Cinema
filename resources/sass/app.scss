@@ -86,21 +86,26 @@ input, input.form-control {
     width: 100%;
 }
 
-.plyr {
-    flex: 1;
-}
-
 #theatre {
     @include row;
+    margin: 1rem;
     height: 100%;
-    width: 100%;
+}
+
+#theatre-left {
+    margin-right: 1rem;
+    @include column;
+    flex: 1;
 }
 
 #chat {
     margin-left: auto;
     @include column;
     width: 26.6rem;
-    padding: 1rem;
+}
+
+#playlist {
+    height: 20vh;
 }
 
 #chat-send, #chat-messages, #online-users {
@@ -346,12 +351,13 @@ input, input.form-control {
 
         .modal-body {
             input {
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
                 color: white;
             }
 
-            .input-group-text {
-                border-color: rgb(35, 35, 35);
-                color: black;
+            .youtube-icon-wrapper {
+                border-color: white;
             }
         }
     }
@@ -402,8 +408,8 @@ input, input.form-control {
 }
 
 .navbar {
-    box-shadow: 0 0 0.5rem 1px black;
     background: rgb(30, 30, 30);
+    @include shadow;
     padding: 0;
 
     .nav-list {

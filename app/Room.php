@@ -17,12 +17,7 @@ class Room extends Model
     }
 
     public function activeVideo() {
-        if (isset($this->activeVideo)) {
-            $activeVideo = Video::find($this->activeVideo) ?? false;
-        } else {
-            $activeVideo = false;
-        }
-        return $activeVideo;
+        return empty($this->activeVideo) ? false : true;
     }
 
     public function owner() {

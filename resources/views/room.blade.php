@@ -3,21 +3,12 @@
 @section('body')
     <div id="wrapper">
         <div id="theatre">
-            @if ($activeVideo)
-                @if ($activeVideo->type === 'youtube')
-                    <iframe 
-                        id="yt-player" width="100%" allowfullscreen
-                        src="https://www.youtube.com/embed/{{$activeVideo->path ?? 'dQw4w9WgXcQ'}}">
-                    </iframe>
-                @endif
-                @if ($activeVideo->type === 'file')
-                    <video id="videoWrapper" controls playsinline>
-                        <source id="video" src="/storage/{{ $activeVideo->path ?? '1.mp4' }}">
-                    </video> 
-                @endif
-            @else
-                <div id="yt-player"></div>
-            @endif
+            <div id="theatre-left">
+                <iframe id="yt-player" width="100%" allowfullscreen src="https://www.youtube.com/embed/{{$room->activeVideo}}"></iframe>
+                <div id="playlist">
+                    Playlist
+                </div>
+            </div>
 
             <div id="chat">
                 <p class="room-name">{{ $room->name }}</p>
@@ -34,7 +25,7 @@
                                     class="message-author" title="{{ $user->username }}"
                                     style="background-color: {{ $user->color }}; border-color: {{ $user->color }}"
                                 >
-                                    @if ($user->isOwner($room))
+                                    @if ($user->isRoomOwner($room))
                                         <img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />
                                     @endif
                                     <span>{{ abbreviateName($user->username) }}</span>
@@ -83,7 +74,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Change video</h5>
+                        <h5 class="modal-title">Add video</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,32 +82,23 @@
                     <div class="modal-body">
                         <div id="selection">
                             <form id="changeVideo">
-                                <input type="text" id="videoUrl" autocomplete="off">
-
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <span>YouTube</span>
-                                            <i class="fab ml-2 fa-youtube"></i>
+                                        <span class="input-group-text youtube-icon-wrapper">
+                                            <i class="fab fa-youtube"></i>
                                         </span>
                                     </div>
                                     <input
-                                        type="text" class="form-control" id="youtubeUrl" autocomplete="off"
+                                        type="text" id="youtubeUrl" autocomplete="off"
                                         placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                                     />
                                 </div>
-
-                                @isset($videos)
-                                    <select id="videoSelector">
-                                        <!-- Local videos selection here -->
-                                    </select>
-                                @endif
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- theatre -->
     </div> <!-- wrapper -->
 @endsection
 
