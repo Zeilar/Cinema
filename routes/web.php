@@ -21,7 +21,7 @@ Route::post('/chat/is_typing', 'CommentController@isTyping')->name('chat_is_typi
 Route::post('/user/info', 'UserController@getUser')->name('user_info');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
-Route::middleware('throttle:10,1')->group(function() {
+Route::middleware('throttle:30,1')->group(function() {
     Route::post('/comment/delete', 'CommentController@destroy')->name('comment_delete');
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
     Route::post('/video/change', 'VideoController@change')->name('video_change');

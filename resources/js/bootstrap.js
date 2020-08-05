@@ -9,10 +9,9 @@ window.timezone = moment.tz.guess();
 window.cookieCutter = cookieCutter;
 window._ = require('lodash');
 
-if (!cookieCutter.get('timezone')) {
-    cookieCutter.set('timezone', moment.tz.guess());
-    location.reload();
-}
+// Better UX experience that needs to work this way due to PHP unfortunately
+cookieCutter.set('timezone', moment.tz.guess());
+location.reload();
 
 window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,

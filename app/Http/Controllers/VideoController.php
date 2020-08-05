@@ -41,7 +41,7 @@ class VideoController extends Controller
 
     public function sync(Request $request) {
         broadcast(new Notification(auth()->user(), $request->roomId, 'synced the video', $request->type));
-        broadcast(new VideoSync($request->timestamp));
+        broadcast(new VideoSync($request->timestamp, $request->roomId));
     }
 
     public function reset(Request $request) {

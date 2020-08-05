@@ -2,6 +2,7 @@ import './bootstrap';
 
 $(document).ready(() => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
+    let ytPlayer;
     $.ajax({
         url: '/user/info',
         method: 'POST',
@@ -69,7 +70,11 @@ $(document).ready(() => {
     function addComment(comment, user) {
         if (!comment.timestamp) {
             const date = new Date();
-            comment.timestamp = `${date.getHours()}:${date.getMinutes()}`;
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            if (hours < 10) hours = `0${date.getHours()}`;
+            if (minutes < 10) minutes = `0${date.getMinutes()}`;
+            comment.timestamp = `${hours}:${minutes}`;
         }
         const message = $(`
             <div class="message" data-id="${comment.id}">
@@ -190,7 +195,7 @@ $(document).ready(() => {
     function notification(message, user, type) {
         $('.notification').remove();
         const notification = $(`
-            <div class="notification" style="box-shadow: 0 0 5px 1px ${user.color};">
+            <div class="notification" style="box-shadow: 0 0 3px 0 ${user.color};">
                 <div class="notification-icon">
                     <i class="${type}"></i>
                 </div>
@@ -212,19 +217,6 @@ $(document).ready(() => {
             url: '/video/reset',
             method: 'POST',
             data: {
-                type: $(this).find('i').attr('class'),
-                _token: csrfToken,
-                roomId: roomId,
-            },
-        });
-    }, 1500));
-
-    $('#video-sync').click(_.throttle(function() {
-        $.ajax({
-            url: '/video/sync',
-            method: 'POST',
-            data: {
-                //timestamp: Number(player.currentTime),
                 type: $(this).find('i').attr('class'),
                 _token: csrfToken,
                 roomId: roomId,
@@ -301,42 +293,77 @@ $(document).ready(() => {
             
         })
         .listen('VideoPlay', () => {
-            
+            playVideo();
         })
         .listen('VideoSync', ({ timestamp }) => {
-            
+            ytPlayer.seekTo(timestamp);
+            pauseVideo();
         })
         .listen('VideoReset', () => {
-            
+            console.log('video reset');
         })
         .listen('VideoPause', () => {
-            
+            pauseVideo();
         });
 
-    $('.comment-remove').click(function() {
-        $.ajax({
-            url: '/comment/delete',
-            method: 'POST',
-            data: {
-                id: $(this).parents('.message').attr('data-id'),
-                _token: csrfToken,
-                roomId: roomId,
-            },
-        }); 
-    });
+    function playVideo() {
+        ytPlayer.playVideo();
+        $('#video-pause').removeClass('d-none');
+        $('#video-play').addClass('d-none');
+    }
 
-    function onPlayerReady() {
-        console.log('YT player is ready');
+    function pauseVideo() {
+        ytPlayer.pauseVideo();
+        $('#video-play').removeClass('d-none');
+        $('#video-pause').addClass('d-none');
     }
 
     window.YT.ready(function() {
-        const ytPlayer = new YT.Player('yt-player', {
+        ytPlayer = new YT.Player('yt-player', {
+            videoId: 'dQw4w9WgXcQ',
             events: {
-                onReady: onPlayerReady,
+                onReady: initHandlers,
             },
             playerVars: {
-                'origin': 'http://cinema.test', // remove this in production
+                'origin': 'http://cinema.test', // TODO: remove this in production
             }
         });
+
+        function initHandlers() {
+            $('#video-play').click(() => {
+                $.ajax({
+                    url: '/video/play',
+                    method: 'POST',
+                    data: {
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                }); 
+            });
+
+            $('#video-pause').click(() => {
+                $.ajax({
+                    url: '/video/pause',
+                    method: 'POST',
+                    data: {
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                }); 
+            });
+
+            $('#video-sync').click(() => {
+                $.ajax({
+                    url: '/video/sync',
+                    method: 'POST',
+                    data: {
+                        type: $(this).find('i').attr('class'),
+                        timestamp: ytPlayer.getCurrentTime(),
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                });
+            });
+        }
     });
 });

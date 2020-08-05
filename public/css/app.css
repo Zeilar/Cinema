@@ -438,6 +438,8 @@ input.form-control:focus {
 }
 
 #playlist {
+  border: 1px solid #232323;
+  background: #1e1e1e;
   height: 20vh;
 }
 
@@ -515,6 +517,7 @@ input.form-control:focus {
   display: flex;
   align-items: center;
   margin-right: 1rem;
+  width: 2.5rem;
 }
 
 .message .message-author {
@@ -737,19 +740,18 @@ input.form-control:focus {
 .notification {
   -webkit-animation: fade-out 1s 3s forwards;
           animation: fade-out 1s 3s forwards;
-  box-shadow: 0 0 5px 1px black;
   background: #232323;
   border-radius: 0.25rem;
   padding: 0.75rem 1rem;
-  position: absolute;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  position: fixed;
   flex-direction: row;
   display: flex;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: 2rem;
+  left: 2rem;
 }
 
 @-webkit-keyframes fade-out {
@@ -832,5 +834,16 @@ input.form-control:focus {
   transition: color 0.15s ease-in-out;
   padding: 1rem 1.5rem;
   color: white;
+}
+
+#controls {
+  justify-content: center;
+  margin: 1rem 0;
+  flex-direction: row;
+  display: flex;
+}
+
+#controls .btn {
+  margin: 0 0.25rem;
 }
 

@@ -47347,6 +47347,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 $(document).ready(function () {
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
+  var ytPlayer;
   $.ajax({
     url: '/user/info',
     method: 'POST',
@@ -47418,7 +47419,11 @@ $(document).ready(function () {
   function addComment(comment, user) {
     if (!comment.timestamp) {
       var date = new Date();
-      comment.timestamp = "".concat(date.getHours(), ":").concat(date.getMinutes());
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      if (hours < 10) hours = "0".concat(date.getHours());
+      if (minutes < 10) minutes = "0".concat(date.getMinutes());
+      comment.timestamp = "".concat(hours, ":").concat(minutes);
     }
 
     var message = $("\n            <div class=\"message\" data-id=\"".concat(comment.id, "\">\n                <div class=\"message-timestamp\">\n                    <span>").concat(comment.timestamp, "</span>\n                </div>\n                <div class=\"message-author\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\" title=\"").concat(user.username, "\">\n                    ").concat(user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                    ").concat(abbreviateName(user.username), "\n                </div>\n                <div class=\"message-content\" style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"></div>\n            </div>\n        ")); // Do this in order to escape tags and other unwanted characters in the message body
@@ -47525,7 +47530,7 @@ $(document).ready(function () {
 
   function notification(message, user, type) {
     $('.notification').remove();
-    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 5px 1px ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"message\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
+    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"message\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
     $('body').append(notification);
     setTimeout(function () {
       notification.remove();
@@ -47537,18 +47542,6 @@ $(document).ready(function () {
       url: '/video/reset',
       method: 'POST',
       data: {
-        type: $(this).find('i').attr('class'),
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
-  }, 1500));
-  $('#video-sync').click(_.throttle(function () {
-    $.ajax({
-      url: '/video/sync',
-      method: 'POST',
-      data: {
-        //timestamp: Number(player.currentTime),
         type: $(this).find('i').attr('class'),
         _token: csrfToken,
         roomId: roomId
@@ -47596,35 +47589,78 @@ $(document).ready(function () {
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('Notification', function (data) {
     notification(data.message, data.user, data.type);
-  }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {}).listen('VideoSync', function (_ref6) {
+  }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {
+    playVideo();
+  }).listen('VideoSync', function (_ref6) {
     var timestamp = _ref6.timestamp;
-  }).listen('VideoReset', function () {}).listen('VideoPause', function () {});
-  $('.comment-remove').click(function () {
-    $.ajax({
-      url: '/comment/delete',
-      method: 'POST',
-      data: {
-        id: $(this).parents('.message').attr('data-id'),
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
+    ytPlayer.seekTo(timestamp);
+    pauseVideo();
+  }).listen('VideoReset', function () {
+    console.log('video reset');
+  }).listen('VideoPause', function () {
+    pauseVideo();
   });
 
-  function onPlayerReady() {
-    console.log('YT player is ready');
+  function playVideo() {
+    ytPlayer.playVideo();
+    $('#video-pause').removeClass('d-none');
+    $('#video-play').addClass('d-none');
+  }
+
+  function pauseVideo() {
+    ytPlayer.pauseVideo();
+    $('#video-play').removeClass('d-none');
+    $('#video-pause').addClass('d-none');
   }
 
   window.YT.ready(function () {
-    var ytPlayer = new YT.Player('yt-player', {
+    ytPlayer = new YT.Player('yt-player', {
+      videoId: 'dQw4w9WgXcQ',
       events: {
-        onReady: onPlayerReady
+        onReady: initHandlers
       },
       playerVars: {
-        'origin': 'http://cinema.test' // remove this in production
+        'origin': 'http://cinema.test' // TODO: remove this in production
 
       }
     });
+
+    function initHandlers() {
+      var _this3 = this;
+
+      $('#video-play').click(function () {
+        $.ajax({
+          url: '/video/play',
+          method: 'POST',
+          data: {
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      });
+      $('#video-pause').click(function () {
+        $.ajax({
+          url: '/video/pause',
+          method: 'POST',
+          data: {
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      });
+      $('#video-sync').click(function () {
+        $.ajax({
+          url: '/video/sync',
+          method: 'POST',
+          data: {
+            type: $(_this3).find('i').attr('class'),
+            timestamp: ytPlayer.getCurrentTime(),
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      });
+    }
   });
 });
 
@@ -47651,13 +47687,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.timezone = moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess();
 window.cookieCutter = cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"];
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); // Better UX experience that needs to work this way due to PHP unfortunately
 
-if (!cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].get('timezone')) {
-  cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
-  location.reload();
-}
-
+cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
+location.reload();
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   cluster: "eu",
   key: "84e7fa8ec74c0b0a8949",

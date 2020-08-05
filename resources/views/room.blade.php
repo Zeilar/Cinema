@@ -4,7 +4,40 @@
     <div id="wrapper">
         <div id="theatre">
             <div id="theatre-left">
-                <iframe id="yt-player" width="100%" allowfullscreen src="https://www.youtube.com/embed/{{$room->activeVideo}}"></iframe>
+                <div id="yt-player"></div>
+                <div id="controls">
+                    <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+
+                    <button class="btn" id="video-sync" title="Sync with party">
+                        <i class="fas fa-sync"></i>
+                    </button>
+
+                    <button class="btn" id="video-back" title="Go back 15 seconds">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    
+                    <button class="btn" id="video-play" title="Play/Resume">
+                        <i class="fas fa-play"></i>
+                    </button>
+
+                    <button class="btn d-none" id="video-pause" title="Pause">
+                        <i class="fas fa-pause"></i>
+                    </button>
+
+                    <button class="btn" id="video-forward" title="Go forward 15 seconds">
+                        <i class="fas fa-forward"></i>
+                    </button>
+
+                    <button class="btn" id="video-reset" title="Reset">
+                        <i class="fas fa-undo"></i>
+                    </button>
+
+                    <button class="btn" id="toggle-users" title="Show/hide online users">
+                        <i class="fas fa-users"></i>
+                    </button>
+                </div>
                 <div id="playlist">
                     Playlist
                 </div>
@@ -46,24 +79,6 @@
                     <div id="chat-submit">
                         <input type="text" id="chat-send" autocomplete="off" placeholder="Send a message" />
                         <button class="btn" id="chat-send-button" type="submit">Send</button>
-                    </div>
-
-                    <div id="chat-controls">
-                        <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
-                            <i class="fas fa-exchange-alt"></i>
-                        </button>
-
-                        <button class="btn" id="video-sync" data-placement="top" title="Sync with party">
-                            <i class="fas fa-sync"></i>
-                        </button>
-                        
-                        <button class="btn" id="video-reset" title="Reset">
-                            <i class="fas fa-undo"></i>
-                        </button>
-
-                        <button class="btn" id="toggle-users" title="Show/hide online users">
-                            <i class="fas fa-users"></i>
-                        </button>
                     </div>
                 </div>
             </div>
