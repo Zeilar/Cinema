@@ -200,8 +200,8 @@ $(document).ready(() => {
                     <i class="${type}"></i>
                 </div>
                 <div class="notification-message">
-                    <span class="username" style="background: ${user.color};">${user.username}</span>
-                    <span class="message">${message}</span>
+                    <span class="notification-username" style="background: ${user.color};">${user.username}</span>
+                    <span class="notification-content">${message}</span>
                 </div>
             </div>
         `);
@@ -287,6 +287,7 @@ $(document).ready(() => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
         })
         .listen('Notification', (data) => {
+            console.log(data.type);
             notification(data.message, data.user, data.type);
         })
         .listen('ChangeVideo', (data) => {
@@ -330,29 +331,31 @@ $(document).ready(() => {
         });
 
         function initHandlers() {
-            $('#video-play').click(() => {
+            $('#video-play').click(function() {
                 $.ajax({
                     url: '/video/play',
                     method: 'POST',
                     data: {
+                        type: $(this).find('i').attr('class'),
                         _token: csrfToken,
                         roomId: roomId,
                     },
                 }); 
             });
 
-            $('#video-pause').click(() => {
+            $('#video-pause').click(function() {
                 $.ajax({
                     url: '/video/pause',
                     method: 'POST',
                     data: {
+                        type: $(this).find('i').attr('class'),
                         _token: csrfToken,
                         roomId: roomId,
                     },
                 }); 
             });
 
-            $('#video-sync').click(() => {
+            $('#video-sync').click(function() {
                 $.ajax({
                     url: '/video/sync',
                     method: 'POST',

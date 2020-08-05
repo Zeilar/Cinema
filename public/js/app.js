@@ -47530,7 +47530,7 @@ $(document).ready(function () {
 
   function notification(message, user, type) {
     $('.notification').remove();
-    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"message\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
+    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"notification-username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"notification-content\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
     $('body').append(notification);
     setTimeout(function () {
       notification.remove();
@@ -47588,6 +47588,7 @@ $(document).ready(function () {
     var user = _ref5.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('Notification', function (data) {
+    console.log(data.type);
     notification(data.message, data.user, data.type);
   }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {
     playVideo();
@@ -47626,13 +47627,12 @@ $(document).ready(function () {
     });
 
     function initHandlers() {
-      var _this3 = this;
-
       $('#video-play').click(function () {
         $.ajax({
           url: '/video/play',
           method: 'POST',
           data: {
+            type: $(this).find('i').attr('class'),
             _token: csrfToken,
             roomId: roomId
           }
@@ -47643,6 +47643,7 @@ $(document).ready(function () {
           url: '/video/pause',
           method: 'POST',
           data: {
+            type: $(this).find('i').attr('class'),
             _token: csrfToken,
             roomId: roomId
           }
@@ -47653,7 +47654,7 @@ $(document).ready(function () {
           url: '/video/sync',
           method: 'POST',
           data: {
-            type: $(_this3).find('i').attr('class'),
+            type: $(this).find('i').attr('class'),
             timestamp: ytPlayer.getCurrentTime(),
             _token: csrfToken,
             roomId: roomId
@@ -47687,10 +47688,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.timezone = moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess();
 window.cookieCutter = cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"];
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); // Better UX experience that needs to work this way due to PHP unfortunately
-
-cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
-location.reload();
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+if (!cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].get('timezone')) cookie_cutter_helpers__WEBPACK_IMPORTED_MODULE_0__["default"].set('timezone', moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.tz.guess());
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   cluster: "eu",
   key: "84e7fa8ec74c0b0a8949",

@@ -779,14 +779,19 @@ input.form-control:focus {
   display: flex;
 }
 
-.notification .notification-message .username {
+.notification .notification-message .notification-username {
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
+  margin-right: 0.25rem;
   align-self: center;
+  margin-left: 1rem;
+}
+
+.notification .notification-message .notification-content {
+  padding: 0.25rem 0 0.25rem 0.25rem;
 }
 
 .notification .notification-icon {
-  margin-right: 0.5rem;
   align-self: center;
 }
 

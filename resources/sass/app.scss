@@ -388,15 +388,20 @@ input, input.form-control {
     .notification-message {
         @include row;
 
-        .username {
+        .notification-username {
             padding: 0.25rem 0.5rem;
             border-radius: 0.25rem;
+            margin-right: 0.25rem;
             align-self: center;
+            margin-left: 1rem;
+        }
+
+        .notification-content {
+            padding: 0.25rem 0 0.25rem 0.25rem;
         }
     }
     
     .notification-icon {
-        margin-right: 0.5rem;
         align-self: center;
     }
 }
