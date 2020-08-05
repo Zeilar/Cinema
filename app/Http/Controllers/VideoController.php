@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Events\Notification;
-use App\Events\ChangeVideo;
 use App\Events\NewComment;
 use App\Events\VideoReset;
 use App\Events\VideoPause;
 use App\Events\VideoPlay;
 use App\Events\VideoTime;
+use App\Events\AddVideo;
 use App\Comment;
 use App\Video;
 use App\Room;
@@ -18,20 +18,8 @@ use Auth;
 
 class VideoController extends Controller
 {
-    public function change(Request $request) {
-        if (!Auth::check()) return response()->json(['error' => 'Something went wrong, refresh and try again']);
-
-        $user = auth()->user();
-        $user->isRoomOwner = $user->isRoomOwner(Room::find($request->roomId));
-
-        broadcast(new NewComment(Comment::create([
-            'content' => 'changed video',
-            'user_id' => $user->id,
-        ]), $user, $request->roomId));
-
-        broadcast(new ChangeVideo([
-            'id' => $request->id,
-        ], $user, $request->roomId));
+    public function add(Request $request) {
+        broadcast(new AddVideo(['id' => $request->id], auth()->user(), $request->roomId));
     }
 
     public function play(Request $request) {

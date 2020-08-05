@@ -6,10 +6,6 @@
             <div id="theatre-left">
                 <div id="yt-player"></div>
                 <div id="controls">
-                    <button type="button" class="btn" title="Change video" data-toggle="modal" data-target="#changeVideoModal">
-                        <i class="fas fa-exchange-alt"></i>
-                    </button>
-
                     <button class="btn" id="video-sync" title="Sync with party">
                         <i class="fas fa-sync"></i>
                     </button>
@@ -37,6 +33,15 @@
                     <button class="btn" id="toggle-users" title="Show/hide online users">
                         <i class="fas fa-users"></i>
                     </button>
+                </div>
+                <div class="input-group" id="add-video">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text youtube-icon-wrapper">
+                            <i class="fab fa-youtube mr-2"></i>
+                            <span>Add to playlist</span>
+                        </span>
+                    </div>
+                    <input type="text" id="youtubeUrl" autocomplete="off" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
                 </div>
                 <div id="playlist">
                     Playlist
@@ -83,37 +88,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="changeVideoModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add video</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="selection">
-                            <form id="changeVideo">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text youtube-icon-wrapper">
-                                            <i class="fab fa-youtube"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="text" id="youtubeUrl" autocomplete="off"
-                                        placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                                    />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- theatre -->
     </div> <!-- wrapper -->
 @endsection
 

@@ -49,10 +49,6 @@ $(document).ready(() => {
                     roomId: roomId,
                     url: url,
                 },
-                success: () => {
-                    $('#changeVideoModal').modal('hide');
-                    $(this).val('');
-                }
             });
         }
     });
@@ -289,8 +285,8 @@ $(document).ready(() => {
         .listen('Notification', (data) => {
             notification(data.message, data.user, data.type);
         })
-        .listen('ChangeVideo', (data) => {
-            
+        .listen('AddVideo', (data) => {
+            console.log('add video to playlist');
         })
         .listen('VideoPlay', () => {
             playVideo();
@@ -299,7 +295,7 @@ $(document).ready(() => {
             changeVideoTime(timestamp);
         })
         .listen('VideoReset', () => {
-            console.log('video reset');
+            changeVideoTime(0);
         })
         .listen('VideoPause', () => {
             pauseVideo();
@@ -335,6 +331,7 @@ $(document).ready(() => {
         });
 
         function initHandlers() {
+            playVideo();
             $('#video-play').click(function() {
                 $.ajax({
                     url: '/video/play',

@@ -12,7 +12,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Video;
 
-class ChangeVideo implements ShouldBroadcastNow
+class AddVideo implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -39,6 +39,6 @@ class ChangeVideo implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('room-' . $this->roomUuid);
+        return new PresenceChannel('room-' . $this->roomId);
     }
 }

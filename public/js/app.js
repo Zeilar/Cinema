@@ -47382,8 +47382,6 @@ $(document).ready(function () {
     });
   });
   $('#youtubeUrl').keyup(function (e) {
-    var _this = this;
-
     var url = $(this).val();
 
     if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
@@ -47395,10 +47393,6 @@ $(document).ready(function () {
           _token: csrfToken,
           roomId: roomId,
           url: url
-        },
-        success: function success() {
-          $('#changeVideoModal').modal('hide');
-          $(_this).val('');
         }
       });
     }
@@ -47459,7 +47453,7 @@ $(document).ready(function () {
     });
   }, 1500));
   $('#chat-send').on('input', _.throttle(function () {
-    var _this2 = this;
+    var _this = this;
 
     if ($(this).val() === '') {
       $.ajax({
@@ -47482,7 +47476,7 @@ $(document).ready(function () {
     }
 
     setTimeout(function () {
-      if ($(_this2).val() === '') {
+      if ($(_this).val() === '') {
         $.ajax({
           url: '/chat/is_not_typing',
           method: 'POST',
@@ -47589,13 +47583,15 @@ $(document).ready(function () {
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('Notification', function (data) {
     notification(data.message, data.user, data.type);
-  }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {
+  }).listen('AddVideo', function (data) {
+    console.log('add video to playlist');
+  }).listen('VideoPlay', function () {
     playVideo();
   }).listen('VideoTime', function (_ref6) {
     var timestamp = _ref6.timestamp;
     changeVideoTime(timestamp);
   }).listen('VideoReset', function () {
-    console.log('video reset');
+    changeVideoTime(0);
   }).listen('VideoPause', function () {
     pauseVideo();
   });
@@ -47631,6 +47627,7 @@ $(document).ready(function () {
     });
 
     function initHandlers() {
+      playVideo();
       $('#video-play').click(function () {
         $.ajax({
           url: '/video/play',

@@ -25,8 +25,8 @@ Route::middleware('throttle:30,1')->group(function() {
     Route::post('/comment/delete', 'CommentController@destroy')->name('comment_delete');
     Route::post('/video/change_time', 'VideoController@sync')->name('video_sync');
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
-    Route::post('/video/change', 'VideoController@change')->name('video_change');
     Route::post('/video/reset', 'VideoController@reset')->name('video_reset');
     Route::post('/video/pause', 'VideoController@pause')->name('video_pause');
     Route::post('/video/play', 'VideoController@play')->name('video_play');
+    Route::post('/video/add', 'VideoController@add')->name('video_add');
 });

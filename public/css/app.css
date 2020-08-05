@@ -688,118 +688,25 @@ input.form-control:focus {
   }
 }
 
-.modal {
-  margin-top: 15%;
-}
-
-.modal .modal-dialog {
-  max-width: 600px;
-}
-
-.modal .modal-dialog .modal-content {
-  border-color: #232323;
-  border-top: 3px solid dodgerblue;
-  background: #1e1e1e;
-}
-
-.modal .modal-dialog .modal-header {
-  padding: 0;
-  border: 0;
-}
-
-.modal .modal-dialog .modal-header .modal-title,
-.modal .modal-dialog .modal-header .close {
-  margin: auto 0;
-}
-
-.modal .modal-dialog .modal-header .modal-title {
-  padding-left: 1rem;
-}
-
-.modal .modal-dialog .modal-header .close {
-  margin-bottom: 0.25rem;
-  text-shadow: none;
-  color: white;
-}
-
-.modal .modal-dialog .modal-header .close:hover {
-  color: dodgerblue;
-  opacity: 1;
-}
-
-.modal .modal-dialog .modal-body input {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  color: white;
-}
-
-.modal .modal-dialog .modal-body .youtube-icon-wrapper {
-  border-color: white;
-}
-
-.notification {
-  -webkit-animation: fade-out 1s 3s forwards;
-          animation: fade-out 1s 3s forwards;
-  background: #232323;
-  border-radius: 0.25rem;
-  padding: 0.75rem 1rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  position: fixed;
-  flex-direction: row;
-  display: flex;
-  bottom: 2rem;
-  left: 2rem;
-}
-
-@-webkit-keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-.notification .notification-message {
+#controls {
+  justify-content: center;
+  margin: 1rem 0 0.5rem 0;
   flex-direction: row;
   display: flex;
 }
 
-.notification .notification-message .notification-username {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  margin-right: 0.25rem;
-  align-self: center;
-  margin-left: 1rem;
+#controls .btn {
+  margin: 0 0.25rem;
 }
 
-.notification .notification-message .notification-content {
-  padding: 0.25rem 0 0.25rem 0.25rem;
+#add-video {
+  margin: 0 auto 0.5rem auto;
+  width: 34%;
 }
 
-.notification .notification-icon {
-  align-self: center;
-}
-
-.room-name {
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
+#add-video .input-group-text,
+#add-video #youtubeUrl {
+  border-radius: 0;
 }
 
 .navbar {
@@ -839,16 +746,5 @@ input.form-control:focus {
   transition: color 0.15s ease-in-out;
   padding: 1rem 1.5rem;
   color: white;
-}
-
-#controls {
-  justify-content: center;
-  margin: 1rem 0;
-  flex-direction: row;
-  display: flex;
-}
-
-#controls .btn {
-  margin: 0 0.25rem;
 }
 

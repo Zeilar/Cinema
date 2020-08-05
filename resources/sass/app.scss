@@ -315,102 +315,23 @@ input, input.form-control {
     }
 }
 
-.modal {
-    margin-top: 15%;
-
-    .modal-dialog {
-        max-width: 600px;
-
-        .modal-content {
-            border-color: rgb(35, 35, 35);
-            border-top: 3px solid $primary;
-            background: rgb(30, 30, 30);
-        }
-
-        .modal-header {
-            padding: 0;
-            border: 0;
-
-            .modal-title, .close {
-                margin: auto 0;
-            }
-
-            .modal-title {
-                padding-left: 1rem;
-            }
-
-            .close {
-                margin-bottom: 0.25rem;
-                text-shadow: none;
-                color: white;
-
-                &:hover {
-                    color: $primary;
-                    opacity: 1;
-                }
-            }
-        }
-
-        .modal-body {
-            input {
-                border-bottom-left-radius: 0;
-                border-top-left-radius: 0;
-                color: white;
-            }
-
-            .youtube-icon-wrapper {
-                border-color: white;
-            }
-        }
-    }
-}
-
-.notification {
-    animation: fade-out 1s 3s forwards;
-    background: rgb(35, 35, 35);
-    border-radius: 0.25rem;
-    padding: 0.75rem 1rem;
-    user-select: none;
-    position: fixed;
+#controls {
+    justify-content: center;
+    margin: 1rem 0 0.5rem 0;
     @include row;
-    bottom: 2rem;
-    left: 2rem;
 
-    @keyframes fade-out {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-
-    .notification-message {
-        @include row;
-
-        .notification-username {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            margin-right: 0.25rem;
-            align-self: center;
-            margin-left: 1rem;
-        }
-
-        .notification-content {
-            padding: 0.25rem 0 0.25rem 0.25rem;
-        }
-    }
-    
-    .notification-icon {
-        align-self: center;
+    .btn {
+        margin: 0 0.25rem;
     }
 }
 
-.room-name {
-    margin-bottom: 0.5rem;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1rem;
+#add-video {
+    margin: 0 auto 0.5rem auto;
+    width: 34%;
+
+    .input-group-text, #youtubeUrl {
+        border-radius: 0;
+    }
 }
 
 .navbar {
@@ -448,15 +369,5 @@ input, input.form-control {
                 color: white;
             }
         }
-    }
-}
-
-#controls {
-    justify-content: center;
-    margin: 1rem 0;
-    @include row;
-
-    .btn {
-        margin: 0 0.25rem;
     }
 }
