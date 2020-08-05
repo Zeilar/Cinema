@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('mix-env-file');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +17,8 @@ mix.react('resources/js/app.js', 'public/js')
 
 // Copy into dist folder for production
 if (mix.inProduction()) {
+    mix.env(process.env.ENV_FILE);
+    
 	// App
 	mix.copyDirectory('app', 'dist/cinema/app');
 	mix.copyDirectory('config', 'dist/cinema/config');
