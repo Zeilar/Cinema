@@ -334,6 +334,47 @@ input, input.form-control {
     }
 }
 
+.notification {
+    animation: fade-out 1s 3s forwards;
+    background: rgb(35, 35, 35);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    user-select: none;
+    position: fixed;
+    @include row;
+    bottom: 2rem;
+    left: 2rem;
+
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    .notification-message {
+        @include row;
+
+        .notification-username {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-right: 0.25rem;
+            align-self: center;
+            margin-left: 1rem;
+        }
+
+        .notification-content {
+            padding: 0.25rem 0 0.25rem 0.25rem;
+        }
+    }
+    
+    .notification-icon {
+        align-self: center;
+    }
+}
+
 .room-name {
     margin-bottom: 0.5rem;
     text-align: center;

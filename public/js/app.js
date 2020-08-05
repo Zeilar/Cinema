@@ -47384,17 +47384,21 @@ $(document).ready(function () {
   $('#youtubeUrl').keyup(function (e) {
     var url = $(this).val();
 
-    if (url.includes('https://www.youtube.com/watch?v=') && e.key === 'Enter') {
-      url = url.replace('watch?v=', 'embed/');
-      $.ajax({
-        url: '/video/add',
-        method: 'POST',
-        data: {
-          _token: csrfToken,
-          roomId: roomId,
-          url: url
-        }
-      });
+    if (e.key === 'Enter') {
+      if (url.includes('https://www.youtube.com/watch?v=')) {
+        url = url.replace('watch?v=', 'embed/');
+        $.ajax({
+          url: '/video/add',
+          method: 'POST',
+          data: {
+            _token: csrfToken,
+            roomId: roomId,
+            url: url
+          }
+        });
+      } else {
+        alert('Invalid URL, please try again');
+      }
     }
   });
 
