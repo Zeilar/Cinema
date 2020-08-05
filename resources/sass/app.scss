@@ -334,6 +334,13 @@ input, input.form-control {
     }
 }
 
+.room-name {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 .navbar {
     background: rgb(30, 30, 30);
     @include shadow;

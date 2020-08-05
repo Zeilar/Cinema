@@ -709,6 +709,13 @@ input.form-control:focus {
   border-radius: 0;
 }
 
+.room-name {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
 .navbar {
   background: #1e1e1e;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
