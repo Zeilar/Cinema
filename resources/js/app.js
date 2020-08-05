@@ -2,7 +2,7 @@ import './bootstrap';
 
 $(document).ready(() => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    let ytPlayer;
+    let player;
     $.ajax({
         url: '/user/info',
         method: 'POST',
@@ -287,7 +287,6 @@ $(document).ready(() => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
         })
         .listen('Notification', (data) => {
-            console.log(data.type);
             notification(data.message, data.user, data.type);
         })
         .listen('ChangeVideo', (data) => {
@@ -296,9 +295,8 @@ $(document).ready(() => {
         .listen('VideoPlay', () => {
             playVideo();
         })
-        .listen('VideoSync', ({ timestamp }) => {
-            ytPlayer.seekTo(timestamp);
-            pauseVideo();
+        .listen('VideoTime', ({ timestamp }) => {
+            changeVideoTime(timestamp);
         })
         .listen('VideoReset', () => {
             console.log('video reset');
@@ -308,19 +306,25 @@ $(document).ready(() => {
         });
 
     function playVideo() {
-        ytPlayer.playVideo();
+        player.playVideo();
         $('#video-pause').removeClass('d-none');
         $('#video-play').addClass('d-none');
     }
 
     function pauseVideo() {
-        ytPlayer.pauseVideo();
+        player.pauseVideo();
         $('#video-play').removeClass('d-none');
         $('#video-pause').addClass('d-none');
     }
 
+    function changeVideoTime(timestamp) {
+        player.seekTo(timestamp);
+        playVideo();
+        pauseVideo();
+    }
+
     window.YT.ready(function() {
-        ytPlayer = new YT.Player('yt-player', {
+        player = new YT.Player('yt-player', {
             videoId: 'dQw4w9WgXcQ',
             events: {
                 onReady: initHandlers,
@@ -357,11 +361,37 @@ $(document).ready(() => {
 
             $('#video-sync').click(function() {
                 $.ajax({
-                    url: '/video/sync',
+                    url: '/video/change_time',
                     method: 'POST',
                     data: {
                         type: $(this).find('i').attr('class'),
-                        timestamp: ytPlayer.getCurrentTime(),
+                        timestamp: player.getCurrentTime(),
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                });
+            });
+
+            $('#video-forward').click(function() {
+                $.ajax({
+                    url: '/video/change_time',
+                    method: 'POST',
+                    data: {
+                        timestamp: player.getCurrentTime() + 15,
+                        type: $(this).find('i').attr('class'),
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                });
+            });
+
+            $('#video-backward').click(function() {
+                $.ajax({
+                    url: '/video/change_time',
+                    method: 'POST',
+                    data: {
+                        timestamp: player.getCurrentTime() - 15,
+                        type: $(this).find('i').attr('class'),
                         _token: csrfToken,
                         roomId: roomId,
                     },

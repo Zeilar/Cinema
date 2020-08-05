@@ -14,7 +14,7 @@
                         <i class="fas fa-sync"></i>
                     </button>
 
-                    <button class="btn" id="video-back" title="Go back 15 seconds">
+                    <button class="btn" id="video-backward" title="Go back 15 seconds">
                         <i class="fas fa-backward"></i>
                     </button>
                     

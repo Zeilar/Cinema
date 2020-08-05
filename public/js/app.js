@@ -47347,7 +47347,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 $(document).ready(function () {
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
-  var ytPlayer;
+  var player;
   $.ajax({
     url: '/user/info',
     method: 'POST',
@@ -47588,14 +47588,12 @@ $(document).ready(function () {
     var user = _ref5.user;
     $(".online-user[title=\"".concat(user.username, "\"]")).find('.dots').remove();
   }).listen('Notification', function (data) {
-    console.log(data.type);
     notification(data.message, data.user, data.type);
   }).listen('ChangeVideo', function (data) {}).listen('VideoPlay', function () {
     playVideo();
-  }).listen('VideoSync', function (_ref6) {
+  }).listen('VideoTime', function (_ref6) {
     var timestamp = _ref6.timestamp;
-    ytPlayer.seekTo(timestamp);
-    pauseVideo();
+    changeVideoTime(timestamp);
   }).listen('VideoReset', function () {
     console.log('video reset');
   }).listen('VideoPause', function () {
@@ -47603,19 +47601,25 @@ $(document).ready(function () {
   });
 
   function playVideo() {
-    ytPlayer.playVideo();
+    player.playVideo();
     $('#video-pause').removeClass('d-none');
     $('#video-play').addClass('d-none');
   }
 
   function pauseVideo() {
-    ytPlayer.pauseVideo();
+    player.pauseVideo();
     $('#video-play').removeClass('d-none');
     $('#video-pause').addClass('d-none');
   }
 
+  function changeVideoTime(timestamp) {
+    player.seekTo(timestamp);
+    playVideo();
+    pauseVideo();
+  }
+
   window.YT.ready(function () {
-    ytPlayer = new YT.Player('yt-player', {
+    player = new YT.Player('yt-player', {
       videoId: 'dQw4w9WgXcQ',
       events: {
         onReady: initHandlers
@@ -47651,11 +47655,35 @@ $(document).ready(function () {
       });
       $('#video-sync').click(function () {
         $.ajax({
-          url: '/video/sync',
+          url: '/video/change_time',
           method: 'POST',
           data: {
             type: $(this).find('i').attr('class'),
-            timestamp: ytPlayer.getCurrentTime(),
+            timestamp: player.getCurrentTime(),
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      });
+      $('#video-forward').click(function () {
+        $.ajax({
+          url: '/video/change_time',
+          method: 'POST',
+          data: {
+            timestamp: player.getCurrentTime() + 15,
+            type: $(this).find('i').attr('class'),
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      });
+      $('#video-backward').click(function () {
+        $.ajax({
+          url: '/video/change_time',
+          method: 'POST',
+          data: {
+            timestamp: player.getCurrentTime() - 15,
+            type: $(this).find('i').attr('class'),
             _token: csrfToken,
             roomId: roomId
           }

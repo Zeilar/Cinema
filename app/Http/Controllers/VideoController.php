@@ -10,7 +10,7 @@ use App\Events\NewComment;
 use App\Events\VideoReset;
 use App\Events\VideoPause;
 use App\Events\VideoPlay;
-use App\Events\VideoSync;
+use App\Events\VideoTime;
 use App\Comment;
 use App\Video;
 use App\Room;
@@ -40,8 +40,8 @@ class VideoController extends Controller
     }
 
     public function sync(Request $request) {
-        broadcast(new Notification(auth()->user(), $request->roomId, 'synced the video', $request->type));
-        broadcast(new VideoSync($request->timestamp, $request->roomId));
+        broadcast(new Notification(auth()->user(), $request->roomId, 'changed the video time', $request->type));
+        broadcast(new VideoTime($request->timestamp, $request->roomId));
     }
 
     public function reset(Request $request) {
