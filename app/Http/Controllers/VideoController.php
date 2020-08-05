@@ -20,11 +20,11 @@ class VideoController extends Controller
 {
     public function add(Request $request) {
         $room = Room::findOrFail($request->roomId);
-        $playlist = $room->playlist()->videos;
+        $playlist = $room->playlist();
         array_push($playlist, $request->videoId);
         $room->update(['playlist' => json_encode($playlist)]);
 
-        broadcast(new AddVideo(['id' => $request->id], auth()->user(), $request->roomId));
+        broadcast(new AddVideo($request->videoId, auth()->user(), $request->roomId));
     }
 
     public function play(Request $request) {

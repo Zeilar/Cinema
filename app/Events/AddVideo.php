@@ -16,8 +16,8 @@ class AddVideo implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $videoId;
     public $roomId;
-    public $video;
     public $user;
 
     /**
@@ -25,10 +25,10 @@ class AddVideo implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($video, $user, $roomId)
+    public function __construct($videoId, $user, $roomId)
     {
+        $this->videoId = $videoId;
         $this->roomId = $roomId;
-        $this->video = $video;
         $this->user = $user;
     }
 

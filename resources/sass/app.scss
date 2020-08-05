@@ -87,40 +87,61 @@ input, input.form-control {
 }
 
 #theatre {
-    @include row;
+    @include column;
     margin: 1rem;
     height: 100%;
 }
 
-#theatre-left {
-    margin-right: 1rem;
-    @include column;
+#theatre-upper {
+    @include row;
     flex: 1;
 }
 
+#playlist, #chat {
+    width: 16.3vw;
+}
+
 #chat {
-    margin-left: auto;
     @include column;
-    width: 26.6rem;
+}
+
+#player-wrapper {
+    @include column;
+    margin: 0 1rem;
+    flex: 1;
 }
 
 #playlist {
+    overflow: auto;
     @include gray;
-    height: 15vh;
+
+    .playlist-button {
+        border-radius: 0;
+        background: none;
+        height: 16.3vw;
+        width: 100%;
+        padding: 0;
+        outline: 0;
+
+        .playlist-video {
+            pointer-events: none;
+        }
+    }
 }
 
-#chat-send, #chat-messages, #online-users {
-    border: 1px solid rgb(35, 35, 35);
-}
+#chat-send {
+    @include gray;
 
-#chat-send:focus {
-    border-color: $primary;
+    &:focus {
+        border-color: $primary;
+    }
 }
 
 #chat-messages {
     background: rgb(30, 30, 30);
     overflow-y: auto;
     @include column;
+    @include gray;
     flex: 1;
 
     &::-webkit-scrollbar {
@@ -132,8 +153,8 @@ input, input.form-control {
     }
 }
 
-#chat-controls, #chat-input {
-    margin-top: 1rem;
+#chat-input {
+    margin-top: 0.5rem;
 }
 
 #chat-submit {
@@ -253,9 +274,11 @@ input, input.form-control {
 #online-users {
     background: rgb(30, 30, 30);
     min-height: calc(4rem + 1px);
+    margin-top: 0.5rem;
     padding: 0 0.75rem;
     flex-wrap: wrap;
     border-top: 0;
+    @include gray;
     @include row;
 
     .online-user {
@@ -315,19 +338,18 @@ input, input.form-control {
     }
 }
 
-#controls {
+#control-buttons {
     justify-content: center;
-    margin: 1rem 0 0.5rem 0;
+    margin-top: 1rem;
     @include row;
 
     .btn {
-        margin: 0 0.25rem;
+        margin: 0 2px;
     }
 }
 
 #add-video {
-    margin: 0 auto 0.5rem auto;
-    width: 34%;
+    margin-bottom: 0.5rem;
 
     .input-group-text, #youtubeUrl {
         border-radius: 0;
@@ -378,8 +400,9 @@ input, input.form-control {
 .room-name {
     margin-bottom: 0.5rem;
     text-align: center;
+    padding: 0.45rem 0;
     font-weight: bold;
-    font-size: 1rem;
+    @include gray;
 }
 
 .navbar {

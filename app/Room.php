@@ -9,7 +9,7 @@ class Room extends Model
     protected $guarded = [];
 
     protected $attributes = [
-        'playlist' => '{"videos": ["dQw4w9WgXcQ"]}',
+        'playlist' => '["dQw4w9WgXcQ"]',
     ];
 
     public function comments() {

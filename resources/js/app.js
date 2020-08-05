@@ -299,7 +299,22 @@ $(document).ready(() => {
             notification(data.message, data.user, data.type);
         })
         .listen('AddVideo', (data) => {
-            console.log('add video to playlist');
+            const lastVideo = $('.playlist-video').last();
+            const player = $(`
+                <button class="playlist-button" type="button">
+                    <div class="playlist-video" id="video-${lastVideo.attr('data-id') + 1}"></div>
+                </button>
+            `);
+            $('#playlist').append(player);
+            new YT.Player(player.find('.playlist-video').attr('id'), {
+                videoId: data.videoId,
+                playerVars: {
+                    'origin': 'http://cinema.test', // TODO: remove this in production
+                    iv_load_policy: 3,
+                    controls: 0,
+                    fs: 0,
+                }
+            });
         })
         .listen('VideoPlay', () => {
             playVideo();
@@ -340,11 +355,24 @@ $(document).ready(() => {
             },
             playerVars: {
                 'origin': 'http://cinema.test', // TODO: remove this in production
+                iv_load_policy: 3,
+                autoplay: 1,
+                fs: 0,
             }
         });
 
+        $('.playlist-video').each(function(i) {
+            new YT.Player(`video-${i}`, {
+                videoId: $(this).attr('data-id'),
+                playerVars: {
+                    iv_load_policy: 3,
+                    controls: 0,
+                    fs: 0,
+                },
+            });
+        });
+
         function initHandlers() {
-            playVideo();
             $('#video-play').click(function() {
                 $.ajax({
                     url: '/video/play',
