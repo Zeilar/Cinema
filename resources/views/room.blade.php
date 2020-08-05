@@ -76,9 +76,7 @@
                     @endisset
                 </div>
 
-                <div id="online-users">
-                    <!-- Loaded by Echo through websocket -->
-                </div>
+                <div id="online-users"><!-- Loaded by Echo through websocket --></div>
 
                 <div id="chat-input">
                     <div id="chat-submit">

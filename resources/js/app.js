@@ -38,21 +38,30 @@ $(document).ready(() => {
     });
 
     $('#youtubeUrl').keyup(function(e) {
-        let url = $(this).val();
         if (e.key === 'Enter') {
-            if (url.includes('https://www.youtube.com/watch?v=')) {
-                url = url.replace('watch?v=', 'embed/');
+            let url = '';
+
+            try {
+                url = new URL($(this).val());
+            } catch (e) {
+                return alert('Invalid URL, please try again\nMake sure it contains "v="');
+            }
+
+            const parameter = new URLSearchParams(url.search);
+            const videoId = parameter.get('v');
+
+            if (videoId) {
                 $.ajax({
                     url: '/video/add',
                     method: 'POST',
                     data: {
                         _token: csrfToken,
+                        videoId: videoId,
                         roomId: roomId,
-                        url: url,
                     },
                 });
             } else {
-                alert('Invalid URL, please try again');
+                alert('Invalid URL, please try again\nMake sure it contains "v="');
             }
         }
     });

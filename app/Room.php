@@ -8,12 +8,16 @@ class Room extends Model
 {
     protected $guarded = [];
 
+    protected $attributes = [
+        'playlist' => '{"videos": ["dQw4w9WgXcQ"]}',
+    ];
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }
 
     public function playlist() {
-        return $this->hasOne(Playlist::class);
+        return $this->playlist ? json_decode($this->playlist) : false;
     }
 
     public function activeVideo() {

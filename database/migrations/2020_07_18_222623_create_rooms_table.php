@@ -19,7 +19,7 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('owner_id');
             $table->string('activeVideo')->default('dQw4w9WgXcQ');
-            $table->json('playlist')->nullable();
+            $table->json('playlist')-> nullable();
             $table->timestamps();
         });
     }

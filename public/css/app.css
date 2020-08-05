@@ -440,7 +440,7 @@ input.form-control:focus {
 #playlist {
   border: 1px solid #232323;
   background: #1e1e1e;
-  height: 20vh;
+  height: 15vh;
 }
 
 #chat-send,
