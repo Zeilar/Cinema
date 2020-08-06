@@ -47549,12 +47549,24 @@ $(document).ready(function () {
     });
   }
 
-  function notification(message, user, type) {
+  function notification() {
+    var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var user = arguments.length > 1 ? arguments[1] : undefined;
+    var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
     $('.notification').remove();
-    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(user.color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type, "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    <span class=\"notification-username\" style=\"background: ").concat(user.color, ";\">").concat(user.username, "</span>\n                    <span class=\"notification-content\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
+    var username = '';
+    var color = 'black';
+
+    if (user) {
+      var _user$color;
+
+      username = "<span class=\"notification-username\" style=\"background: ".concat(user.color, ";\">").concat(user.username, "</span>");
+      color = (_user$color = user.color) !== null && _user$color !== void 0 ? _user$color : 'black';
+    }
+
+    var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type !== null && type !== void 0 ? type : '', "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(username, "\n                    <span class=\"notification-content\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
     $('body').append(notification);
-    setTimeout(function () {
-      notification.remove();
+    setTimeout(function () {//notification.remove();
     }, 4000);
   }
 
@@ -47613,7 +47625,7 @@ $(document).ready(function () {
   }).listen('AddVideo', function (data) {
     var lastVideo = $('.playlist-video').last();
     var player = $("\n                <button class=\"playlist-button\" type=\"button\">\n                    <div class=\"playlist-video\" id=\"video-".concat(lastVideo.attr('data-id') + 1, "\"></div>\n                </button>\n            "));
-    $('#playlist').append(player);
+    $('#playlist .playlist-videos').append(player);
     new YT.Player(player.find('.playlist-video').attr('id'), {
       videoId: data.videoId,
       playerVars: {

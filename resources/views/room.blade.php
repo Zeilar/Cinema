@@ -5,13 +5,16 @@
         <div id="theatre">
             <div id="theatre-upper">
                 <div id="playlist">
-                    @if ($playlist = $room->playlist())
-                        @foreach ($playlist as $i => $video)
-                            <button class="playlist-button" type="button">
-                                <div class="playlist-video" id="video-{{$i}}" data-id="{{ $video }}"></div>
-                            </button>
-                        @endforeach
-                    @endif
+                    <div class="playlist-header">Playlist</div>
+                    <div class="playlist-videos">
+                        @if (count($playlist))
+                            @foreach ($playlist as $i => $video)
+                                <button class="playlist-button" type="button">
+                                    <div class="playlist-video" id="video-{{$i}}" data-id="{{ $video }}"></div>
+                                </button>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div id="player-wrapper">
                     <div class="input-group" id="add-video">

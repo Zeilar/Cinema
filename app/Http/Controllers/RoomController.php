@@ -36,6 +36,7 @@ class RoomController extends Controller
         $user->rooms()->syncWithoutDetaching($room);
 
         return view('room', [
+            'playlist' => $room->playlist(),
             'room' => $room,
         ]);
     }

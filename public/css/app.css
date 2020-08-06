@@ -166,7 +166,7 @@
 
 .wrapper-index .new-room .room-create {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
-  transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out, transform 0.15s ease-in-out;
   background: dodgerblue;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -180,7 +180,7 @@
 }
 
 .wrapper-index .new-room .room-create:hover:not([disabled]) {
-  background: dodgerblue !important;
+  transform: scale(1.03);
 }
 
 .wrapper-index .new-room .room-create[disabled] {
@@ -439,11 +439,18 @@ input.form-control:focus {
 }
 
 #playlist {
+  border-radius: 0;
+  flex-direction: column;
+  display: flex;
+  overflow: auto;
+}
+
+#playlist .playlist-videos {
   border: 1px solid #232323;
   background: #1e1e1e;
   border-radius: 0.25rem;
   border-radius: 0;
-  overflow: auto;
+  height: 100%;
 }
 
 #playlist .playlist-button {
@@ -787,14 +794,15 @@ input.form-control:focus {
 }
 
 .notification .notification-message .notification-content {
-  padding: 0.25rem 0 0.25rem 0.25rem;
+  padding: 0.25rem;
 }
 
 .notification .notification-icon {
   align-self: center;
 }
 
-.room-name {
+.room-name,
+.playlist-header {
   margin-bottom: 0.5rem;
   text-align: center;
   padding: 0.45rem 0;

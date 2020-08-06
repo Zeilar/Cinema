@@ -13,11 +13,11 @@ class Room extends Model
     }
 
     public function playlist() {
-        return $this->playlist ? json_decode($this->playlist) : false;
+        return $this->playlist ? json_decode($this->playlist) : [];
     }
 
     public function activeVideo() {
-        return empty($this->activeVideo) ? false : true;
+        return empty($this->activeVideo) ? false : $this->activeVideo;
     }
 
     public function owner() {

@@ -202,15 +202,21 @@ $(document).ready(() => {
         });
     }
 
-    function notification(message, user, type) {
+    function notification(message = '', user, type = '') {
         $('.notification').remove();
+        let username = '';
+        let color = 'black';
+        if (user) {
+            username = `<span class="notification-username" style="background: ${user.color};">${user.username}</span>`;
+            color = user.color ?? 'black';
+        }
         const notification = $(`
-            <div class="notification" style="box-shadow: 0 0 3px 0 ${user.color};">
+            <div class="notification" style="box-shadow: 0 0 3px 0 ${color};">
                 <div class="notification-icon">
-                    <i class="${type}"></i>
+                    <i class="${type ?? ''}"></i>
                 </div>
                 <div class="notification-message">
-                    <span class="notification-username" style="background: ${user.color};">${user.username}</span>
+                    ${username}
                     <span class="notification-content">${message}</span>
                 </div>
             </div>
@@ -218,7 +224,7 @@ $(document).ready(() => {
         $('body').append(notification);
 
         setTimeout(() => {
-            notification.remove();
+            //notification.remove();
         }, 4000);
     }
 
@@ -306,7 +312,7 @@ $(document).ready(() => {
                     <div class="playlist-video" id="video-${lastVideo.attr('data-id') + 1}"></div>
                 </button>
             `);
-            $('#playlist').append(player);
+            $('#playlist .playlist-videos').append(player);
             new YT.Player(player.find('.playlist-video').attr('id'), {
                 videoId: data.videoId,
                 playerVars: {
