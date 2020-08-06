@@ -61,6 +61,7 @@ $(document).ready(() => {
                     },
                 });
                 $(this).val('');
+                notification('Added video to playlist', null, 'fa fa-plus');
             } else {
                 alert('Invalid URL, please try again\nMake sure it contains "v="');
             }
@@ -224,7 +225,7 @@ $(document).ready(() => {
         $('body').append(notification);
 
         setTimeout(() => {
-            //notification.remove();
+            notification.remove();
         }, 4000);
     }
 

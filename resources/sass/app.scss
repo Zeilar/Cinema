@@ -394,7 +394,6 @@ input, input.form-control {
             border-radius: 0.25rem;
             margin-right: 0.25rem;
             align-self: center;
-            margin-left: 1rem;
         }
 
         .notification-content {
@@ -403,6 +402,7 @@ input, input.form-control {
     }
     
     .notification-icon {
+        margin-right: 1rem;
         align-self: center;
     }
 }

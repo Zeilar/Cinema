@@ -47419,6 +47419,7 @@ $(document).ready(function () {
           }
         });
         $(this).val('');
+        notification('Added video to playlist', null, 'fa fa-plus');
       } else {
         alert('Invalid URL, please try again\nMake sure it contains "v="');
       }
@@ -47566,7 +47567,8 @@ $(document).ready(function () {
 
     var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type !== null && type !== void 0 ? type : '', "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(username, "\n                    <span class=\"notification-content\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
     $('body').append(notification);
-    setTimeout(function () {//notification.remove();
+    setTimeout(function () {
+      notification.remove();
     }, 4000);
   }
 

@@ -790,7 +790,6 @@ input.form-control:focus {
   border-radius: 0.25rem;
   margin-right: 0.25rem;
   align-self: center;
-  margin-left: 1rem;
 }
 
 .notification .notification-message .notification-content {
@@ -798,6 +797,7 @@ input.form-control:focus {
 }
 
 .notification .notification-icon {
+  margin-right: 1rem;
   align-self: center;
 }
 
