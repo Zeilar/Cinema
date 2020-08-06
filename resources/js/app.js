@@ -60,6 +60,7 @@ $(document).ready(() => {
                         roomId: roomId,
                     },
                 });
+                $(this).val('');
             } else {
                 alert('Invalid URL, please try again\nMake sure it contains "v="');
             }

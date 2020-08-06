@@ -412,7 +412,6 @@ input, input.form-control {
 
     .nav-list {
         @include row;
-        height: 100%;
 
         .nav-item {
             border-bottom: 2px solid transparent;

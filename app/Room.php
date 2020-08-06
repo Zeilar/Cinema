@@ -8,10 +8,6 @@ class Room extends Model
 {
     protected $guarded = [];
 
-    protected $attributes = [
-        'playlist' => '["dQw4w9WgXcQ"]',
-    ];
-
     public function comments() {
         return $this->hasMany(Comment::class);
     }
