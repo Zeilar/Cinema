@@ -11,9 +11,7 @@ body {
     background: $body-bg;
     overflow-x: hidden;
     font-size: 0.9rem;
-    @include column;
     color: white;
-    height: 100%;
 }
 
 ul, ol, dl {
@@ -73,13 +71,6 @@ input, input.form-control {
     }
 }
 
-#wrapper {
-    @include column;
-    margin: auto;
-    height: 100%;
-    width: 100%;
-}
-
 #videoWrapper {
     background: black;
     object-fit: contain;
@@ -87,14 +78,13 @@ input, input.form-control {
 }
 
 #theatre {
-    @include column;
-    margin: 1rem;
     height: 100%;
+    margin: 1rem;
 }
 
 #theatre-upper {
     @include row;
-    flex: 1;
+    height: 100%;
 }
 
 #playlist, #chat {
@@ -105,6 +95,12 @@ input, input.form-control {
     @include column;
 }
 
+#wrapper {
+    // 3.5rem .navbar height, 2rem #theatre margin, 2rem #control-buttons height, 1rem #control-buttons margin
+    // to make sure page doesn't overflow on Y axis
+    height: calc(100vh - 3.5rem - 2rem - 2rem - 1rem);
+}
+
 #player-wrapper {
     @include column;
     margin: 0 1rem;
@@ -112,13 +108,15 @@ input, input.form-control {
 }
 
 #playlist {
-    overflow: auto;
     @include gray;
+    border-radius: 0;
+    overflow: auto;
 
     .playlist-button {
         border-radius: 0;
         background: none;
-        height: 16.3vw;
+        margin: 1px 0;
+        height: 15vh;
         width: 100%;
         padding: 0;
         outline: 0;
@@ -342,6 +340,7 @@ input, input.form-control {
     justify-content: center;
     margin-top: 1rem;
     @include row;
+    height: 2rem;
 
     .btn {
         margin: 0 2px;
@@ -408,6 +407,7 @@ input, input.form-control {
 .navbar {
     background: rgb(30, 30, 30);
     @include shadow;
+    height: 3.5rem;
     padding: 0;
 
     .nav-list {

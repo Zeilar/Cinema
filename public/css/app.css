@@ -310,10 +310,7 @@ body {
   background: #141414;
   overflow-x: hidden;
   font-size: 0.9rem;
-  flex-direction: column;
-  display: flex;
   color: white;
-  height: 100%;
 }
 
 ul,
@@ -402,14 +399,6 @@ input.form-control:focus {
   border-color: dodgerblue;
 }
 
-#wrapper {
-  flex-direction: column;
-  display: flex;
-  margin: auto;
-  height: 100%;
-  width: 100%;
-}
-
 #videoWrapper {
   background: black;
   -o-object-fit: contain;
@@ -418,16 +407,14 @@ input.form-control:focus {
 }
 
 #theatre {
-  flex-direction: column;
-  display: flex;
-  margin: 1rem;
   height: 100%;
+  margin: 1rem;
 }
 
 #theatre-upper {
   flex-direction: row;
   display: flex;
-  flex: 1;
+  height: 100%;
 }
 
 #playlist,
@@ -440,6 +427,10 @@ input.form-control:focus {
   display: flex;
 }
 
+#wrapper {
+  height: calc(100vh - 3.5rem - 2rem - 2rem - 1rem);
+}
+
 #player-wrapper {
   flex-direction: column;
   display: flex;
@@ -448,16 +439,18 @@ input.form-control:focus {
 }
 
 #playlist {
-  overflow: auto;
   border: 1px solid #232323;
   background: #1e1e1e;
   border-radius: 0.25rem;
+  border-radius: 0;
+  overflow: auto;
 }
 
 #playlist .playlist-button {
   border-radius: 0;
   background: none;
-  height: 16.3vw;
+  margin: 1px 0;
+  height: 15vh;
   width: 100%;
   padding: 0;
   outline: 0;
@@ -723,6 +716,7 @@ input.form-control:focus {
   margin-top: 1rem;
   flex-direction: row;
   display: flex;
+  height: 2rem;
 }
 
 #control-buttons .btn {
@@ -809,6 +803,7 @@ input.form-control:focus {
 .navbar {
   background: #1e1e1e;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  height: 3.5rem;
   padding: 0;
 }
 
