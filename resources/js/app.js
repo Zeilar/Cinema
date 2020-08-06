@@ -355,7 +355,6 @@ $(document).ready(() => {
                 onReady: initHandlers,
             },
             playerVars: {
-                'origin': 'http://cinema.test', // TODO: remove this in production
                 iv_load_policy: 3,
                 autoplay: 1,
                 fs: 0,

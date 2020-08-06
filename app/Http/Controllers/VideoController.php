@@ -32,7 +32,7 @@ class VideoController extends Controller
         broadcast(new VideoPlay($request->roomId));
     }
 
-    public function sync(Request $request) {
+    public function changeTime(Request $request) {
         broadcast(new Notification(auth()->user(), $request->roomId, 'changed the video time', $request->type));
         broadcast(new VideoTime($request->timestamp, $request->roomId));
     }

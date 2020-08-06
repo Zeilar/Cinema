@@ -22,7 +22,7 @@ Route::post('/user/info', 'UserController@getUser')->name('user_info');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
 Route::middleware('throttle:30,1')->group(function() {
-    Route::post('/video/change_time', 'VideoController@sync')->name('video_change_time');
+    Route::post('/video/change_time', 'VideoController@changeTime')->name('video_change_time');
     Route::post('/comment/delete', 'CommentController@destroy')->name('comment_delete');
     Route::post('/comment/send', 'CommentController@store')->name('comment_send');
     Route::post('/video/reset', 'VideoController@reset')->name('video_reset');

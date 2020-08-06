@@ -460,6 +460,18 @@ input.form-control:focus {
   pointer-events: none;
 }
 
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: dodgerblue;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #141414;
+}
+
 #chat-send {
   border: 1px solid #232323;
   background: #1e1e1e;
@@ -471,22 +483,15 @@ input.form-control:focus {
 }
 
 #chat-messages {
-  background: #1e1e1e;
-  overflow-y: auto;
-  flex-direction: column;
-  display: flex;
   border: 1px solid #232323;
   background: #1e1e1e;
   border-radius: 0.25rem;
+  background: #1e1e1e;
+  border-radius: 0;
+  overflow-y: auto;
+  flex-direction: column;
+  display: flex;
   flex: 1;
-}
-
-#chat-messages::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-#chat-messages::-webkit-scrollbar-thumb {
-  background-color: dodgerblue;
 }
 
 #chat-input {
@@ -616,6 +621,7 @@ input.form-control:focus {
 
 .input-group-text {
   font-size: 0.9rem;
+  color: black;
 }
 
 .input-group-text i {
@@ -624,9 +630,9 @@ input.form-control:focus {
 
 #online-users {
   background: #1e1e1e;
-  min-height: calc(4rem + 1px);
   margin-top: 0.5rem;
   padding: 0 0.75rem;
+  min-height: 5rem;
   flex-wrap: wrap;
   border-top: 0;
   border: 1px solid #232323;
