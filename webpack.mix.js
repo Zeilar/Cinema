@@ -17,6 +17,7 @@ mix.react('resources/js/app.js', 'public/js')
 
 // Copy into dist folder for production
 if (mix.inProduction()) {
+    // Use separate .env file for production
     mix.env(process.env.ENV_FILE);
     
 	// App
