@@ -8,9 +8,9 @@
                     <div class="playlist-header">Playlist</div>
                     <div class="playlist-videos">
                         @if (count($playlist))
-                            @foreach ($playlist as $i => $video)
-                                <button class="playlist-button" type="button">
-                                    <div class="playlist-video" id="video-{{$i}}" data-id="{{ $video }}"></div>
+                            @foreach ($playlist as $video)
+                                <button class="playlist-button" type="button" data-id="{{$video}}">
+                                    <img class="img-fluid" src="https://img.youtube.com/vi/{{$video}}/0.jpg" alt="YouTube video thumbnail">
                                 </button>
                             @endforeach
                         @endif
@@ -57,7 +57,11 @@
                         @endisset
                     </div>
 
-                    <div id="online-users"><!-- Loaded by Echo through websocket --></div>
+                    <div id="online-users">
+                        <div id="users-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                    </div>
 
                     <div id="chat-input">
                         <div id="chat-submit">

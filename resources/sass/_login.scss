@@ -11,7 +11,7 @@
         width: 100%;
 
         .login-banner {
-            @include centerAll('horizontal');
+            @include centerChildren('horizontal');
             margin-bottom: 2rem;
         }
 

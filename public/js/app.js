@@ -47360,7 +47360,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 $(document).ready(function () {
+  var activeVideo = $('meta[name="activeVideo"]').attr('content');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
+  var readyUsers = [];
+  var users = [];
   var player;
   $.ajax({
     url: '/user/info',
@@ -47382,19 +47385,6 @@ $(document).ready(function () {
     return (_JSON$parse = JSON.parse(sessionStorage.getItem('user'))) !== null && _JSON$parse !== void 0 ? _JSON$parse : false;
   }
 
-  $('#videoSelector').change(function () {
-    var index = $(this)[0].selectedIndex;
-    var videoId = $(this).children()[index].getAttribute('value');
-    $.ajax({
-      url: '/video/change',
-      method: 'POST',
-      data: {
-        video: Number(videoId),
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
-  });
   $('#youtubeUrl').keyup(function (e) {
     if (e.key === 'Enter') {
       var url = '';
@@ -47433,7 +47423,7 @@ $(document).ready(function () {
 
     var abbreviatedName = '';
     matches.forEach(function (element) {
-      abbreviatedName += element[0];
+      return abbreviatedName += element[0];
     });
     return abbreviatedName;
   }
@@ -47441,10 +47431,10 @@ $(document).ready(function () {
   function addComment(comment, user) {
     if (!comment.timestamp) {
       var date = new Date();
-      var hours = date.getHours();
       var minutes = date.getMinutes();
-      if (hours < 10) hours = "0".concat(date.getHours());
+      var hours = date.getHours();
       if (minutes < 10) minutes = "0".concat(date.getMinutes());
+      if (hours < 10) hours = "0".concat(date.getHours());
       comment.timestamp = "".concat(hours, ":").concat(minutes);
     }
 
@@ -47458,28 +47448,6 @@ $(document).ready(function () {
   $('#toggle-users').click(function () {
     $('#online-users').toggleClass('d-none');
   });
-  $('#videoWrapper').on('play', _.throttle(function () {
-    $.ajax({
-      url: '/video/play',
-      method: 'POST',
-      data: {
-        type: $(this).find('i').attr('class'),
-        roomId: roomId,
-        _token: csrfToken
-      }
-    });
-  }, 1500));
-  $('#videoWrapper').on('pause', _.throttle(function () {
-    $.ajax({
-      url: '/video/pause',
-      method: 'POST',
-      data: {
-        type: $(this).find('i').attr('class'),
-        _token: csrfToken,
-        roomId: roomId
-      }
-    });
-  }, 1500));
   $('#chat-send').on('input', _.throttle(function () {
     var _this = this;
 
@@ -47561,8 +47529,8 @@ $(document).ready(function () {
     if (user) {
       var _user$color;
 
-      username = "<span class=\"notification-username\" style=\"background: ".concat(user.color, ";\">").concat(user.username, "</span>");
       color = (_user$color = user.color) !== null && _user$color !== void 0 ? _user$color : 'black';
+      username = "<span class=\"notification-username\" style=\"background: ".concat(color, ";\">").concat(user.username, "</span>");
     }
 
     var notification = $("\n            <div class=\"notification\" style=\"box-shadow: 0 0 3px 0 ".concat(color, ";\">\n                <div class=\"notification-icon\">\n                    <i class=\"").concat(type !== null && type !== void 0 ? type : '', "\"></i>\n                </div>\n                <div class=\"notification-message\">\n                    ").concat(username, "\n                    <span class=\"notification-content\">").concat(message, "</span>\n                </div>\n            </div>\n        "));
@@ -47572,7 +47540,7 @@ $(document).ready(function () {
     }, 4000);
   }
 
-  $('#video-reset').click(_.throttle(function () {
+  $('#video-reset').click(function () {
     $.ajax({
       url: '/video/reset',
       method: 'POST',
@@ -47582,15 +47550,18 @@ $(document).ready(function () {
         roomId: roomId
       }
     });
-  }, 1500));
+  });
   Echo.join("room-".concat(roomId)).here(function (data) {
+    $('#users-loading').remove();
     data.forEach(function (_ref) {
       var user = _ref.user;
+      users.push(user.id);
       $('#online-users').append("\n                    <div\n                        class=\"online-user\" title=\"".concat(user.username, "\" data-id=\"").concat(user.id, "\"\n                        style=\"background-color: ").concat(user.color, "; border-color: ").concat(user.color, "\"\n                    >\n                        ").concat(user.isRoomOwner ? '<img class="img-fluid user-crown" src="/storage/icons/crown.svg" alt="Crown" title="Room owner" />' : '', "\n                        <span class=\"username\">\n                            ").concat(abbreviateName(user.username), "\n                        </span>\n                    </div>\n                "));
     });
     chatMessages.scrollTop = 99999;
   }).joining(function (_ref2) {
     var user = _ref2.user;
+    users.push(user.id);
     addComment({
       content: 'has joined the chat'
     }, user);
@@ -47602,6 +47573,8 @@ $(document).ready(function () {
     chatMessages.scrollTop = 99999;
   }).leaving(function (_ref3) {
     var user = _ref3.user;
+    var index = users.indexOf(user.id);
+    if (index !== -1) users.splice(index, 1);
     addComment({
       content: 'has left the chat'
     }, user);
@@ -47625,19 +47598,8 @@ $(document).ready(function () {
   }).listen('Notification', function (data) {
     notification(data.message, data.user, data.type);
   }).listen('AddVideo', function (data) {
-    var lastVideo = $('.playlist-video').last();
-    var player = $("\n                <button class=\"playlist-button\" type=\"button\">\n                    <div class=\"playlist-video\" id=\"video-".concat(lastVideo.attr('data-id') + 1, "\"></div>\n                </button>\n            "));
+    var player = $("\n                <button class=\"playlist-button\" type=\"button\">\n                    <img class=\"img-fluid\" src=\"https://img.youtube.com/vi/".concat(data.videoId, "/0.jpg\" alt=\"YouTube video thumbnail\">\n                </button>\n            "));
     $('#playlist .playlist-videos').append(player);
-    new YT.Player(player.find('.playlist-video').attr('id'), {
-      videoId: data.videoId,
-      playerVars: {
-        'origin': 'http://cinema.test',
-        // TODO: remove this in production
-        iv_load_policy: 3,
-        controls: 0,
-        fs: 0
-      }
-    });
   }).listen('VideoPlay', function () {
     playVideo();
   }).listen('VideoTime', function (_ref6) {
@@ -47647,6 +47609,11 @@ $(document).ready(function () {
     changeVideoTime(0);
   }).listen('VideoPause', function () {
     pauseVideo();
+  }).listen('WatchedVideo', function (_ref7) {
+    var user = _ref7.user;
+    if (!readyUsers.find(function (element) {
+      return element === user.id;
+    })) readyUsers.push(user.id);
   });
 
   function playVideo() {
@@ -47669,8 +47636,9 @@ $(document).ready(function () {
 
   window.YT.ready(function () {
     player = new YT.Player('yt-player', {
-      videoId: 'dQw4w9WgXcQ',
+      videoId: activeVideo !== null && activeVideo !== void 0 ? activeVideo : 'dQw4w9WgXcQ',
       events: {
+        onStateChange: watchedVideo,
         onReady: initHandlers
       },
       playerVars: {
@@ -47679,16 +47647,19 @@ $(document).ready(function () {
         fs: 0
       }
     });
-    $('.playlist-video').each(function (i) {
-      new YT.Player("video-".concat(i), {
-        videoId: $(this).attr('data-id'),
-        playerVars: {
-          iv_load_policy: 3,
-          controls: 0,
-          fs: 0
-        }
-      });
-    });
+
+    function watchedVideo(e) {
+      if (e.data === YT.PlayerState.ENDED) {
+        $.ajax({
+          url: '/video/watched',
+          method: 'POST',
+          data: {
+            _token: csrfToken,
+            roomId: roomId
+          }
+        });
+      }
+    }
 
     function initHandlers() {
       $('#video-play').click(function () {

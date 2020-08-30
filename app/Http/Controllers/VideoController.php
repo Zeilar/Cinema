@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Events\Notification;
+use App\Events\WatchedVideo;
 use App\Events\NewComment;
 use App\Events\VideoReset;
 use App\Events\VideoPause;
@@ -45,5 +46,9 @@ class VideoController extends Controller
     public function pause(Request $request) {
         broadcast(new Notification(auth()->user(), $request->roomId, 'paused the video', $request->type));
         broadcast(new VideoPause($request->roomId));
+    }
+
+    public function watched(Request $request) {
+        broadcast(new WatchedVideo(auth()->user(), $request->roomId));
     }
 }

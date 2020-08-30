@@ -15,7 +15,7 @@
     }
 }
 
-@mixin centerAll($direction: 'all') {
+@mixin centerChildren($direction: 'all') {
     display: flex;
     @if $direction == 'all' {
         justify-content: center;

@@ -2,14 +2,15 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <!-- Setup and variables -->
-        @isset($room->id)
+        @isset($room)
+            <meta name="activeVideo" content="{{ $room->activeVideo() }}">
             <meta name="roomId" content="{{ $room->id }}">
         @endisset
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="manifest" href="/site.webmanifest">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <title>Cinema</title>
 
         <!-- CSS -->

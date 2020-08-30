@@ -1,7 +1,11 @@
 import './bootstrap';
 
+/*
 $(document).ready(() => {
+    const activeVideo = $('meta[name="activeVideo"]').attr('content');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
+    let readyUsers = [];
+    let users = [];
     let player;
     $.ajax({
         url: '/user/info',
@@ -21,21 +25,6 @@ $(document).ready(() => {
     function getUser() {
         return JSON.parse(sessionStorage.getItem('user')) ?? false;
     }
-
-    $('#videoSelector').change(function() {
-        const index = $(this)[0].selectedIndex;
-        const videoId = $(this).children()[index].getAttribute('value');
-
-        $.ajax({
-            url: '/video/change',
-            method: 'POST',
-            data: {
-                video: Number(videoId),
-                _token: csrfToken,
-                roomId: roomId,
-            },
-        });
-    });
 
     $('#youtubeUrl').keyup(function(e) {
         if (e.key === 'Enter') {
@@ -72,19 +61,17 @@ $(document).ready(() => {
         const regex = RegExp('[A-Z]+', 'g');
         const matches = [...name.matchAll(regex)];
         let abbreviatedName = '';
-        matches.forEach(element => {
-            abbreviatedName += element[0];
-        });
+        matches.forEach(element => abbreviatedName += element[0]);
         return abbreviatedName;
     }
 
     function addComment(comment, user) {
         if (!comment.timestamp) {
             const date = new Date();
-            let hours = date.getHours();
             let minutes = date.getMinutes();
-            if (hours < 10) hours = `0${date.getHours()}`;
+            let hours = date.getHours();
             if (minutes < 10) minutes = `0${date.getMinutes()}`;
+            if (hours < 10) hours = `0${date.getHours()}`;
             comment.timestamp = `${hours}:${minutes}`;
         }
         const message = $(`
@@ -103,37 +90,13 @@ $(document).ready(() => {
         // Do this in order to escape tags and other unwanted characters in the message body
         message.find('.message-content').text(comment.content);
         $('#chat-messages').append(message);
-        
+
         chatMessages.scrollTop = 99999;
     }
 
     $('#toggle-users').click(function() {
         $('#online-users').toggleClass('d-none');
     });
-
-    $('#videoWrapper').on('play', _.throttle(function() {
-        $.ajax({
-            url: '/video/play',
-            method: 'POST',
-            data: {
-                type: $(this).find('i').attr('class'),
-                roomId: roomId,
-                _token: csrfToken,
-            }
-        });
-    }, 1500));
-
-    $('#videoWrapper').on('pause', _.throttle(function() {
-        $.ajax({
-            url: '/video/pause',
-            method: 'POST',
-            data: {
-                type: $(this).find('i').attr('class'),
-                _token: csrfToken,
-                roomId: roomId,
-            }
-        });
-    }, 1500));
 
     $('#chat-send').on('input', _.throttle(function() {
         if ($(this).val() === '') {
@@ -170,7 +133,7 @@ $(document).ready(() => {
         }, 3000);
     }, 1500));
 
-    $('#chat-send-button').click(function() {
+    $('#chat-send-button').click(() => {
         submitComment();
     });
 
@@ -208,8 +171,8 @@ $(document).ready(() => {
         let username = '';
         let color = 'black';
         if (user) {
-            username = `<span class="notification-username" style="background: ${user.color};">${user.username}</span>`;
             color = user.color ?? 'black';
+            username = `<span class="notification-username" style="background: ${color};">${user.username}</span>`;
         }
         const notification = $(`
             <div class="notification" style="box-shadow: 0 0 3px 0 ${color};">
@@ -229,7 +192,7 @@ $(document).ready(() => {
         }, 4000);
     }
 
-    $('#video-reset').click(_.throttle(function() {
+    $('#video-reset').click(function() {
         $.ajax({
             url: '/video/reset',
             method: 'POST',
@@ -239,11 +202,13 @@ $(document).ready(() => {
                 roomId: roomId,
             },
         });
-    }, 1500));
+    });
 
     Echo.join(`room-${roomId}`)
-        .here((data) => {
+        .here(data => {
+            $('#users-loading').remove();
             data.forEach(({ user }) => {
+                users.push(user.id);
                 $('#online-users').append(`
                     <div
                         class="online-user" title="${user.username}" data-id="${user.id}"
@@ -259,6 +224,7 @@ $(document).ready(() => {
             chatMessages.scrollTop = 99999;
         })
         .joining(({ user }) => {
+            users.push(user.id);
             addComment({content: 'has joined the chat'}, user);
             if (!$(`.online-user[data-id=${user.id}]`).length) {
                 $('#online-users').append(`
@@ -276,14 +242,16 @@ $(document).ready(() => {
             chatMessages.scrollTop = 99999;
         })
         .leaving(({ user }) => {
+            const index = users.indexOf(user.id);
+            if (index !== -1) users.splice(index, 1);
             addComment({content: 'has left the chat'}, user);
             $(`.online-user[data-id=${user.id}]`).remove();
             chatMessages.scrollTop = 99999;
         })
-        .listen('NewComment', (data) => {
+        .listen('NewComment', data => {
             addComment(data.comment, data.user);
         })
-        .listen('DeleteComment', (data) => {
+        .listen('DeleteComment', data => {
             $(`.message[data-id=${data.id}]`).remove();
         })
         .listen('IsTyping', ({ user }) => {
@@ -303,26 +271,16 @@ $(document).ready(() => {
         .listen('IsNotTyping', ({ user }) => {
             $(`.online-user[title="${user.username}"]`).find('.dots').remove();
         })
-        .listen('Notification', (data) => {
+        .listen('Notification', data => {
             notification(data.message, data.user, data.type);
         })
-        .listen('AddVideo', (data) => {
-            const lastVideo = $('.playlist-video').last();
+        .listen('AddVideo', data => {
             const player = $(`
                 <button class="playlist-button" type="button">
-                    <div class="playlist-video" id="video-${lastVideo.attr('data-id') + 1}"></div>
+                    <img class="img-fluid" src="https://img.youtube.com/vi/${data.videoId}/0.jpg" alt="YouTube video thumbnail">
                 </button>
             `);
             $('#playlist .playlist-videos').append(player);
-            new YT.Player(player.find('.playlist-video').attr('id'), {
-                videoId: data.videoId,
-                playerVars: {
-                    'origin': 'http://cinema.test', // TODO: remove this in production
-                    iv_load_policy: 3,
-                    controls: 0,
-                    fs: 0,
-                }
-            });
         })
         .listen('VideoPlay', () => {
             playVideo();
@@ -335,6 +293,9 @@ $(document).ready(() => {
         })
         .listen('VideoPause', () => {
             pauseVideo();
+        })
+        .listen('WatchedVideo', ({ user }) => {
+            if (!readyUsers.find(element => element === user.id)) readyUsers.push(user.id);
         });
 
     function playVideo() {
@@ -355,10 +316,11 @@ $(document).ready(() => {
         pauseVideo();
     }
 
-    window.YT.ready(function() {
+    window.YT.ready(() => {
         player = new YT.Player('yt-player', {
-            videoId: 'dQw4w9WgXcQ',
+            videoId: activeVideo ?? 'dQw4w9WgXcQ',
             events: {
+                onStateChange: watchedVideo,
                 onReady: initHandlers,
             },
             playerVars: {
@@ -368,16 +330,18 @@ $(document).ready(() => {
             }
         });
 
-        $('.playlist-video').each(function(i) {
-            new YT.Player(`video-${i}`, {
-                videoId: $(this).attr('data-id'),
-                playerVars: {
-                    iv_load_policy: 3,
-                    controls: 0,
-                    fs: 0,
-                },
-            });
-        });
+        function watchedVideo(e) {
+            if (e.data === YT.PlayerState.ENDED) {
+                $.ajax({
+                    url: '/video/watched',
+                    method: 'POST',
+                    data: {
+                        _token: csrfToken,
+                        roomId: roomId,
+                    },
+                });
+            }
+        }
 
         function initHandlers() {
             $('#video-play').click(function() {
@@ -389,7 +353,7 @@ $(document).ready(() => {
                         _token: csrfToken,
                         roomId: roomId,
                     },
-                }); 
+                });
             });
 
             $('#video-pause').click(function() {
@@ -401,7 +365,7 @@ $(document).ready(() => {
                         _token: csrfToken,
                         roomId: roomId,
                     },
-                }); 
+                });
             });
 
             $('#video-sync').click(function() {
@@ -445,3 +409,5 @@ $(document).ready(() => {
         }
     });
 });
+*/
+

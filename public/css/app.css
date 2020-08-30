@@ -456,8 +456,6 @@ input.form-control:focus {
 #playlist .playlist-button {
   border-radius: 0;
   background: none;
-  margin: 1px 0;
-  height: 15vh;
   width: 100%;
   padding: 0;
   outline: 0;
@@ -799,6 +797,39 @@ input.form-control:focus {
 .notification .notification-icon {
   margin-right: 1rem;
   align-self: center;
+}
+
+#users-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+#users-loading i {
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+  font-size: 2rem;
+}
+
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .room-name,

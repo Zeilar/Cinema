@@ -1,5 +1,5 @@
 .wrapper-index {
-    @include centerAll('vertical');
+    @include centerChildren('vertical');
     padding-top: 4rem;
     @include column;
     height: 100%;
